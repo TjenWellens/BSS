@@ -8,7 +8,6 @@ import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
-import eu.tjenwellens.bss.actionhandlers.attackAction.AttackHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.DecorateHanderInterface;
 import eu.tjenwellens.bss.actionhandlers.bankAction.BankHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.attackAction.AttackPlayer;
@@ -33,6 +32,7 @@ public interface PlayerActions extends PlayerHandlerPlayer
     @Override
     boolean engage(AttackPlayer opponent, EngageHandlerInterface engageHandler);
     
+    @Override
     boolean attack(AttackPlayer opponent);
 
     @Override

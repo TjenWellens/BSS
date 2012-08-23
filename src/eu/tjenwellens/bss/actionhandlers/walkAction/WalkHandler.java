@@ -34,7 +34,7 @@ public class WalkHandler implements WalkHandlerInterface
         this.mapHandler = mapHandler;
     }
 
-    protected synchronized List<WalkInterface> copyDuels()
+    protected synchronized List<WalkInterface> copyWalks()
     {
         return new ArrayList(walks);
     }
@@ -78,7 +78,7 @@ public class WalkHandler implements WalkHandlerInterface
     public boolean updateWalks()
     {
         boolean result = false;
-        for (WalkInterface walk : copyDuels())
+        for (WalkInterface walk : copyWalks())
         {
             result = walk.update() || result;
         }

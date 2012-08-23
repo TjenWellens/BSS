@@ -20,5 +20,5 @@ public interface GameConstants
     int MAP_COLUMNS = 10;
     double WALK_RANGE = 100;
     int TICKS_PER_SECOND = 3;
-    int PLAYER_RADIUS = 50;
+    int PLAYER_RADIUS = 20;
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players;
 
 import java.util.ArrayList;
@@ -97,9 +93,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
     @Override
     public int hashCode()
     {
-        int hash = 5;
-        hash = 97 * hash + this.playerID;
-        return hash;
+        return this.playerID;
     }
 
     @Override

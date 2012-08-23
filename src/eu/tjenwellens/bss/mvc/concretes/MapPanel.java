@@ -27,7 +27,6 @@ import eu.tjenwellens.bss.players.GetPlayer;
  */
 public class MapPanel extends javax.swing.JPanel
 {
-
     private View view;
     public List<Faction> factions;
     public GetTile[][] map;
@@ -106,11 +105,13 @@ public class MapPanel extends javax.swing.JPanel
                     int panelHeight = this.getHeight();
                     double xFactor = (double) panelWidth / (double) mapw;
                     double yFactor = (double) panelHeight / (double) maph;
-                    int pSize = (int) ((double) GameConstants.PLAYER_RADIUS * (double) xFactor);
-                    int x = (int) ((p.getX() + ((double) GameConstants.PLAYER_RADIUS / (double) 2)) * xFactor);
-                    int y = (int) ((p.getY() + ((double) GameConstants.PLAYER_RADIUS / (double) 2)) * yFactor);
+                    int pSize = (int) ((double) (GameConstants.PLAYER_RADIUS*2) * (double) xFactor);
+//                    int x = (int) ((p.getX() + ((double) GameConstants.PLAYER_RADIUS / (double) 2)) * xFactor);
+//                    int y = (int) ((p.getY() + ((double) GameConstants.PLAYER_RADIUS / (double) 2)) * yFactor);
+                    int x = (int) (p.getX() * xFactor);
+                    int y = (int) (p.getY() * yFactor);
                     g.setColor(getPlayer.getFaction().getColor());
-                    g.fillOval(x, y, pSize, pSize);
+                    g.fillOval(x - (pSize / 2), y - (pSize / 2), pSize, pSize);
                 }
             }
         }
