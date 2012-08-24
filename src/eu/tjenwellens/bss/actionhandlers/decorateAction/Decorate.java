@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.decorateAction;
 
 import eu.tjenwellens.bss.Position;
@@ -43,34 +39,64 @@ public class Decorate implements HasPlayer
         switch (decoration)
         {
             case PAINT:
-                if (tool.getToolType() == PAINT_TOOL && player.hasItem(tool) && mapHandler.paint(player, location))
-                {
-                    successfull = true;
-                    player.useTool(tool);
-                } else
+                if (tool.getToolType() != PAINT_TOOL)
                 {
                     System.out.println("wrong tool to paint: " + tool);
+                    break;
                 }
+                if (!player.hasItem(tool))
+                {
+                    System.out.println("you don't have the correct tool: " + tool);
+                    break;
+                }
+                if (!mapHandler.paint(player, location))
+                {
+                    // maphandler handles this
+                    break;
+                }
+                // all is ok
+                successfull = true;
+                player.useTool(tool);
                 break;
             case BUILD:
-                if (tool.getToolType() == BUILD_TOOL && player.hasItem(tool) && mapHandler.build(player, location))
-                {
-                    successfull = true;
-                    player.useTool(tool);
-                } else
+                if (tool.getToolType() != BUILD_TOOL)
                 {
                     System.out.println("wrong tool to build: " + tool);
+                    break;
                 }
+                if (!player.hasItem(tool))
+                {
+                    System.out.println("you don't have the correct tool: " + tool);
+                    break;
+                }
+                if (!mapHandler.build(player, location))
+                {
+                    // maphandler handles this
+                    break;
+                }
+                // all is ok
+                successfull = true;
+                player.useTool(tool);
                 break;
             case DESTROY:
-                if (tool.getToolType() == DESTROY_TOOL && player.hasItem(tool) && mapHandler.destroy(player, location))
-                {
-                    successfull = true;
-                    player.useTool(tool);
-                } else
+                if (tool.getToolType() != DESTROY_TOOL)
                 {
                     System.out.println("wrong tool to destroy: " + tool);
+                    break;
                 }
+                if (!player.hasItem(tool))
+                {
+                    System.out.println("you dont have the correct tool: " + tool);
+                    break;
+                }
+                if (!mapHandler.destroy(player, location))
+                {
+                    // maphandler handles this
+                    break;
+                }
+                // all is ok
+                successfull = true;
+                player.useTool(tool);
                 break;
             default:
                 System.out.println("Decorate.update error");

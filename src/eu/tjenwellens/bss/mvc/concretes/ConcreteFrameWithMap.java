@@ -41,7 +41,6 @@ import eu.tjenwellens.bss.players.inventory.items.WeaponFactory;
  */
 public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObserver
 {
-
     private volatile boolean active = false;
     CommandReceiverInterface cr;
     CommandInvokerInterface ci;
@@ -52,6 +51,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
     public ConcreteFrameWithMap(CommandReceiverInterface cr, View view, CommandInvokerInterface ci)
     {
         initComponents();
+        txtWeapon.setText("steen");
         mapPanel2.setView(view);
         this.cr = cr;
         this.ci = ci;
@@ -455,34 +455,41 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
             ci.addCommand(new WalkCommand(cr, pass, p));
         } else if (evt.getButton() == MouseEvent.BUTTON3)
         {// CHAARGEEEE!!!!
-            System.out.println("CHAARGEEEE!!!!");
-            GetPlayer me = null;
-            GetPlayer opponent = null;
-            for (Iterator<GetPlayer> it = mapPanel2.players.values().iterator(); it.hasNext();)
+            if (evt.isShiftDown())
             {
-                GetPlayer getPlayer = it.next();
-                if (me == null && getPlayer.getPlayerName().equalsIgnoreCase(account))
+                System.out.println("Destroy");
+                ci.addCommand(new DecorateCommand(cr, pass, Decoration.DESTROY, p, ToolFactory.createTool(ToolType.HAMER, Material.HOUT)));
+            } else
+            {
+                System.out.println("CHAARGEEEE!!!!");
+                GetPlayer me = null;
+                GetPlayer opponent = null;
+                for (Iterator<GetPlayer> it = mapPanel2.players.values().iterator(); it.hasNext();)
                 {
-                    me = getPlayer;
-                } else if (opponent == null)
-                {
-                    Position oppPos = getPlayer.getPosition();
-                    if (oppPos.distance(p) <= 20)
+                    GetPlayer getPlayer = it.next();
+                    if (me == null && getPlayer.getPlayerName().equalsIgnoreCase(account))
                     {
-                        opponent = getPlayer;
-                    }
-                }
-                if (me != null && opponent != null)
-                {
-                    Position myPos = me.getPosition();
-                    Position opPos = opponent.getPosition();
-
-                    if (myPos.distance(opPos) <= GameConstants.ATTACK_RANGE)
+                        me = getPlayer;
+                    } else if (opponent == null)
                     {
-                        ci.addCommand(new EngageCommand(cr, me.getPlayerID(), opponent.getPlayerName()));
+                        Position oppPos = getPlayer.getPosition();
+                        if (oppPos.distance(p) <= 20)
+                        {
+                            opponent = getPlayer;
+                        }
                     }
+                    if (me != null && opponent != null)
+                    {
+                        Position myPos = me.getPosition();
+                        Position opPos = opponent.getPosition();
 
-                    break;
+                        if (myPos.distance(opPos) <= GameConstants.ATTACK_RANGE)
+                        {
+                            ci.addCommand(new EngageCommand(cr, me.getPlayerID(), opponent.getPlayerName()));
+                        }
+
+                        break;
+                    }
                 }
             }
         } else if (evt.getButton() == MouseEvent.BUTTON2)

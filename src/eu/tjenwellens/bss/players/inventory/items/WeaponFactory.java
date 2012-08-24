@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players.inventory.items;
 
 /**
@@ -10,7 +6,6 @@ package eu.tjenwellens.bss.players.inventory.items;
  */
 public abstract class WeaponFactory extends ItemFactory
 {
-
     public static Weapon createWeapon(WeaponType weaponType, Material material)
     {
         Weapon testWeapon = (Weapon) getItem(weaponOffset + weaponType.getId() + material.getId());
@@ -56,7 +51,7 @@ public abstract class WeaponFactory extends ItemFactory
         } catch (IllegalArgumentException e)
         {
             returnWeaponType = WeaponType.getRandomWeaponType();
-            System.out.println("Error WeaponFactory.getWeaponType, randow weapon returned");
+            System.out.println("Error WeaponFactory.getWeaponType(" + weaponType + "), random weapon returned");
         }
         return returnWeaponType;
     }
