@@ -18,15 +18,13 @@ public class JumpWalk extends StepWalk implements GameConstants
 
     @Override
     protected Position step()
-    {// todo solve problem
+    {// TODO: solve problem - 23/08/2012 what problem?
         Position p = getStepDestination();
         if (p == null)
         {
             return null;
-        } else
-        {
-            return p;
         }
+        return p;
     }
 
     protected Position getStepDestination()
@@ -35,7 +33,10 @@ public class JumpWalk extends StepWalk implements GameConstants
         //sition destination
         double maxDist = WALK_RANGE;
         double distance = position.distance(destination);
-        if (distance > maxDist)
+        if (distance <= maxDist)
+        {// arrived at destination
+            return destination;
+        } else
         {
             int x = 0;
             int y = 0;
@@ -51,9 +52,6 @@ public class JumpWalk extends StepWalk implements GameConstants
             x += position.getX();
             y += position.getY();
             return new Position(x, y);
-        } else
-        {
-            return destination;
         }
     }
 }

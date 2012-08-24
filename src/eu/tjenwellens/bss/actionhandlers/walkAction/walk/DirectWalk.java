@@ -25,7 +25,6 @@ public class DirectWalk implements WalkInterface
     @Override
     public boolean update()
     {
-        // TODO: stapsgewijs, collision, revive
         player.setPosition(destination);
         System.out.println("Walked to " + destination);
         walkHandler.removeWalk(this);

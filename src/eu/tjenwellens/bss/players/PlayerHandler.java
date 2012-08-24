@@ -116,132 +116,155 @@ public class PlayerHandler implements PlayerHandlerInterface
     @Override
     public boolean walk(int id, Position destination)
     {
-        if (playerExists(id))
+        if (!playerExists(id))
         {
-            PlayerHandlerPlayer player = getLocalPlayer(id);
-            if (player != null && destination != null)
-            {
-                player.walk(destination, walkHandler);
-                return true;
-            } else
-            {
-                System.out.println("PlayerHandler.walk error");
-            }
-
+            return false;
         }
-        return false;
+        PlayerHandlerPlayer player = getLocalPlayer(id);
+        if (player == null || destination == null)
+        {
+            System.out.println("PlayerHandler.walk error");
+            return false;
+        }
+        player.walk(destination, walkHandler);
+        return true;
     }
 
     @Override
     public boolean idle(int id)
     {
-        if (playerExists(id))
+        if (!playerExists(id))
         {
-            PlayerHandlerPlayer player = getLocalPlayer(id);
-            if (player != null)
-            {
-                player.idle();
-                return true;
-            } else
-            {
-                System.out.println("PlayerHandler.idle error");
-            }
+            System.out.println("ERROR: Player does not exist");
+            return false;
         }
-        return false;
+        PlayerHandlerPlayer player = getLocalPlayer(id);
+        if (player == null)
+        {
+            return false;
+        }
+        player.idle();
+        return true;
     }
 
     @Override
     public boolean engage(int playerId, String opponentName)
     {
-        if (playerExists(playerId) && playerExists(opponentName))
+        if (!playerExists(playerId))
         {
-            PlayerHandlerPlayer player = getLocalPlayer(playerId);
-            PlayerHandlerPlayer opponent = getPlayerByName(opponentName);
-            if (player != null && opponent != null)
-            {
-                player.engage(opponent, engageHandler);
-                return true;
-            } else
-            {
-                Output.add("Model.engagecommand", "player(" + player + ") or opponent(" + opponent + ") is null");
-            }
-        } else
-        {
-            Output.add("Model.engagecommand", "player(" + playerId + ") or opponent(" + opponentName + ") doesn't exist");
+            Output.add("Model.engagecommand", "player(" + playerId + ") doesn't exist");
+            return false;
         }
-        return false;
+        if (!playerExists(opponentName))
+        {
+            Output.add("Model.engagecommand", "opponent(" + opponentName + ") doesn't exist");
+            return false;
+        }
+
+        PlayerHandlerPlayer player = getLocalPlayer(playerId);
+        PlayerHandlerPlayer opponent = getPlayerByName(opponentName);
+        if (player == null)
+        {
+            Output.add("Model.engagecommand", "player(" + player + ") is null");
+            return false;
+        }
+        if (opponent == null)
+        {
+            Output.add("Model.engagecommand", "opponent(" + opponent + ") is null");
+            return false;
+        }
+        player.engage(opponent, engageHandler);
+        return true;
     }
 
     @Override
     public boolean decorate(int playerId, Decoration decoration, Position location, Tool tool)
     {
-        if (playerExists(playerId))
+        if (!playerExists(playerId))
         {
-            PlayerHandlerPlayer player = getLocalPlayer(playerId);
-            if (player != null && decoration != null && location != null)
-            {
-                player.decorate(decoration, location, tool, decorateHander);
-                return true;
-            } else
-            {
-                System.out.println("PlayerHandler.decorate error");
-            }
+            System.out.println("ERROR: PlayerHandler.decorate");
+            return false;
         }
-        return false;
+        PlayerHandlerPlayer player = getLocalPlayer(playerId);
+        if (player == null)
+        {
+            System.out.println("ERROR: PlayerHandler.decorate");
+            return false;
+        }
+        if (decoration == null)
+        {
+            System.out.println("ERROR: PlayerHandler.decorate");
+            return false;
+        }
+        if (location == null)
+        {
+            System.out.println("ERROR: PlayerHandler.decorate");
+            return false;
+        }
+        player.decorate(decoration, location, tool, decorateHander);
+        return true;
     }
 
     @Override
     public boolean bank(int playerId, Transaction transaction, int diamands, Item item)
     {
-        if (playerExists(playerId))
+        if (!playerExists(playerId))
         {
-            PlayerHandlerPlayer player = getLocalPlayer(playerId);
-            if (player != null && transaction != null)
-            {
-                player.bank(transaction, diamands, item, bankHandler);
-                return true;
-            } else
-            {
-                System.out.println("PlayerHandler.bank error");
-            }
+            System.out.println("ERROR: PlayerHandler.bank");
+            return false;
         }
-        return false;
+        PlayerHandlerPlayer player = getLocalPlayer(playerId);
+        if (player == null)
+        {
+            System.out.println("ERROR: PlayerHandler.bank");
+            return false;
+        }
+        if (transaction != null)
+        {
+            System.out.println("ERROR: PlayerHandler.bank");
+            return false;
+        }
+        player.bank(transaction, diamands, item, bankHandler);
+        return true;
     }
 
     @Override
     public boolean chooseWeapon(int playerId, Weapon weapon)
     {
-        if (playerExists(playerId))
+        if (!playerExists(playerId))
         {
-            PlayerHandlerPlayer player = getLocalPlayer(playerId);
-            if (player != null && weapon != null)
-            {
-                player.chooseWeapon(weapon);
-                return true;
-            } else
-            {
-                System.out.println("PlayerHandler.chooseWeapon error");
-            }
+            System.out.println("ERROR: PlayerHandler.chooseWeapon");
+            return false;
         }
-        return false;
+        PlayerHandlerPlayer player = getLocalPlayer(playerId);
+        if (player == null)
+        {
+            System.out.println("ERROR: PlayerHandler.chooseWeapon");
+            return false;
+        }
+        if (weapon != null)
+        {
+            System.out.println("ERROR: PlayerHandler.chooseWeapon");
+            return false;
+        }
+        player.chooseWeapon(weapon);
+        return true;
     }
 
     @Override
     public boolean createPlayer(int id, String playerName, Faction faction, Position position)
     {
         PlayerHandlerPlayer player = players.get(id);
-
-        if (player == null)
+        if (playerExists(id))
         {
-            //Todo give faction with creation
-            player = new Player(id, playerName, faction, position);
-            players.put(id, player);
-            playerIds.put(playerName, id);
-            System.out.println("created");
-            return true;
+            System.out.println("ERROR: failed to create player: player already exists");
+            return false;
         }
-        System.out.println("failed to create");
-        return false;
+        player = new Player(id, playerName, faction, position);
+        players.put(id, player);
+        playerIds.put(playerName, id);
+        System.out.println("created player");
+        return true;
     }
 
     protected synchronized List<PlayerHandlerPlayer> copyPlayers()
@@ -253,7 +276,7 @@ public class PlayerHandler implements PlayerHandlerInterface
     public boolean updatePlayers()
     {
         boolean result = false;
-        // TODO: is PH.update ooit nodig?
+        // TODO: is PH.update ooit nodig? - 24/08/2012 nope
         return result;
     }
 
@@ -281,7 +304,7 @@ public class PlayerHandler implements PlayerHandlerInterface
         return playersCopy;
     }
 
-    private class ImmutableGetPlayer implements GetPlayer
+    private static class ImmutableGetPlayer implements GetPlayer
     {
         private int playerID;
         private String playerName;

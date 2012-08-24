@@ -101,7 +101,7 @@ public class BankJob implements HasPlayer
                     result = false;
                     break;
                 }
-                // TODO: remove
+                // TODO: remove free diamonds
                 bankAccount.addDiamonds(10000);
                 if (store.buyItem(bankAccount, item))
                 {

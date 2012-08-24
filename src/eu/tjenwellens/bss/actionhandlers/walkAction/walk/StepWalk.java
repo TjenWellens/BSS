@@ -25,24 +25,22 @@ public abstract class StepWalk implements WalkInterface
     @Override
     public boolean update()
     {
-        // TODO: revive
         Position step = step();
-        if (step != null)
+        if (step == null)
         {
-            player.setPosition(step);
-//            System.out.println("Walked to " + step);
-            if (destination.equals(step))
-            {
-                walkHandler.removeWalk(this);
-                player.idle();
-                System.out.println("You have arrived at your destination");
-            }
-            return true;
-        } else
-        {
-//            System.out.println("Walking failed");
+            System.out.println("Walking failed");
             return false;
         }
+        // all is good
+        player.setPosition(step);
+//            System.out.println("Walked to " + step);
+        if (destination.equals(step))
+        {
+            walkHandler.removeWalk(this);
+            player.idle();
+            System.out.println("You have arrived at your destination");
+        }
+        return true;
     }
 
     protected abstract Position step();

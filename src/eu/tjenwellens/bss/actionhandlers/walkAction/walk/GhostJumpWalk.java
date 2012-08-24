@@ -3,6 +3,7 @@ package eu.tjenwellens.bss.actionhandlers.walkAction.walk;
 import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkPlayer;
+import eu.tjenwellens.bss.factions.Faction;
 import eu.tjenwellens.bss.map.MapHandlerInterface;
 
 /**
@@ -21,12 +22,21 @@ public class GhostJumpWalk extends JumpWalk
 
     @Override
     protected Position step()
-    {// todo solve problem
+    {// TODO: solve problem - 23/08/2012 what problem?
         Position p = super.step();
-        if (p != null && mapHandler.getTile((int) (p.getX() / (MAP_WIDTH / MAP_ROWS)), (int) (p.getY() / (MAP_HEIGHT / MAP_COLUMNS))).getFaction().containsPlayer(player))
+        if (p == null)
         {
-            player.revive();
+            return p;
         }
+        int row = (int) (p.getX() / (MAP_WIDTH / MAP_ROWS));
+        int col = (int) (p.getY() / (MAP_HEIGHT / MAP_COLUMNS));
+        Faction faction = mapHandler.getTile(row, col).getFaction();
+        if (!faction.containsPlayer(player))
+        {
+            return p;
+        }
+        // player is on one of his own tiles -> revive
+        player.revive();
         return p;
     }
 }

@@ -29,15 +29,13 @@ public class CollisionJumpWalk extends JumpWalk implements GameConstants
 
     @Override
     protected Position step()
-    {// todo solve problem
+    {// TODO: solve problem - 23/08/2012 what problem?
         Position p = getStepDestination();
         if (p == null || collides(p))
         {
             return null;
-        } else
-        {
-            return p;
         }
+        return p;
     }
 
     protected boolean collides(Position p)
@@ -51,10 +49,15 @@ public class CollisionJumpWalk extends JumpWalk implements GameConstants
         players.remove(player.getPlayerID());
         for (WalkObstaclePlayer wo : players.values())
         {
-            if ((!wo.isGhost()) && collideCheck2Circles(player.getPosition(), PLAYER_RADIUS, wo.getPosition(), PLAYER_RADIUS))
-            {
-                return true;
+            if (wo.isGhost())
+            {// nope
+                continue;
             }
+            if (!collideCheck2Circles(player.getPosition(), PLAYER_RADIUS, wo.getPosition(), PLAYER_RADIUS))
+            {// nope
+                continue;
+            }
+            return true;
         }
         return false;
     }
@@ -66,13 +69,15 @@ public class CollisionJumpWalk extends JumpWalk implements GameConstants
         // overloop alle naburige tiles op walled && collide
         for (Entry<GetTile, Position> entry : getNeabyTiles(p).entrySet())
         {
-            if (entry.getKey().isWalled())
-            {
-                if (collisionCheckCircleVsRectangle(p, PLAYER_RADIUS, entry.getValue(), tileWidth, tileHeight))
-                {
-                    return true;
-                }
+            if (!entry.getKey().isWalled())
+            {// nope
+                continue;
             }
+            if (!collisionCheckCircleVsRectangle(p, PLAYER_RADIUS, entry.getValue(), tileWidth, tileHeight))
+            {// nope
+                continue;
+            }
+            return true;
         }
         return false;
     }
@@ -134,7 +139,23 @@ public class CollisionJumpWalk extends JumpWalk implements GameConstants
 
     protected boolean pointInRectangle(Position point, Position rect, int width, int height)
     {
-        return (point.getX() >= rect.getX()) && (point.getX() <= rect.getX() + width) && (point.getY() >= rect.getY()) && (point.getY() <= rect.getY() + height);
+        if (point.getX() < rect.getX())
+        {
+            return false;
+        }
+        if (point.getX() > rect.getX() + width)
+        {
+            return false;
+        }
+        if (point.getY() < rect.getY())
+        {
+            return false;
+        }
+        if (point.getY() > rect.getY() + height)
+        {
+            return false;
+        }
+        return true;
     }
 
     protected boolean pointInCircle(Position point, Position circ, int r)
