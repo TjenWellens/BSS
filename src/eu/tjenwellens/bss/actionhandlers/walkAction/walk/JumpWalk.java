@@ -20,10 +20,11 @@ public class JumpWalk extends StepWalk implements GameConstants
     protected Position step()
     {// TODO: solve problem - 23/08/2012 what problem?
         Position p = getStepDestination();
-        if (p == null)
-        {
-            return null;
-        }
+        // overbodig:
+//        if (p == null)
+//        {
+//            return null;
+//        }
         return p;
     }
 
@@ -38,16 +39,14 @@ public class JumpWalk extends StepWalk implements GameConstants
             return destination;
         } else
         {
-            int x = 0;
-            int y = 0;
             //transponeer naar O
             int a = destination.getX() - position.getX();
             int b = destination.getY() - position.getY();
             // bereken hoeveel % x en y moeten verplaatst worden indien 45graden
             double k = maxDist / distance;
             // bereken de verplaatsingsgrootte (hoek maakt niet uit)    KLOPT WEL!!!!!!
-            x = (int) (k * a);
-            y = (int) (k * b);
+            int x = (int) (k * a);
+            int y = (int) (k * b);
             // transponeer terug naar de plaats waar alles gebeurt
             x += position.getX();
             y += position.getY();
