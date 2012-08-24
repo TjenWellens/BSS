@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.bankAction;
 
 import eu.tjenwellens.bss.players.inventory.items.Item;
@@ -12,7 +8,6 @@ import eu.tjenwellens.bss.players.inventory.items.Item;
  */
 public interface BankAccount extends GetBankAccount
 {
-
     // player <-> bank
     boolean depositItem(Item item);
 
@@ -28,6 +23,6 @@ public interface BankAccount extends GetBankAccount
     int removeDiamonds(int diamonds);
 
     boolean addItem(Item item);
-    
+
     boolean hasDiamonds(int diamonds);
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.attackAction;
 
 import eu.tjenwellens.bss.Position;
@@ -15,7 +11,6 @@ import eu.tjenwellens.bss.players.inventory.items.Weapon;
  */
 public interface AttackPlayer extends OpponentPlayer, ActionPlayer
 {
-
     boolean isAttackable();
 
     Position getPosition();

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.verification;
 
 /**
@@ -10,7 +6,6 @@ package eu.tjenwellens.bss.verification;
  */
 public class ID
 {
-
     String name;
     String password;
 
@@ -31,5 +26,14 @@ public class ID
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 11 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 11 * hash + (this.password != null ? this.password.hashCode() : 0);
+        return hash;
     }
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.factions;
 
 import java.awt.Color;
@@ -13,7 +9,6 @@ import java.util.HashSet;
  */
 public class Faction
 {
-
     private int factionId;
     private String factionName;
     private HashSet<FactionPlayer> factionMembers = new HashSet<FactionPlayer>();

@@ -34,7 +34,6 @@ import eu.tjenwellens.bss.players.playerstate.playerstates.PlayerState;
  */
 public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
 {
-
     private int playerID;
     private String playerName;
     private Faction faction;
@@ -272,7 +271,6 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
         return store;
     }
 
-    
     @Override
     public OpponentPlayer getOpponent()
     {

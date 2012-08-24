@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.mvc.model;
 
 import java.util.HashMap;
@@ -17,6 +13,8 @@ import eu.tjenwellens.bss.players.GetPlayer;
 public interface GetModelData
 {
     GetTile[][] getMap();
+
     HashMap<String, GetPlayer> getPlayers();
+
     List<Faction> getFactions();
 }

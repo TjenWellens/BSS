@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.factions;
 
 import java.awt.Color;
@@ -12,7 +8,6 @@ import java.awt.Color;
  */
 public enum Kleur
 {
-
     WIT(Color.white), ROOD(Color.red), GEEL(Color.yellow), BLAUW(Color.BLUE);
     private Color c;
 

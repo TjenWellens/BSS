@@ -1,12 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.bankAction;
 
+import eu.tjenwellens.bss.players.inventory.items.Item;
 import java.util.ArrayList;
 import java.util.List;
-import eu.tjenwellens.bss.players.inventory.items.Item;
 
 /**
  *
@@ -14,7 +10,6 @@ import eu.tjenwellens.bss.players.inventory.items.Item;
  */
 public class SimpleBankAccount implements BankAccount
 {
-
     private int diamonds;
     private ArrayList<Item> items = new ArrayList<Item>();
 

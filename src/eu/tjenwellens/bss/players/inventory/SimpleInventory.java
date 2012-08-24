@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players.inventory;
 
-import java.util.List;
+import eu.tjenwellens.bss.actionhandlers.bankAction.BankAccount;
+import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
-import eu.tjenwellens.bss.players.inventory.items.Item;
 import java.util.ArrayList;
-import eu.tjenwellens.bss.actionhandlers.bankAction.BankAccount;
+import java.util.List;
 
 /**
  *
@@ -17,7 +13,6 @@ import eu.tjenwellens.bss.actionhandlers.bankAction.BankAccount;
  */
 public class SimpleInventory implements Inventory
 {
-
     private int maxInventorySlots = 5;
     private int diamonds = 1;
     private Weapon currentWeapon;

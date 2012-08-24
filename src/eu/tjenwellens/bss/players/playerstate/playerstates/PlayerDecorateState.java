@@ -19,7 +19,6 @@ import eu.tjenwellens.bss.players.playerstate.StatePlayer;
  */
 public class PlayerDecorateState extends PlayerGeneralState
 {
-
     protected PlayerDecorateState()
     {
     }

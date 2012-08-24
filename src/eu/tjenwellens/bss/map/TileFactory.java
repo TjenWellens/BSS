@@ -1,12 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.map;
 
+import eu.tjenwellens.bss.factions.Faction;
 import java.awt.Point;
 import java.util.HashMap;
-import eu.tjenwellens.bss.factions.Faction;
 
 /**
  *
@@ -14,7 +10,6 @@ import eu.tjenwellens.bss.factions.Faction;
  */
 public abstract class TileFactory
 {
-
     private static HashMap<Point, GetTile[]> tiles = new HashMap<Point, GetTile[]>();
 
     public static GetTile createTile(Faction faction, boolean walled, int xPos, int yPos)

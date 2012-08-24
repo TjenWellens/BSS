@@ -16,6 +16,6 @@ public interface DecoratePlayer extends ActionPlayer
     Faction getFaction();
 
     boolean useTool(Tool tool);
-    
+
     boolean hasItem(Item item);
 }

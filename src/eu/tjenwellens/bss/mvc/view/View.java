@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.mvc.view;
 
 import java.util.HashMap;
@@ -18,7 +14,6 @@ import eu.tjenwellens.bss.players.GetPlayer;
  */
 public class View implements GlobalObserver
 {
-
     public GetModelData model;
     public List<Faction> factions = null;
     public GetTile[][] map = null;

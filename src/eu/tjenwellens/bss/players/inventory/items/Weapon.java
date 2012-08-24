@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players.inventory.items;
 
 /**
@@ -10,7 +6,6 @@ package eu.tjenwellens.bss.players.inventory.items;
  */
 public class Weapon implements Item
 {
-
     private WeaponType weaponType;
     private Material material;
 
@@ -50,11 +45,11 @@ public class Weapon implements Item
 
         return returnInt;
     }
-    
+
     @Override
     public int getId()
     {
-        return weaponType.getId()+material.getId();
+        return weaponType.getId() + material.getId();
     }
 
     @Override
@@ -87,7 +82,7 @@ public class Weapon implements Item
     {
         return "Weapon[" + material + "-" + weaponType + "]";
     }
-    
+
     public boolean isMadeOfDefaultMaterial()
     {
         return material.isDefaultMaterial();

@@ -23,7 +23,6 @@ import eu.tjenwellens.bss.players.playerstate.StatePlayer;
  */
 public interface PlayerState
 {
-
     PlayerState WALK = new PlayerWalkState();
     PlayerState IDLE = new PlayerIdleState();
     PlayerState ENGAGE = new PlayerEngageState();

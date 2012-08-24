@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.walkAction;
 
 import eu.tjenwellens.bss.Position;
@@ -16,9 +12,11 @@ public interface WalkPlayer extends ActionPlayer, WalkObstaclePlayer, FactionPla
 {
     boolean idle();
 
+    @Override
     boolean isGhost();
 
     void setPosition(Position position);
 
+    @Override
     Position getPosition();
 }

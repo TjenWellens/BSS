@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * MapPanel.java
  *
  * Created on Jan 18, 2012, 2:25:23 PM
@@ -105,7 +100,7 @@ public class MapPanel extends javax.swing.JPanel
                     int panelHeight = this.getHeight();
                     double xFactor = (double) panelWidth / (double) mapw;
                     double yFactor = (double) panelHeight / (double) maph;
-                    int pSize = (int) ((double) (GameConstants.PLAYER_RADIUS*2) * (double) xFactor);
+                    int pSize = (int) ((double) (GameConstants.PLAYER_RADIUS * 2) * (double) xFactor);
 //                    int x = (int) ((p.getX() + ((double) GameConstants.PLAYER_RADIUS / (double) 2)) * xFactor);
 //                    int y = (int) ((p.getY() + ((double) GameConstants.PLAYER_RADIUS / (double) 2)) * yFactor);
                     int x = (int) (p.getX() * xFactor);
@@ -124,20 +119,17 @@ public class MapPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         setPreferredSize(new java.awt.Dimension(500, 500));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 400, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 300, Short.MAX_VALUE));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

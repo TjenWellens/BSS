@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.commands.command;
 
 import eu.tjenwellens.bss.Position;
@@ -13,7 +9,6 @@ import eu.tjenwellens.bss.mvc.model.CommandReceiverInterface;
  */
 public class CreatePlayerCommand extends Command
 {
-
     private String playerName;
     private String factionName;
     private Position position;

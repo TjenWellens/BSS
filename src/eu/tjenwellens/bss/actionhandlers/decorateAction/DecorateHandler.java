@@ -1,15 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.decorateAction;
 
-import java.util.ArrayList;
-import java.util.List;
 import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
 import eu.tjenwellens.bss.map.MapHandlerInterface;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *

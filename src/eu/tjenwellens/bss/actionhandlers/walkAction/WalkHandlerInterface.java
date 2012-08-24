@@ -10,7 +10,6 @@ import eu.tjenwellens.bss.actionhandlers.ActionHandlerInterface;
  */
 public interface WalkHandlerInterface extends ActionHandlerInterface
 {
-
     public boolean addWalk(WalkPlayer player, Position destination);
 
     public void removeWalk(WalkInterface walk);

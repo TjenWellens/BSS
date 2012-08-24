@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.factions;
 
 import java.util.ArrayList;
@@ -15,7 +11,6 @@ import java.util.List;
  */
 public class FactionHandler implements FactionHandlerInterface
 {
-
     private Faction nullFaction = new Faction(0, "None", Kleur.WIT);
     private HashMap<Integer, Faction> factions = new HashMap<Integer, Faction>();
     private HashMap<String, Integer> factionIds = new HashMap<String, Integer>();

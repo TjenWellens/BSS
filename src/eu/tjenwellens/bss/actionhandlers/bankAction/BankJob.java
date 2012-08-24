@@ -15,7 +15,7 @@ public class BankJob implements HasPlayer
     private BankHandlerInterface bankHandler;
     private BankPlayer player;
     private Transaction transaction;
-    private int diamands;
+    private int diamonds;
     private Item item;
     private Inventory inventory;
     private BankAccount bankAccount;
@@ -26,7 +26,7 @@ public class BankJob implements HasPlayer
         this.bankHandler = bankHandler;
         this.player = player;
         this.transaction = transaction;
-        this.diamands = diamands;
+        this.diamonds = diamands;
         this.item = item;
         this.inventory = inventory;
         this.bankAccount = bankAccount;
@@ -39,18 +39,19 @@ public class BankJob implements HasPlayer
         switch (transaction)
         {
             case DEPOSIT:
-                result = false;
-                if (diamands > 0)
+                // diamonds to deposit?
+                if (diamonds > 0)
                 {
-                    if (inventory.depositDiamonds(bankAccount, diamands))
+                    if (inventory.depositDiamonds(bankAccount, diamonds))
                     {
-                        System.out.println("Diamonds deposited: " + diamands);
+                        System.out.println("Diamonds deposited: " + diamonds);
                         result = true;
                     } else
                     {
-                        System.out.println("Deposit diamands failed: " + diamands);
+                        System.out.println("Deposit diamands failed: " + diamonds);
                     }
                 }
+                // item to deposit?
                 if (item != null)
                 {
                     if (inventory.depositItem(bankAccount, item))
@@ -64,18 +65,19 @@ public class BankJob implements HasPlayer
                 }
                 break;
             case RETRIEVE:
-                result = false;
-                if (diamands > 0)
+                // diamonds to retrieve?
+                if (diamonds > 0)
                 {
-                    if (inventory.retrieveDiamonds(bankAccount, diamands))
+                    if (inventory.retrieveDiamonds(bankAccount, diamonds))
                     {
-                        System.out.println("Diamonds retrieved: " + diamands);
+                        System.out.println("Diamonds retrieved: " + diamonds);
                         result = true;
                     } else
                     {
-                        System.out.println("Retrieve diamonds failed: " + diamands);
+                        System.out.println("Retrieve diamonds failed: " + diamonds);
                     }
                 }
+                // item to retrieve?
                 if (item != null)
                 {
                     if (inventory.retrieveItem(bankAccount, item))
@@ -89,7 +91,7 @@ public class BankJob implements HasPlayer
                 }
                 break;
             case SHOP:
-                if (diamands <= 0)
+                if (diamonds <= 0)
                 {
                     result = false;
                     break;
@@ -110,8 +112,6 @@ public class BankJob implements HasPlayer
                     System.out.println("Shopping error");
                 }
                 break;
-            default:
-                result = false;
         }
         bankHandler.removeBankJob(this);
         return result;

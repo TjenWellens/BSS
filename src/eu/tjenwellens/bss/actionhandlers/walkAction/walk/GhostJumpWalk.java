@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.walkAction.walk;
 
 import eu.tjenwellens.bss.Position;
@@ -15,7 +11,6 @@ import eu.tjenwellens.bss.map.MapHandlerInterface;
  */
 public class GhostJumpWalk extends JumpWalk
 {
-
     private MapHandlerInterface mapHandler;
 
     public GhostJumpWalk(WalkHandlerInterface walkHandler, WalkPlayer player, Position destination, MapHandlerInterface mapHandler)

@@ -1,24 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players;
 
-import java.util.HashMap;
 import eu.tjenwellens.bss.Position;
-import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
-import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
-import eu.tjenwellens.bss.actionhandlers.bankAction.BankHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.attackAction.AttackHandlerInterface;
-import eu.tjenwellens.bss.factions.Faction;
+import eu.tjenwellens.bss.actionhandlers.bankAction.BankHandlerInterface;
+import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.DecorateHanderInterface;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.actionhandlers.engageAction.EngageHandlerInterface;
+import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkObstaclePlayer;
-import eu.tjenwellens.bss.actionhandlers.walkAction.WalkPlayer;
+import eu.tjenwellens.bss.factions.Faction;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
+import java.util.HashMap;
 
 /**
  *
@@ -26,7 +21,6 @@ import eu.tjenwellens.bss.players.inventory.items.Weapon;
  */
 public interface PlayerHandlerInterface
 {
-
     boolean walk(int playerId, Position destination);
 
     boolean idle(int playerId);
@@ -42,7 +36,7 @@ public interface PlayerHandlerInterface
     boolean createPlayer(int id, String playerName, Faction faction, Position position);
 
     HashMap<String, GetPlayer> getPlayersCopy();
-    
+
     HashMap<Integer, WalkObstaclePlayer> getWalkObstaclesCopy();
 
     public boolean playerExists(int playerId);

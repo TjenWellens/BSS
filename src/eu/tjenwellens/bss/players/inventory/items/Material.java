@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players.inventory.items;
 
 /**
@@ -11,7 +7,6 @@ package eu.tjenwellens.bss.players.inventory.items;
 public enum Material
 {
 // laatste waarde groter dan 2*de grootste
-
     HOUT(0), STEEN(1), IJZER(2), DIAMAND(3);
     private int id;
 

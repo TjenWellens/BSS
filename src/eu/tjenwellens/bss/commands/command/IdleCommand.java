@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.commands.command;
 
 import eu.tjenwellens.bss.mvc.model.CommandReceiverInterface;
@@ -12,7 +8,6 @@ import eu.tjenwellens.bss.mvc.model.CommandReceiverInterface;
  */
 public class IdleCommand extends Command
 {
-
     public IdleCommand(CommandReceiverInterface cr, int playerID)
     {
         super(cr, playerID);

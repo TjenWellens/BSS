@@ -1,15 +1,15 @@
 package eu.tjenwellens.bss.actionhandlers.walkAction;
 
-import eu.tjenwellens.bss.actionhandlers.walkAction.walk.WalkInterface;
-import java.util.ArrayList;
-import java.util.List;
 import eu.tjenwellens.bss.GameConstants;
 import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
 import eu.tjenwellens.bss.actionhandlers.walkAction.walk.CollisionJumpWalk;
 import eu.tjenwellens.bss.actionhandlers.walkAction.walk.GhostJumpWalk;
+import eu.tjenwellens.bss.actionhandlers.walkAction.walk.WalkInterface;
 import eu.tjenwellens.bss.map.MapHandlerInterface;
 import eu.tjenwellens.bss.players.PlayerHandlerInterface;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *

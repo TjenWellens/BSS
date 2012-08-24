@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.mvc.model;
 
 import java.util.HashMap;
@@ -46,7 +42,6 @@ import eu.tjenwellens.bss.players.inventory.items.Weapon;
  */
 public class Model implements ModelObservable, TickObserver, CommandReceiverInterface, GetModelData
 {
-
     protected static Model model = new Model();
     // handlers
     protected PlayerHandlerInterface playerHandler;

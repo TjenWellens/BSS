@@ -16,7 +16,6 @@ import eu.tjenwellens.bss.players.playerstate.StatePlayer;
  */
 public class PlayerBankState extends PlayerGeneralState
 {
-
     protected PlayerBankState()
     {
     }

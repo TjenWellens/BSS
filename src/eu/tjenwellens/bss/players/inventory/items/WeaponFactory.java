@@ -44,7 +44,7 @@ public abstract class WeaponFactory extends ItemFactory
 
     public static WeaponType getWeaponType(String weaponType)
     {
-        WeaponType returnWeaponType = null;
+        WeaponType returnWeaponType;
         try
         {
             returnWeaponType = WeaponType.valueOf(weaponType.toUpperCase().trim());

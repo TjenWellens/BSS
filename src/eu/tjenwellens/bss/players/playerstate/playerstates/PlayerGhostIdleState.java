@@ -23,7 +23,6 @@ import eu.tjenwellens.bss.players.playerstate.StatePlayer;
  */
 public class PlayerGhostIdleState extends PlayerGeneralState
 {
-
     protected PlayerGhostIdleState()
     {
     }
@@ -49,7 +48,8 @@ public class PlayerGhostIdleState extends PlayerGeneralState
     @Override
     public boolean walk(StatePlayer player, Position destination, WalkHandlerInterface walkHandler)
     {
-        if (walkHandler.addWalk(player, destination)) {
+        if (walkHandler.addWalk(player, destination))
+        {
             player.addActionHandler(walkHandler);
             player.setState(PlayerState.GHOSTWALK);
             return true;

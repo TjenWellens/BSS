@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.mvc.controller;
 
 import java.util.ArrayList;
@@ -14,7 +10,6 @@ import eu.tjenwellens.bss.debug.Output;
  */
 public class CommandInvoker implements CommandInvokerInterface
 {
-
     private ArrayList<Command> commands = new ArrayList<Command>();
 
     @Override
@@ -28,7 +23,7 @@ public class CommandInvoker implements CommandInvokerInterface
         }
         for (Command command : currentCommands)
         {   // is fifo
-            Output.add("CommandInvoker.executeCommands: ",command);
+            Output.add("CommandInvoker.executeCommands: ", command);
             command.execute();
         }
     }

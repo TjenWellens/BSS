@@ -1,10 +1,10 @@
 package eu.tjenwellens.bss.actionhandlers.attackAction;
 
-import java.util.ArrayList;
-import java.util.List;
 import eu.tjenwellens.bss.GameConstants;
 import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,10 +13,6 @@ import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
 public class AttackHandler implements AttackHandlerInterface
 {
     private ArrayList<Attack> duels = new ArrayList<Attack>();
-
-    public AttackHandler()
-    {
-    }
 
     @Override
     public boolean addDuel(AttackPlayer p1, AttackPlayer p2)

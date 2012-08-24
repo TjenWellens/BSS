@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players.inventory.items;
 
 import eu.tjenwellens.bss.GameConstants;
@@ -12,8 +8,7 @@ import eu.tjenwellens.bss.GameConstants;
  */
 public enum ToolType
 {
-
-    PENSEEL(GameConstants.MATERIALS*0), TRUWEEL(GameConstants.MATERIALS*1), HAMER(GameConstants.MATERIALS*2);
+    PENSEEL(GameConstants.MATERIALS * 0), TRUWEEL(GameConstants.MATERIALS * 1), HAMER(GameConstants.MATERIALS * 2);
     private int id;
 
     private ToolType(int id)

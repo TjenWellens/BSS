@@ -9,7 +9,6 @@ import eu.tjenwellens.bss.players.playerstate.StatePlayer;
  */
 public class PlayerIdleState extends PlayerGeneralState
 {
-
     protected PlayerIdleState()
     {
     }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.commands.command;
 
 import eu.tjenwellens.bss.Position;
@@ -15,7 +11,6 @@ import eu.tjenwellens.bss.players.inventory.items.Tool;
  */
 public class DecorateCommand extends Command
 {
-
     private Decoration decoration;
     private Position location;
     private Tool tool;

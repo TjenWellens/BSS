@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.map;
 
 import java.awt.Point;
@@ -13,7 +9,6 @@ import eu.tjenwellens.bss.factions.Faction;
  */
 public class Tile implements GetTile
 {
-
     private final Faction faction;
     private final boolean walled;
     private Point point;
@@ -51,6 +46,7 @@ public class Tile implements GetTile
         hash = 41 * hash + (this.point != null ? this.point.hashCode() : 0);
         return hash;
     }
+
     @Override
     public String toString()
     {

@@ -23,7 +23,6 @@ import eu.tjenwellens.bss.players.playerstate.StatePlayer;
  */
 public class PlayerAttackState extends PlayerGeneralState
 {
-
     protected PlayerAttackState()
     {
     }

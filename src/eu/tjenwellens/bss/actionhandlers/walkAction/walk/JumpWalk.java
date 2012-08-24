@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.walkAction.walk;
 
 import eu.tjenwellens.bss.GameConstants;
@@ -15,7 +11,6 @@ import eu.tjenwellens.bss.actionhandlers.walkAction.WalkPlayer;
  */
 public class JumpWalk extends StepWalk implements GameConstants
 {
-
     public JumpWalk(WalkHandlerInterface walkHandler, WalkPlayer player, Position destination)
     {
         super(walkHandler, player, destination);

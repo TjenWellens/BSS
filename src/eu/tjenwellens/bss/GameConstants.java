@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss;
 
 /**
@@ -10,7 +6,6 @@ package eu.tjenwellens.bss;
  */
 public interface GameConstants
 {
-
     int MATERIALS = 4;
     double ATTACK_RANGE = 200;
     // map

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.verification;
 
 import java.util.HashMap;
@@ -12,7 +8,6 @@ import java.util.HashMap;
  */
 public class UserCheck
 {
-
     private HashMap<String, ID> pnid = new HashMap<String, ID>();
 
     private synchronized boolean checkID(ID id, String playerName)
@@ -35,7 +30,7 @@ public class UserCheck
             if (checkID(id, playerName))
             {
                 return true;
-            }else
+            } else
             {
                 pnid.remove(playerName);
                 return false;

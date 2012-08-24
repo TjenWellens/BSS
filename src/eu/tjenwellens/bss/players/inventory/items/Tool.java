@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players.inventory.items;
 
 /**
@@ -10,7 +6,6 @@ package eu.tjenwellens.bss.players.inventory.items;
  */
 public class Tool implements Item
 {
-
     private Material material;
     private ToolType decorationType;
 
@@ -39,7 +34,7 @@ public class Tool implements Item
     {
         this.material = material;
     }
-    
+
 //    public boolean isBrush()
 //    {
 //        return this.decorationType==ToolType.PENSEEL;
@@ -54,7 +49,6 @@ public class Tool implements Item
 //    {
 //        return this.decorationType==ToolType.HAMER;
 //    }
-
     @Override
     public int getId()
     {

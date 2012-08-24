@@ -8,7 +8,6 @@ import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
  */
 public class PlayerWalkState extends PlayerGeneralState
 {
-
     protected PlayerWalkState()
     {
     }

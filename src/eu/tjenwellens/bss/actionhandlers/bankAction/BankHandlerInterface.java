@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.bankAction;
 
 import eu.tjenwellens.bss.actionhandlers.ActionHandlerInterface;
@@ -15,7 +11,6 @@ import eu.tjenwellens.bss.players.inventory.items.Item;
  */
 public interface BankHandlerInterface extends ActionHandlerInterface
 {
-
     public boolean addBankJob(BankPlayer player, Transaction transaction, int diamands, Item item, Inventory inventory, Store store, BankAccount bankAccount);
 
     public void removeBankJob(BankJob bankJob);

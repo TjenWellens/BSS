@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.decorateAction;
 
 import eu.tjenwellens.bss.players.inventory.items.ToolType;
@@ -12,7 +8,6 @@ import eu.tjenwellens.bss.players.inventory.items.ToolType;
  */
 public enum Decoration
 {
-
     PAINT, BUILD, DESTROY;
 
     public ToolType getNecessaryTool()

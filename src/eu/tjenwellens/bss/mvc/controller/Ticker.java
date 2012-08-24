@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.mvc.controller;
 
+import eu.tjenwellens.bss.mvc.TickObserver;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import eu.tjenwellens.bss.mvc.TickObserver;
 
 /**
  *
@@ -15,7 +11,6 @@ import eu.tjenwellens.bss.mvc.TickObserver;
  */
 public class Ticker extends Thread implements TickObservable
 {
-
     private volatile List<TickObserver> observers;
     private volatile boolean running = false;
     private volatile int ticsPerSecond = 1;

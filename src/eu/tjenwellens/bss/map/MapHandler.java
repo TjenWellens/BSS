@@ -1,10 +1,10 @@
 package eu.tjenwellens.bss.map;
 
-import java.util.Arrays;
-import eu.tjenwellens.bss.actionhandlers.decorateAction.DecoratePlayer;
 import eu.tjenwellens.bss.GameConstants;
 import eu.tjenwellens.bss.Position;
+import eu.tjenwellens.bss.actionhandlers.decorateAction.DecoratePlayer;
 import eu.tjenwellens.bss.factions.Faction;
+import java.util.Arrays;
 
 /**
  *

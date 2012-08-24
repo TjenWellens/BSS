@@ -1,11 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.walkAction.walk;
 
-import java.util.HashMap;
-import java.util.Map.Entry;
 import eu.tjenwellens.bss.GameConstants;
 import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
@@ -14,6 +8,8 @@ import eu.tjenwellens.bss.actionhandlers.walkAction.WalkPlayer;
 import eu.tjenwellens.bss.map.GetTile;
 import eu.tjenwellens.bss.map.MapHandlerInterface;
 import eu.tjenwellens.bss.players.PlayerHandlerInterface;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 /**
  *
@@ -21,7 +17,6 @@ import eu.tjenwellens.bss.players.PlayerHandlerInterface;
  */
 public class CollisionJumpWalk extends JumpWalk implements GameConstants
 {
-
     protected MapHandlerInterface mapHandler;
     protected PlayerHandlerInterface playerHandler;
 

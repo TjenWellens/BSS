@@ -8,7 +8,6 @@ import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
  */
 public class PlayerEngageState extends PlayerGeneralState
 {
-
     protected PlayerEngageState()
     {
     }

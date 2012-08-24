@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.mvc.model;
 
 import eu.tjenwellens.bss.Position;
@@ -17,7 +13,6 @@ import eu.tjenwellens.bss.players.inventory.items.Weapon;
  */
 public interface CommandReceiverInterface
 {
-
     void walkCommand(int playerId, Position destination);
 
     void idleCommand(int playerId);

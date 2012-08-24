@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players.inventory;
 
 import eu.tjenwellens.bss.players.inventory.items.Tool;
@@ -15,7 +11,6 @@ import eu.tjenwellens.bss.actionhandlers.bankAction.BankAccount;
  */
 public interface Inventory extends GetInventory
 {
-
     // player <-> bank
     boolean depositItem(BankAccount bankAccount, Item item);
 
@@ -29,9 +24,9 @@ public interface Inventory extends GetInventory
     boolean chooseWeapon(Weapon weapon);
 
     boolean useTool(Tool tool);
-    
+
     boolean hasItem(Item item);
-    
+
     // win or lose
     void addDiamands(int diamands);
 

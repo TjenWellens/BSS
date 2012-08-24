@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.test;
 
 /**
@@ -10,7 +6,6 @@ package eu.tjenwellens.bss.test;
  */
 public class XmlRpcTest
 {
-
     public static void main(String[] args)
     {
 //        XmlRpcClient client = new XmlRpcClient();

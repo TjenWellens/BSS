@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.mvc.controller;
 
 import eu.tjenwellens.bss.GameConstants;
@@ -14,7 +10,6 @@ import eu.tjenwellens.bss.mvc.TickObserver;
  */
 public class Controller implements TickObserver, TickObservable, CommandInvokerInterface
 {
-
     private Ticker updater = new Ticker(GameConstants.TICKS_PER_SECOND);
     private CommandInvokerInterface ci = new CommandInvoker();
 

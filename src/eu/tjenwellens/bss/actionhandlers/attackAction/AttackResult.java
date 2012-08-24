@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.attackAction;
 
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
@@ -12,7 +8,6 @@ import eu.tjenwellens.bss.players.inventory.items.Weapon;
  */
 public class AttackResult
 {
-
     private boolean draw;
     private AttackPlayer winner;
     private AttackPlayer loser;

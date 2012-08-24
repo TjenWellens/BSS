@@ -22,12 +22,12 @@ import eu.tjenwellens.bss.players.playerstate.StatePlayer;
  */
 public abstract class PlayerGeneralState implements PlayerState
 {
-
     @Override
     public boolean walk(StatePlayer player, Position destination, WalkHandlerInterface walkHandler)
     {
         player.resetActions();
-        if (walkHandler.addWalk(player, destination)) {
+        if (walkHandler.addWalk(player, destination))
+        {
             player.addActionHandler(walkHandler);
             player.setState(PlayerState.WALK);
             return true;
@@ -47,7 +47,8 @@ public abstract class PlayerGeneralState implements PlayerState
     public boolean engage(StatePlayer player, AttackPlayer opponent, EngageHandlerInterface engageHandler)
     {
         player.resetActions();
-        if (engageHandler.addEngage(player, opponent)) {
+        if (engageHandler.addEngage(player, opponent))
+        {
             player.addActionHandler(engageHandler);
             player.setState(PlayerState.ENGAGE);
             return true;
@@ -59,7 +60,8 @@ public abstract class PlayerGeneralState implements PlayerState
     public boolean decorate(StatePlayer player, Decoration decoration, Position location, Tool tool, DecorateHanderInterface decorationHander)
     {
         player.resetActions();
-        if (decorationHander.addDecorate(player, decoration, location, tool)) {
+        if (decorationHander.addDecorate(player, decoration, location, tool))
+        {
             player.addActionHandler(decorationHander);
             player.setState(PlayerState.DECORATE);
             return true;
@@ -72,7 +74,8 @@ public abstract class PlayerGeneralState implements PlayerState
             Inventory inventory, BankAccount bankAccount, Store store, BankHandlerInterface bankHandler)
     {
         player.resetActions();
-        if (bankHandler.addBankJob(player, transaction, diamands, item, inventory, store, bankAccount)) {
+        if (bankHandler.addBankJob(player, transaction, diamands, item, inventory, store, bankAccount))
+        {
             player.addActionHandler(bankHandler);
             player.setState(PlayerState.BANK);
             return true;

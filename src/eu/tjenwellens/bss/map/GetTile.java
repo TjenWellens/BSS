@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.map;
 
-import java.awt.Point;
 import eu.tjenwellens.bss.factions.Faction;
+import java.awt.Point;
 
 /**
  *
@@ -13,7 +9,6 @@ import eu.tjenwellens.bss.factions.Faction;
  */
 public interface GetTile
 {
-
     Faction getFaction();
 
     boolean isWalled();

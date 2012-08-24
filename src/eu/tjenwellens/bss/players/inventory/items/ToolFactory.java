@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players.inventory.items;
 
 /**
@@ -10,7 +6,6 @@ package eu.tjenwellens.bss.players.inventory.items;
  */
 public abstract class ToolFactory extends ItemFactory
 {
-
     public static Tool createTool(ToolType toolType, Material material)
     {
         // 12 + 8 + 2

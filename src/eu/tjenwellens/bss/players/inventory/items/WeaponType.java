@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players.inventory.items;
 
 import eu.tjenwellens.bss.GameConstants;
@@ -13,8 +9,7 @@ import eu.tjenwellens.bss.GameConstants;
 public enum WeaponType
 {
 // laatste waarde groter dan 2*de grootste
-
-    BLAD(0, GameConstants.MATERIALS*0), STEEN(1, GameConstants.MATERIALS*1), SCHAAR(10, GameConstants.MATERIALS*2);
+    BLAD(0, GameConstants.MATERIALS * 0), STEEN(1, GameConstants.MATERIALS * 1), SCHAAR(10, GameConstants.MATERIALS * 2);
     private int value;
     private int id;
     private static final int max = 2;
@@ -27,7 +22,7 @@ public enum WeaponType
 
     public int compare(WeaponType weaponType)
     {
-        int result = 0;
+        int result;
         if (this.value == weaponType.value)
         {
             result = 0;

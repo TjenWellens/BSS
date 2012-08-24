@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * ConcreteFrameWithMap.java
  *
  * Created on Jan 18, 2012, 1:55:50 PM
@@ -65,7 +60,8 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         loginPanel = new javax.swing.JPanel();
@@ -101,8 +97,10 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         loginInternalFrame.setVisible(true);
 
         txtName.setText("tjen");
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 loginActionPerformed(evt);
             }
         });
@@ -114,29 +112,37 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         jLabel3.setText("Character:");
 
         txtPassword.setText("1");
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtPassword.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 loginActionPerformed(evt);
             }
         });
 
         txtCharacter.setText("tjen");
-        txtCharacter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtCharacter.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 loginActionPerformed(evt);
             }
         });
 
         btnLogin.setText("Login");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnLogin.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 loginActionPerformed(evt);
             }
         });
 
         btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCancel.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCancelActionPerformed(evt);
             }
         });
@@ -148,70 +154,16 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         javax.swing.GroupLayout loginInternalFrameLayout = new javax.swing.GroupLayout(loginInternalFrame.getContentPane());
         loginInternalFrame.getContentPane().setLayout(loginInternalFrameLayout);
         loginInternalFrameLayout.setHorizontalGroup(
-            loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginInternalFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginInternalFrameLayout.createSequentialGroup()
-                        .addComponent(btnCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLogin))
-                    .addGroup(loginInternalFrameLayout.createSequentialGroup()
-                        .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFactionLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                            .addComponent(txtCharacter, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))))
-                .addContainerGap())
-        );
+                loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(loginInternalFrameLayout.createSequentialGroup().addContainerGap().addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginInternalFrameLayout.createSequentialGroup().addComponent(btnCancel).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(btnLogin)).addGroup(loginInternalFrameLayout.createSequentialGroup().addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jLabel3).addComponent(jLabel2).addComponent(jLabel1).addComponent(jLabel4)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED).addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(txtFactionLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE).addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE).addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE).addComponent(txtCharacter, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)))).addContainerGap()));
         loginInternalFrameLayout.setVerticalGroup(
-            loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginInternalFrameLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtCharacter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFactionLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin)
-                    .addComponent(btnCancel))
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
+                loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(loginInternalFrameLayout.createSequentialGroup().addContainerGap().addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel1).addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel2).addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(jLabel3).addComponent(txtCharacter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(txtFactionLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addComponent(jLabel4)).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnLogin).addComponent(btnCancel)).addContainerGap(33, Short.MAX_VALUE)));
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
-            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginPanelLayout.createSequentialGroup()
-                .addGap(146, 146, 146)
-                .addComponent(loginInternalFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(203, Short.MAX_VALUE))
-        );
+                loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(loginPanelLayout.createSequentialGroup().addGap(146, 146, 146).addComponent(loginInternalFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap(203, Short.MAX_VALUE)));
         loginPanelLayout.setVerticalGroup(
-            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginPanelLayout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addComponent(loginInternalFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(395, Short.MAX_VALUE))
-        );
+                loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(loginPanelLayout.createSequentialGroup().addGap(104, 104, 104).addComponent(loginInternalFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap(395, Short.MAX_VALUE)));
 
         loginPanel.setBounds(10, 10, 530, 720);
         jLayeredPane1.add(loginPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -219,22 +171,28 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         txtWeapon.setText("stone");
 
         btbBuyWeapon.setText("BuyWeapon");
-        btbBuyWeapon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btbBuyWeapon.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btbBuyWeaponActionPerformed(evt);
             }
         });
 
         btnWeaponToInventory.setText("ToInventory");
-        btnWeaponToInventory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnWeaponToInventory.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnWeaponToInventoryActionPerformed(evt);
             }
         });
 
         btnWieldWeapon.setText("Wield");
-        btnWieldWeapon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnWieldWeapon.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnWieldWeaponActionPerformed(evt);
             }
         });
@@ -242,49 +200,35 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         javax.swing.GroupLayout weaponPanelLayout = new javax.swing.GroupLayout(weaponPanel);
         weaponPanel.setLayout(weaponPanelLayout);
         weaponPanelLayout.setHorizontalGroup(
-            weaponPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(weaponPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(weaponPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtWeapon, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                    .addComponent(btnWeaponToInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnWieldWeapon, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                    .addComponent(btbBuyWeapon, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+                weaponPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(weaponPanelLayout.createSequentialGroup().addContainerGap().addGroup(weaponPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(txtWeapon, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE).addComponent(btnWeaponToInventory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(btnWieldWeapon, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE).addComponent(btbBuyWeapon, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)).addContainerGap()));
         weaponPanelLayout.setVerticalGroup(
-            weaponPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(weaponPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtWeapon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btbBuyWeapon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnWeaponToInventory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnWieldWeapon)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
+                weaponPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(weaponPanelLayout.createSequentialGroup().addContainerGap().addComponent(txtWeapon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btbBuyWeapon).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnWeaponToInventory).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnWieldWeapon).addContainerGap(24, Short.MAX_VALUE)));
 
         txtTool.setText("penseel");
 
         btnBuyTool.setText("BuyTool");
-        btnBuyTool.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnBuyTool.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnBuyToolActionPerformed(evt);
             }
         });
 
         btnToolToInventory.setText("ToInventory");
-        btnToolToInventory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnToolToInventory.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnToolToInventoryActionPerformed(evt);
             }
         });
 
         btnIdle.setText("Idle");
-        btnIdle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnIdle.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnIdleActionPerformed(evt);
             }
         });
@@ -292,29 +236,9 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         javax.swing.GroupLayout toolPanelLayout = new javax.swing.GroupLayout(toolPanel);
         toolPanel.setLayout(toolPanelLayout);
         toolPanelLayout.setHorizontalGroup(
-            toolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toolPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(toolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnToolToInventory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(btnBuyTool, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(txtTool, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(btnIdle, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
+                toolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(toolPanelLayout.createSequentialGroup().addContainerGap().addGroup(toolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(btnToolToInventory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE).addComponent(btnBuyTool, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE).addComponent(txtTool, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE).addComponent(btnIdle, javax.swing.GroupLayout.Alignment.TRAILING)).addContainerGap()));
         toolPanelLayout.setVerticalGroup(
-            toolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(toolPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtTool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuyTool)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnToolToInventory)
-                .addGap(18, 18, 18)
-                .addComponent(btnIdle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                toolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(toolPanelLayout.createSequentialGroup().addContainerGap().addComponent(txtTool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnBuyTool).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(btnToolToInventory).addGap(18, 18, 18).addComponent(btnIdle).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         output.setColumns(20);
         output.setRows(5);
@@ -323,29 +247,14 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         javax.swing.GroupLayout actionPanelLayout = new javax.swing.GroupLayout(actionPanel);
         actionPanel.setLayout(actionPanelLayout);
         actionPanelLayout.setHorizontalGroup(
-            actionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(actionPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(weaponPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(toolPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                actionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(actionPanelLayout.createSequentialGroup().addContainerGap().addComponent(weaponPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addGap(10, 10, 10).addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(toolPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addContainerGap()));
         actionPanelLayout.setVerticalGroup(
-            actionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, actionPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(actionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(weaponPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(toolPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+                actionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(javax.swing.GroupLayout.Alignment.TRAILING, actionPanelLayout.createSequentialGroup().addContainerGap().addGroup(actionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING).addComponent(weaponPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE).addComponent(toolPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addContainerGap()));
 
-        mapPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
+        mapPanel2.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
                 mouseClickOnMapPanel(evt);
             }
         });
@@ -353,34 +262,16 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         javax.swing.GroupLayout mapPanel2Layout = new javax.swing.GroupLayout(mapPanel2);
         mapPanel2.setLayout(mapPanel2Layout);
         mapPanel2Layout.setHorizontalGroup(
-            mapPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
+                mapPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 500, Short.MAX_VALUE));
         mapPanel2Layout.setVerticalGroup(
-            mapPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
+                mapPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 500, Short.MAX_VALUE));
 
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
         gamePanel.setLayout(gamePanelLayout);
         gamePanelLayout.setHorizontalGroup(
-            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gamePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(actionPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mapPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(gamePanelLayout.createSequentialGroup().addContainerGap().addGroup(gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false).addComponent(actionPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE).addComponent(mapPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         gamePanelLayout.setVerticalGroup(
-            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gamePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mapPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(actionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(gamePanelLayout.createSequentialGroup().addContainerGap().addComponent(mapPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(actionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         gamePanel.setBounds(10, 10, 520, 680);
         jLayeredPane1.add(gamePanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -388,19 +279,9 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE).addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE).addContainerGap()));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

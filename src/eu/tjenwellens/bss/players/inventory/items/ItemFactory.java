@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.players.inventory.items;
 
 /**
@@ -10,7 +6,6 @@ package eu.tjenwellens.bss.players.inventory.items;
  */
 public abstract class ItemFactory
 {
-
     public static final int weaponOffset = 0;
     public static final int decorationOffset = 12;
     private static int[] prices =
