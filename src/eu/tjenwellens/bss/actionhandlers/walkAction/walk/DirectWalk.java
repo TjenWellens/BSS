@@ -29,6 +29,7 @@ public class DirectWalk implements WalkInterface
         player.setPosition(destination);
         System.out.println("Walked to " + destination);
         walkHandler.removeWalk(this);
+        player.idle();
         return true;
     }
 

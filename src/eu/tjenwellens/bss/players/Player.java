@@ -272,6 +272,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
         return store;
     }
 
+    
     @Override
     public OpponentPlayer getOpponent()
     {
@@ -328,5 +329,11 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean hasItem(Item item)
+    {
+        return inventory.hasItem(item);
     }
 }

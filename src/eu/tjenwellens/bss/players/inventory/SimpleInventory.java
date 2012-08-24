@@ -194,4 +194,10 @@ public class SimpleInventory implements Inventory
     {
         return items.remove(item);
     }
+
+    @Override
+    public boolean hasItem(Item item)
+    {
+        return items.contains(item);
+    }
 }

@@ -39,30 +39,34 @@ public class Decorate implements HasPlayer
 
     public boolean update()
     {
+        boolean successfull = false;
         switch (decoration)
         {
             case PAINT:
-                if (tool.getToolType() == PAINT_TOOL && player.useTool(tool))
+                if (tool.getToolType() == PAINT_TOOL && player.hasItem(tool) && mapHandler.paint(player, location))
                 {
-                    mapHandler.paint(player, location);
+                    successfull = true;
+                    player.useTool(tool);
                 } else
                 {
                     System.out.println("wrong tool to paint: " + tool);
                 }
                 break;
             case BUILD:
-                if (tool.getToolType() == BUILD_TOOL && player.useTool(tool))
+                if (tool.getToolType() == BUILD_TOOL && player.hasItem(tool) && mapHandler.build(player, location))
                 {
-                    mapHandler.build(player, location);
+                    successfull = true;
+                    player.useTool(tool);
                 } else
                 {
                     System.out.println("wrong tool to build: " + tool);
                 }
                 break;
             case DESTROY:
-                if (tool.getToolType() == DESTROY_TOOL && player.useTool(tool))
+                if (tool.getToolType() == DESTROY_TOOL && player.hasItem(tool) && mapHandler.destroy(player, location))
                 {
-                    mapHandler.destroy(player, location);
+                    successfull = true;
+                    player.useTool(tool);
                 } else
                 {
                     System.out.println("wrong tool to destroy: " + tool);
@@ -73,7 +77,8 @@ public class Decorate implements HasPlayer
                 return false;
         }
         decorateHander.removeDecorate(this);
-        return true;
+        player.idle();
+        return successfull;
     }
 
     @Override

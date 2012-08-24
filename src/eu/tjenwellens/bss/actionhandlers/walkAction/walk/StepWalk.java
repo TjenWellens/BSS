@@ -34,6 +34,7 @@ public abstract class StepWalk implements WalkInterface
             if (destination.equals(step))
             {
                 walkHandler.removeWalk(this);
+                player.idle();
                 System.out.println("You have arrived at your destination");
             }
             return true;

@@ -14,6 +14,7 @@ import eu.tjenwellens.bss.factions.FactionPlayer;
  */
 public interface WalkPlayer extends ActionPlayer, WalkObstaclePlayer, FactionPlayer, Revivable
 {
+    boolean idle();
 
     boolean isGhost();
 

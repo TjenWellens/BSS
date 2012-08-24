@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.map;
 
 import java.util.Arrays;
@@ -16,7 +12,6 @@ import eu.tjenwellens.bss.factions.Faction;
  */
 public class MapHandler implements MapHandlerInterface, GameConstants
 {
-
     private int rows = MAP_ROWS;
     private int cols = MAP_COLUMNS;
     private int tileWidth = (int) (MAP_WIDTH / rows);
@@ -52,33 +47,39 @@ public class MapHandler implements MapHandlerInterface, GameConstants
     {
         int row = (int) Math.floor(tilePosition.getY() / tileWidth);
         int col = (int) Math.floor(tilePosition.getX() / tileHeight);
-
-        if (0 < row && row < rows && 0 < col && col < cols)
+        if (!posInMap(row, col))
         {
-            GetTile tile = tiles[row][col];
-            Faction playerFaction = player.getFaction();
-            Faction tileFaction = tile.getFaction();
-            if (playerFaction != null && playerFaction.equals(tileFaction))
-            {
-                if (!tile.isWalled())
-                {
-                    tiles[row][col] = TileFactory.createTile(tileFaction, true, col, row);
-                    System.out.println("Wall built: " + tilePosition);
-                    return true;
-                } else
-                {
-                    System.out.println("ERROR: Wall not built, allready walled: " + tilePosition);
-                }
-            } else
-            {
-                System.out.println("ERROR: Wall not built, tile of wrong faction: " + playerFaction);
-            }
-        } else
-        {
-            System.out.println("ERROR: Wall not built, wrong position: " + tilePosition);
+            System.out.println("ERROR: Wall not built, position not in map: " + tilePosition);
+            return false;
         }
+        Faction playerFaction = player.getFaction();
+        if (playerFaction == null)
+        {
+            System.out.println("ERROR: Wall not built, playerFaction null: " + player);
+            return false;
+        }
+        GetTile tile = tiles[row][col];
+        Faction tileFaction = tile.getFaction();
 
-        return false;
+        if (!playerFaction.equals(tileFaction))
+        {
+            System.out.println("ERROR: Wall not built, wrong faction: " + playerFaction);
+            return false;
+        }
+        if (tile.isWalled())
+        {
+            System.out.println("ERROR: Wall not built, allready walled: " + tilePosition);
+            return false;
+        }
+        // all good
+        tiles[row][col] = TileFactory.createTile(tileFaction, true, col, row);
+        System.out.println("Wall built: " + tilePosition);
+        return true;
+    }
+
+    protected boolean posInMap(int row, int col)
+    {
+        return 0 < row && row < rows && 0 < col && col < cols;
     }
 
     @Override
@@ -89,28 +90,22 @@ public class MapHandler implements MapHandlerInterface, GameConstants
         {
             return false;
         }
-
         int row = (int) Math.floor(tilePosition.getY() / tileWidth);
         int col = (int) Math.floor(tilePosition.getX() / tileHeight);
-
-        if (0 < row && row < rows && 0 < col && col < cols)
+        if (!posInMap(row, col))
         {
-            GetTile tile = tiles[row][col];
-            if (!tile.isWalled())
-            {
-                tiles[row][col] = TileFactory.createTile(playerFaction, false, col, row);
-                System.out.println("Tile painted: " + tilePosition);
-                return true;
-            } else
-            {
-                System.out.println("ERROR: Tile not painted, tile is walled: " + tilePosition);
-            }
-        } else
-        {
-            System.out.println("ERROR: Tile not painted, wrong position: " + tilePosition);
+            System.out.println("ERROR: Wall not built, position not in map: " + tilePosition);
+            return false;
         }
-
-        return false;
+        GetTile tile = tiles[row][col];
+        if (tile.isWalled())
+        {
+            System.out.println("ERROR: Wall not built, allready walled: " + tilePosition);
+            return false;
+        }
+        tiles[row][col] = TileFactory.createTile(playerFaction, false, col, row);
+        System.out.println("Tile painted: " + tilePosition);
+        return true;
     }
 
     @Override
@@ -126,24 +121,21 @@ public class MapHandler implements MapHandlerInterface, GameConstants
         int row = (int) Math.floor(tilePosition.getY() / tileWidth);
         int col = (int) Math.floor(tilePosition.getX() / tileHeight);
 
-        if (0 < row && row < rows && 0 < col && col < cols)
+        if (!posInMap(row, col))
         {
-            GetTile tile = tiles[row][col];
-            if (tile.isWalled())
-            {
-                tiles[row][col] = TileFactory.createTile(tile.getFaction(), false, col, row);
-                System.out.println("Wall destroyed" + tilePosition);
-                return true;
-            } else
-            {
-                System.out.println("ERROR: Wall not destroyed, no wall to destroy" + tilePosition);
-            }
-        } else
-        {
-            System.out.println("ERROR: Wall not destroyed, wrong position: " + tilePosition);
+            System.out.println("ERROR: Wall not built, position not in map: " + tilePosition);
+            return false;
         }
+        GetTile tile = tiles[row][col];
 
-        return false;
+        if (!tile.isWalled())
+        {
+            System.out.println("ERROR: Wall not destroyed, no wall to destroy:" + tilePosition);
+            return false;
+        }
+        tiles[row][col] = TileFactory.createTile(tile.getFaction(), false, col, row);
+        System.out.println("Wall destroyed" + tilePosition);
+        return true;
     }
 
     @Override
@@ -153,10 +145,7 @@ public class MapHandler implements MapHandlerInterface, GameConstants
 
         for (int row = 0; row < tiles.length; row++)
         {
-            for (int col = 0; col < tiles[row].length; col++)
-            {
-                mapCopy[row][col] = tiles[row][col];
-            }
+            System.arraycopy(tiles[row], 0, mapCopy[row], 0, tiles[row].length);
         }
         return mapCopy;
     }

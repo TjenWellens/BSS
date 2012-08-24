@@ -29,7 +29,9 @@ public interface Inventory extends GetInventory
     boolean chooseWeapon(Weapon weapon);
 
     boolean useTool(Tool tool);
-
+    
+    boolean hasItem(Item item);
+    
     // win or lose
     void addDiamands(int diamands);
 
