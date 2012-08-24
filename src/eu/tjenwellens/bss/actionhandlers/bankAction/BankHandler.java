@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.bankAction;
 
 import java.util.ArrayList;
@@ -17,7 +13,6 @@ import eu.tjenwellens.bss.players.inventory.items.Item;
  */
 public class BankHandler implements BankHandlerInterface
 {
-
     private ArrayList<BankJob> bankJobs = new ArrayList<BankJob>();
 
     public BankHandler()
@@ -54,6 +49,19 @@ public class BankHandler implements BankHandlerInterface
     @Override
     public void cancelAction(ActionPlayer player)
     {
+        removeBankJob(getBankJobByPlayer(player));
+    }
+
+    protected BankJob getBankJobByPlayer(ActionPlayer player)
+    {
+        for (BankJob bankJob : bankJobs)
+        {
+            if (bankJob.hasPlayer(player))
+            {
+                return bankJob;
+            }
+        }
+        return null;
     }
 
     @Override

@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.walkAction.walk;
 
 import eu.tjenwellens.bss.Position;
+import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkPlayer;
 
@@ -14,7 +11,6 @@ import eu.tjenwellens.bss.actionhandlers.walkAction.WalkPlayer;
  */
 public abstract class StepWalk implements WalkInterface
 {
-
     protected WalkHandlerInterface walkHandler;
     protected WalkPlayer player;
     protected Position destination;
@@ -49,4 +45,10 @@ public abstract class StepWalk implements WalkInterface
     }
 
     protected abstract Position step();
+
+    @Override
+    public boolean hasPlayer(ActionPlayer p)
+    {
+        return p != null && p.equals(player);
+    }
 }

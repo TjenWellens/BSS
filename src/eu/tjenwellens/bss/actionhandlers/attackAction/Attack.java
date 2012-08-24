@@ -1,18 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.attackAction;
 
+import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
+import eu.tjenwellens.bss.actionhandlers.HasPlayer;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
 
 /**
  *
  * @author tjen
  */
-public class Attack
+public class Attack implements HasPlayer
 {
-
     private AttackHandler duelHandler;
     private AttackPlayer p1;
     private AttackPlayer p2;
@@ -86,5 +83,11 @@ public class Attack
         }
 
         return result;
+    }
+
+    @Override
+    public boolean hasPlayer(ActionPlayer p)
+    {
+        return p != null && (p.equals(p1) || p.equals(p2));
     }
 }

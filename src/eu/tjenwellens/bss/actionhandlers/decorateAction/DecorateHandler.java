@@ -17,7 +17,6 @@ import eu.tjenwellens.bss.players.inventory.items.Tool;
  */
 public class DecorateHandler implements DecorateHanderInterface
 {
-
     private MapHandlerInterface mapHandler;
     private ArrayList<Decorate> decorates = new ArrayList<Decorate>();
 
@@ -56,6 +55,19 @@ public class DecorateHandler implements DecorateHanderInterface
     @Override
     public void cancelAction(ActionPlayer player)
     {
+        removeDecorate(getDecorateByPlayer(player));
+    }
+
+    protected Decorate getDecorateByPlayer(ActionPlayer player)
+    {
+        for (Decorate decorate : decorates)
+        {
+            if (decorate.hasPlayer(player))
+            {
+                return decorate;
+            }
+        }
+        return null;
     }
 
     @Override

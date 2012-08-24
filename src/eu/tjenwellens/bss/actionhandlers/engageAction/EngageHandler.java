@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.engageAction;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
 import eu.tjenwellens.bss.actionhandlers.attackAction.AttackHandlerInterface;
@@ -17,10 +12,8 @@ import eu.tjenwellens.bss.actionhandlers.attackAction.AttackPlayer;
  */
 public class EngageHandler implements EngageHandlerInterface
 {
-
     private AttackHandlerInterface attackHandler;
     private ArrayList<Engage> engages = new ArrayList<Engage>();
-    private HashMap<ActionPlayer, Engage> playerLog = new HashMap<ActionPlayer, Engage>();
 
     public EngageHandler(AttackHandlerInterface attackHandler)
     {
@@ -37,7 +30,6 @@ public class EngageHandler implements EngageHandlerInterface
     {
         Engage engage = new Engage(this, challenger, challengee, attackHandler);
         engages.add(engage);
-        playerLog.put(challengee, engage);
         return true;
     }
 
@@ -45,7 +37,6 @@ public class EngageHandler implements EngageHandlerInterface
     public synchronized void removeEngage(Engage engage)
     {
         engages.remove(engage);
-        playerLog.values().remove(engage);
     }
 
     @Override
@@ -62,6 +53,18 @@ public class EngageHandler implements EngageHandlerInterface
     @Override
     public void cancelAction(ActionPlayer player)
     {
-        removeEngage(playerLog.get(player));
+        removeEngage(getDuelByPlayer(player));
+    }
+
+    protected Engage getDuelByPlayer(ActionPlayer player)
+    {
+        for (Engage engage : engages)
+        {
+            if (engage.hasPlayer(player))
+            {
+                return engage;
+            }
+        }
+        return null;
     }
 }

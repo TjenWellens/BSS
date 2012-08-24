@@ -8,7 +8,7 @@ package eu.tjenwellens.bss.actionhandlers;
  *
  * @author tjen
  */
-public interface ActionPlayer
+public interface HasPlayer
 {
-    int getPlayerID();
+    boolean hasPlayer(ActionPlayer p);
 }

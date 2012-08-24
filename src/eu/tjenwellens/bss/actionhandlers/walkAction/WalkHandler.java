@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.walkAction;
 
 import eu.tjenwellens.bss.actionhandlers.walkAction.walk.WalkInterface;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import eu.tjenwellens.bss.GameConstants;
 import eu.tjenwellens.bss.Position;
@@ -22,9 +17,7 @@ import eu.tjenwellens.bss.players.PlayerHandlerInterface;
  */
 public class WalkHandler implements WalkHandlerInterface
 {
-
     private ArrayList<WalkInterface> walks = new ArrayList<WalkInterface>();
-    private HashMap<ActionPlayer, WalkInterface> playerLog = new HashMap<ActionPlayer, WalkInterface>();
     private MapHandlerInterface mapHandler;
     private PlayerHandlerInterface playerHandler;
 
@@ -57,21 +50,13 @@ public class WalkHandler implements WalkHandlerInterface
             walk = new CollisionJumpWalk(this, player, destination, mapHandler, playerHandler);
         }
         walks.add(walk);
-        playerLog.put(player, walk);
         return true;
     }
 
     @Override
     public synchronized void removeWalk(WalkInterface walk)
     {
-        if (this.walks.remove(walk))
-        {
-//            System.out.println("removed 1");
-        }
-        if (playerLog.values().remove(walk))
-        {
-//            System.out.println("removed 2");
-        }
+        this.walks.remove(walk);
     }
 
     @Override
@@ -88,8 +73,18 @@ public class WalkHandler implements WalkHandlerInterface
     @Override
     public void cancelAction(ActionPlayer player)
     {
-//        System.out.println("rw");
-        removeWalk(playerLog.get(player));
-//        System.out.println("rw");
+        removeWalk(getWalkByPlayer(player));
+    }
+
+    protected WalkInterface getWalkByPlayer(ActionPlayer player)
+    {
+        for (WalkInterface walk : walks)
+        {
+            if (walk.hasPlayer(player))
+            {
+                return walk;
+            }
+        }
+        return null;
     }
 }

@@ -34,7 +34,6 @@ import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
  */
 public class PlayerHandler implements PlayerHandlerInterface
 {
-
     private HashMap<Integer, PlayerHandlerPlayer> players = new HashMap<Integer, PlayerHandlerPlayer>();
     private HashMap<String, Integer> playerIds = new HashMap<String, Integer>();
     private Faction nullFaction;
@@ -288,7 +287,6 @@ public class PlayerHandler implements PlayerHandlerInterface
 
     private class ImmutableGetPlayer implements GetPlayer
     {
-
         private int playerID;
         private String playerName;
         private Position position;
@@ -322,6 +320,35 @@ public class PlayerHandler implements PlayerHandlerInterface
             this.bankAccount = player.getBankAccount();
             this.store = player.getStore();
             this.opponent = player.getOpponent();
+        }
+
+        @Override
+        public int hashCode()
+        {
+            return playerID;
+        }
+
+        @Override
+        public boolean equals(Object obj)
+        {
+            if (obj == this)
+            {
+                return true;
+            }
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj instanceof Player))
+            {
+                return false;
+            }
+            final GetPlayer other = (GetPlayer) obj;
+            if (this.playerID != other.getPlayerID())
+            {
+                return false;
+            }
+            return true;
         }
 
         @Override

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.attackAction;
 
 import java.util.ArrayList;
@@ -16,7 +12,6 @@ import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
  */
 public class AttackHandler implements AttackHandlerInterface
 {
-
     private ArrayList<Attack> duels = new ArrayList<Attack>();
 
     public AttackHandler()
@@ -26,29 +21,46 @@ public class AttackHandler implements AttackHandlerInterface
     @Override
     public boolean addDuel(AttackPlayer p1, AttackPlayer p2)
     {
-        if (p1.isAttackable() && p2.isAttackable())
+        // check p1 attackable
+        if (!p1.isAttackable())
         {
-            Position p1pos = p1.getPosition();
-            Position p2pos = p2.getPosition();
-            if (p1pos != null && p2pos != null && (p1pos.distance(p2pos) <= GameConstants.ATTACK_RANGE))
-            {
-                System.out.println("Attack success");
-                Attack attack = new Attack(this, p1, p2);
-                p1.attack(p2);
-                p2.attack(p1);
-                duels.add(attack);
-                return true;
-            } else
-            {
-                System.out.println("ERROR: AttackHandler.addDuel null, null or out of distance"
-                        + (p1pos != null) + "" + (p2pos != null) + ""
-                        + (p1pos.distance(p2pos) <= GameConstants.ATTACK_RANGE));
-            }
-        } else
-        {
-            System.out.println("ERROR: AttackHandler.addDuel not attackable ");
+            System.out.println("Attack cancelled: p1 is busy");
+            return false;
         }
-        return false;
+        // check p2 attackable
+        if (!p2.isAttackable())
+        {
+            System.out.println("Attack cancelled: p2 is busy");
+            return false;
+        }
+        // check pos of p1
+        Position p1pos = p1.getPosition();
+        if (p1pos == null)
+        {
+            System.out.println("ERROR: AttackHandler.addDuel(...) p1 pos null: " + p1);
+            return false;
+        }
+        // check pos of p2
+        Position p2pos = p2.getPosition();
+        if (p2pos == null)
+        {
+            System.out.println("ERROR: AttackHandler.addDuel(...) p2 pos null: " + p2);
+            return false;
+        }
+        // check distance
+        double distance = p1pos.distance(p2pos);
+        if (distance > GameConstants.ATTACK_RANGE)
+        {
+            System.out.println("Attack cancelled: out of range: " + distance);
+            return false;
+        }
+        // all is well, continue attack
+        System.out.println("Attack success");
+        Attack attack = new Attack(this, p1, p2);
+        p1.attack(p2);
+        p2.attack(p1);
+        duels.add(attack);
+        return true;
     }
 
     protected synchronized List<Attack> copyDuels()
@@ -76,5 +88,18 @@ public class AttackHandler implements AttackHandlerInterface
     @Override
     public void cancelAction(ActionPlayer player)
     {
+        removeDuel(getDuelByPlayer(player));
+    }
+
+    protected Attack getDuelByPlayer(ActionPlayer player)
+    {
+        for (Attack attack : duels)
+        {
+            if (attack.hasPlayer(player))
+            {
+                return attack;
+            }
+        }
+        return null;
     }
 }

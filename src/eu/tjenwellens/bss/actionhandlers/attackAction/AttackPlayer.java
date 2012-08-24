@@ -26,6 +26,7 @@ public interface AttackPlayer extends OpponentPlayer, ActionPlayer
 
     void hasDraw(AttackResult duelResult);
 
+    @Override
     String getPlayerName();
 
     Weapon getWeapon();

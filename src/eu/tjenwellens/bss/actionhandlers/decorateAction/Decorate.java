@@ -5,6 +5,8 @@
 package eu.tjenwellens.bss.actionhandlers.decorateAction;
 
 import eu.tjenwellens.bss.Position;
+import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
+import eu.tjenwellens.bss.actionhandlers.HasPlayer;
 import eu.tjenwellens.bss.map.MapHandlerInterface;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.ToolType;
@@ -13,9 +15,8 @@ import eu.tjenwellens.bss.players.inventory.items.ToolType;
  *
  * @author tjen
  */
-public class Decorate
+public class Decorate implements HasPlayer
 {
-
     private static final ToolType PAINT_TOOL = ToolType.PENSEEL;
     private static final ToolType BUILD_TOOL = ToolType.TRUWEEL;
     private static final ToolType DESTROY_TOOL = ToolType.HAMER;
@@ -73,5 +74,11 @@ public class Decorate
         }
         decorateHander.removeDecorate(this);
         return true;
+    }
+
+    @Override
+    public boolean hasPlayer(ActionPlayer p)
+    {
+        return p != null && p.equals(player);
     }
 }

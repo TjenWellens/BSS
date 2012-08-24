@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.walkAction.walk;
 
 import eu.tjenwellens.bss.Position;
+import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkPlayer;
 
@@ -14,7 +11,6 @@ import eu.tjenwellens.bss.actionhandlers.walkAction.WalkPlayer;
  */
 public class DirectWalk implements WalkInterface
 {
-
     private WalkHandlerInterface walkHandler;
     private WalkPlayer player;
     private Position destination;
@@ -34,5 +30,11 @@ public class DirectWalk implements WalkInterface
         System.out.println("Walked to " + destination);
         walkHandler.removeWalk(this);
         return true;
+    }
+
+    @Override
+    public boolean hasPlayer(ActionPlayer p)
+    {
+        return p != null && p.equals(player);
     }
 }

@@ -1,9 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.tjenwellens.bss.actionhandlers.bankAction;
 
+import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
+import eu.tjenwellens.bss.actionhandlers.HasPlayer;
 import eu.tjenwellens.bss.actionhandlers.bankAction.shop.Store;
 import eu.tjenwellens.bss.players.inventory.Inventory;
 import eu.tjenwellens.bss.players.inventory.items.Item;
@@ -12,9 +10,8 @@ import eu.tjenwellens.bss.players.inventory.items.Item;
  *
  * @author tjen
  */
-public class BankJob
+public class BankJob implements HasPlayer
 {
-
     private BankHandlerInterface bankHandler;
     private BankPlayer player;
     private Transaction transaction;
@@ -47,22 +44,22 @@ public class BankJob
                 {
                     if (inventory.depositDiamonds(bankAccount, diamands))
                     {
-                        System.out.println("Diamonds deposited: "+diamands);
+                        System.out.println("Diamonds deposited: " + diamands);
                         result = true;
                     } else
                     {
-                        System.out.println("Deposit diamands failed: "+diamands);
+                        System.out.println("Deposit diamands failed: " + diamands);
                     }
                 }
                 if (item != null)
                 {
                     if (inventory.depositItem(bankAccount, item))
                     {
-                        System.out.println("Item deposited: "+item);
+                        System.out.println("Item deposited: " + item);
                         result = true;
                     } else
                     {
-                        System.out.println("Deposit item failed: "+item);
+                        System.out.println("Deposit item failed: " + item);
                     }
                 }
                 break;
@@ -72,22 +69,22 @@ public class BankJob
                 {
                     if (inventory.retrieveDiamonds(bankAccount, diamands))
                     {
-                        System.out.println("Diamonds retrieved: "+diamands);
+                        System.out.println("Diamonds retrieved: " + diamands);
                         result = true;
                     } else
                     {
-                        System.out.println("Retrieve diamonds failed: "+diamands);
+                        System.out.println("Retrieve diamonds failed: " + diamands);
                     }
                 }
                 if (item != null)
                 {
                     if (inventory.retrieveItem(bankAccount, item))
                     {
-                        System.out.println("Item retrieved: "+item);
+                        System.out.println("Item retrieved: " + item);
                         result = true;
                     } else
                     {
-                        System.out.println("Retrieve item failed: "+item);
+                        System.out.println("Retrieve item failed: " + item);
                     }
                 }
                 break;
@@ -106,7 +103,7 @@ public class BankJob
                 bankAccount.addDiamonds(10000);
                 if (store.buyItem(bankAccount, item))
                 {
-                    System.out.println("Item bought: "+item);
+                    System.out.println("Item bought: " + item);
                     result = true;
                 } else
                 {
@@ -118,5 +115,11 @@ public class BankJob
         }
         bankHandler.removeBankJob(this);
         return result;
+    }
+
+    @Override
+    public boolean hasPlayer(ActionPlayer p)
+    {
+        return p != null && p.equals(player);
     }
 }
