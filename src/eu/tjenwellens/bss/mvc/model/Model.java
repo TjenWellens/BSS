@@ -250,7 +250,7 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
     }
 
     @Override
-    public HashMap<String, GetPlayer> getPlayers()
+    public HashMap<Integer, GetPlayer> getPlayers()
     {
         return playerHandler.getPlayersCopy();
     }

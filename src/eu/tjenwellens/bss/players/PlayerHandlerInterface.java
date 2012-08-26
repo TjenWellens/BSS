@@ -35,7 +35,7 @@ public interface PlayerHandlerInterface
 
     boolean createPlayer(int id, String playerName, Faction faction, Position position);
 
-    HashMap<String, GetPlayer> getPlayersCopy();
+    HashMap<Integer, GetPlayer> getPlayersCopy();
 
     HashMap<Integer, WalkObstaclePlayer> getWalkObstaclesCopy();
 

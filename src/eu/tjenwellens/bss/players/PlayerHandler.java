@@ -293,14 +293,9 @@ public class PlayerHandler implements PlayerHandlerInterface
     }
 
     @Override
-    public HashMap<String, GetPlayer> getPlayersCopy()
+    public HashMap<Integer, GetPlayer> getPlayersCopy()
     {
-        HashMap<String, GetPlayer> playersCopy = new HashMap<String, GetPlayer>(players.size(), 1f);
-        for (Iterator<PlayerHandlerPlayer> playerIterator = copyPlayers().iterator(); playerIterator.hasNext();)
-        {
-            PlayerHandlerPlayer player = playerIterator.next();
-            playersCopy.put(player.getPlayerName(), new ImmutableGetPlayer(player));
-        }
+        HashMap<Integer, GetPlayer> playersCopy = new HashMap<Integer, GetPlayer>(players);
         return playersCopy;
     }
 

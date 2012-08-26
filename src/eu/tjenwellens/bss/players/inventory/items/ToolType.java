@@ -6,7 +6,7 @@ import eu.tjenwellens.bss.GameConstants;
  *
  * @author tjen
  */
-public enum ToolType
+public enum ToolType implements ItemType
 {
     PENSEEL(GameConstants.MATERIALS * 0), TRUWEEL(GameConstants.MATERIALS * 1), HAMER(GameConstants.MATERIALS * 2);
     private int id;
@@ -16,6 +16,7 @@ public enum ToolType
         this.id = id;
     }
 
+    @Override
     public int getId()
     {
         return id;

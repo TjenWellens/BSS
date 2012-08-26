@@ -1,0 +1,163 @@
+package eu.tjenwellens.bss.serverVSclient.server;
+
+import eu.tjenwellens.bss.Position;
+import eu.tjenwellens.bss.commands.command.CreatePlayerCommand;
+import eu.tjenwellens.bss.mvc.controller.CommandInvokerInterface;
+import eu.tjenwellens.bss.mvc.model.CommandReceiverInterface;
+import java.util.HashMap;
+import java.util.HashSet;
+
+/**
+ *
+ * @author Tjen
+ */
+public class SimpleAccountHandler implements AccountHandler
+{
+    private final static String PASS = "p";
+    private final static String NAME = "p";
+    private volatile HashMap<String, Integer> name_id = new HashMap<String, Integer>();
+    private volatile HashSet<String> playerNames = new HashSet<String>();
+    private volatile HashMap<Integer, Account> accounts = new HashMap<Integer, Account>();
+    private CommandInvokerInterface ci;
+    private CommandReceiverInterface cr;
+
+    public SimpleAccountHandler(CommandInvokerInterface ci, CommandReceiverInterface cr)
+    {
+        this.cr = cr;
+        this.ci = ci;
+        // TODO: load state
+    }
+
+    @Override
+    public int signup(String name, String pass, String playerName)
+    {
+        if (name == null || pass == null || playerName == null)
+        {
+            return -1;
+        }
+        int id = name_id.size();
+        if (name_id.containsKey(name))
+        {
+            return -1;
+        }
+        if (playerNames.contains(playerName))
+        {
+            return -1;
+        }
+        // all is ok
+        Account account = new Account(id, name, pass, playerName);
+        name_id.put(name, id);
+        playerNames.add(playerName);
+        accounts.put(id, account);
+        return id;
+    }
+
+    @Override
+    public int login(String name, String pass, String playerName, String factionName, Position position)
+    {
+        if (name == null || pass == null || playerName == null || factionName == null || position == null)
+        {
+            return -1;
+        }
+        Integer id = name_id.get(name);
+        if (id == null || id < 0)
+        {
+            return -1;
+        }
+        Account account = accounts.get(id);
+        if (!account.validate(name, pass, playerName))
+        {
+            return -1;
+        }
+        // login
+        ci.addCommand(new CreatePlayerCommand(cr, id, playerName, factionName, position));
+        return id;
+    }
+
+    @Override
+    public int quickPlay(String playerName, String factionName, Position position)
+    {
+        if (playerNames.contains(playerName))
+        {
+            return -1;
+        }
+        int id1 = name_id.size();
+        String name = NAME + id1;
+        String pass = PASS;
+        int id2 = signup(name, pass, playerName);
+        int id3 = login(name, pass, playerName, factionName, position);
+        if (id1 != id2 || id2 != id3)
+        {
+            System.out.println("ERROR: id's in quickplay: " + id1 + ", " + id2 + ", " + id3);
+        }
+        return id3;
+    }
+
+    @Override
+    public int save(int oldID, String name, String pass, String playerName)
+    {
+        if (oldID < 0 || name == null || pass == null || playerName == null)
+        {
+            return -1;
+        }
+        Account account = accounts.get(oldID);
+        if (account == null)
+        {
+            return -1;
+        }
+        String oldName = account.getPlayerName();
+        String oldPass = PASS;
+        String oldPlayerName = NAME + oldID;
+        // TODO: get old faction name
+        String factionName = "geel";
+        // TODO: get old position
+        Position oldPosition = new Position(0, 0);
+        if (factionName == null || oldPosition == null)
+        {
+            return -1;
+        }
+        int id = login(name, pass, playerName, factionName, oldPosition);
+        if (id < 0)
+        {
+            return -1;
+        }
+        // TODO: transfer inventory and such
+        removeAccount(oldID, oldName, oldPass, oldPlayerName);
+        return id;
+    }
+
+    @Override
+    public void logout(int playerID)
+    {
+        // create account with existing progress
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean deleteAccount(String name, String pass, String playerName)
+    {
+        if (name == null || pass == null || playerName == null)
+        {
+            return false;
+        }
+        Integer id = name_id.get(name);
+        if (id == null || id < 0)
+        {
+            return false;
+        }
+        Account account = accounts.get(id);
+        if (!account.validate(name, pass, playerName))
+        {
+            return false;
+        }
+        removeAccount(id, name, pass, playerName);
+        return true;
+    }
+
+    private void removeAccount(int id, String name, String pass, String playerName)
+    {
+        name_id.remove(name);
+        accounts.remove(id);
+        playerNames.remove(playerName);
+    }
+}

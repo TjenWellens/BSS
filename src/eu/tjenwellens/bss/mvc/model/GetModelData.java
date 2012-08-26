@@ -14,7 +14,7 @@ public interface GetModelData
 {
     GetTile[][] getMap();
 
-    HashMap<String, GetPlayer> getPlayers();
+    HashMap<Integer, GetPlayer> getPlayers();
 
     List<Faction> getFactions();
 }

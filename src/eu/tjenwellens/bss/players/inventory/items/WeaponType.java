@@ -6,7 +6,7 @@ import eu.tjenwellens.bss.GameConstants;
  *
  * @author tjen
  */
-public enum WeaponType
+public enum WeaponType implements ItemType
 {
 // laatste waarde groter dan 2*de grootste
     BLAD(0, GameConstants.MATERIALS * 0), STEEN(1, GameConstants.MATERIALS * 1), SCHAAR(10, GameConstants.MATERIALS * 2);
@@ -64,6 +64,7 @@ public enum WeaponType
         }
     }
 
+    @Override
     public int getId()
     {
         return id;
