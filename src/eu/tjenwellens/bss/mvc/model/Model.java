@@ -3,7 +3,6 @@ package eu.tjenwellens.bss.mvc.model;
 import java.util.HashMap;
 import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
 import eu.tjenwellens.bss.factions.Faction;
-import eu.tjenwellens.bss.map.GetTile;
 import eu.tjenwellens.bss.mvc.observe.ModelObservable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +22,7 @@ import eu.tjenwellens.bss.actionhandlers.engageAction.EngageHandler;
 import eu.tjenwellens.bss.actionhandlers.engageAction.EngageHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandler;
 import eu.tjenwellens.bss.factions.Kleur;
+import eu.tjenwellens.bss.map.GetMap;
 import eu.tjenwellens.bss.map.MapHandler;
 import eu.tjenwellens.bss.map.MapHandlerInterface;
 import eu.tjenwellens.bss.mvc.observe.FactionObserver;
@@ -61,18 +61,20 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
 
     private Model()
     {
+        // init handlers
         attackHandler = new AttackHandler();
         factionHandler = new FactionHandler();
-        factionHandler.addFaction("rood", Kleur.ROOD);
-        factionHandler.addFaction("geel", Kleur.GEEL);
-        factionHandler.addFaction("blauw", Kleur.BLAUW);
         playerHandler = new PlayerHandler(factionHandler.getNullFaction());
         mapHandler = new MapHandler(factionHandler.getNullFaction());
         walkHandler = new WalkHandler(playerHandler, mapHandler);
         decorateHander = new DecorateHandler(mapHandler);
         bankHandler = new BankHandler();
         engageHandler = new EngageHandler(attackHandler);
-
+        // init test factions
+        factionHandler.addFaction("rood", Kleur.ROOD);
+        factionHandler.addFaction("geel", Kleur.GEEL);
+        factionHandler.addFaction("blauw", Kleur.BLAUW);
+        // init playerhandler's - pass-on to player -
         playerHandler.setAttackHandler(attackHandler);
         playerHandler.setBankHandler(bankHandler);
         playerHandler.setDecorateHander(decorateHander);
@@ -95,37 +97,37 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
     @Override
     public void registerPlayersObserver(PlayerObserver o)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        playerObservers.add(o);
     }
 
     @Override
     public void removePlayersObserver(PlayerObserver o)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        playerObservers.remove(o);
     }
 
     @Override
     public void registerMapObserver(MapObserver o)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        mapObservers.add(o);
     }
 
     @Override
     public void removeMapObserver(MapObserver o)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        mapObservers.remove(o);
     }
 
     @Override
     public void registerFactionObserver(FactionObserver o)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        factionObservers.add(o);
     }
 
     @Override
     public void removeFactionObserver(FactionObserver o)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        factionObservers.remove(o);
     }
 
     @Override
@@ -212,9 +214,9 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
     }
 
     @Override
-    public void decorateCommand(int playerId, Decoration decoration, Position location, Tool tool)
+    public void decorateCommand(int playerId, Decoration decoration, int row, int col, Tool tool)
     {
-        notify = playerHandler.decorate(playerId, decoration, location, tool) || notify;
+        notify = playerHandler.decorate(playerId, decoration, row, col, tool) || notify;
     }
 
     @Override
@@ -244,7 +246,7 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
     //</editor-fold>
 
     @Override
-    public GetTile[][] getMap()
+    public GetMap getMap()
     {
         return mapHandler.getMapCopy();
     }

@@ -1,22 +1,11 @@
 package eu.tjenwellens.bss.serverVSclient.communication.init;
 
-import java.io.Serializable;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
 
 /**
  *
  * @author Tjen
  */
-public class Logout implements Serializable
+public class Logout extends Command
 {
-    private int playerID;
-
-    public Logout(int playerID)
-    {
-        this.playerID = playerID;
-    }
-
-    public int getPlayerID()
-    {
-        return playerID;
-    }
 }

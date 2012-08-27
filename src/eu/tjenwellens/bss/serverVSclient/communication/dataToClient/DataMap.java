@@ -1,6 +1,7 @@
 package eu.tjenwellens.bss.serverVSclient.communication.dataToClient;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -9,6 +10,8 @@ import java.io.Serializable;
  */
 public interface DataMap extends Serializable
 {
-    DataTile[][] getTiles();
+    List<DataTile> getTiles();
     boolean isEmpty();
+    int getRows();
+    int getCols();
 }

@@ -50,9 +50,9 @@ public class Input implements InputInterface
     }
 
     @Override
-    public void decorate(int playerID, Decoration d, Position l, Tool t)
+    public void decorate(int playerID, Decoration d, int row, int col, Tool t)
     {
-        ci.addCommand(new DecorateCommand(cr, playerID, d, l, t));
+        ci.addCommand(new DecorateCommand(cr, playerID, d, row, col, t));
     }
 
     @Override

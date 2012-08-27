@@ -43,7 +43,7 @@ public class BssMain
         }
         //</editor-fold>
 
-        runSingleplayerGame();
+        runServer();
     }
 
     public static void runMultiplayerGame()
@@ -78,6 +78,17 @@ public class BssMain
 //        ConcreteFrameWithMap cfwm2 = new ConcreteFrameWithMap(m, v, c);
 //        c.registerTickObserver(cfwm2);
 //        cfwm2.setVisible(true);
+
+        c.start();
+    }
+
+    private static void runServer()
+    {
+        Model m = Model.getInstance();
+        View v = new View(m);
+        m.registerGlobalObserver(v);
+        Controller c = new Controller();
+        c.registerTickObserver(m);
 
         c.start();
     }

@@ -20,16 +20,18 @@ public class Decorate implements HasPlayer
     private MapHandlerInterface mapHandler;
     private DecoratePlayer player;
     private Decoration decoration;
-    private Position location;
+    private int row;
+    private int col;
     private Tool tool;
 
-    public Decorate(DecorateHanderInterface decorateHander, MapHandlerInterface mapHandler, DecoratePlayer player, Decoration decoration, Position location, Tool tool)
+    public Decorate(DecorateHanderInterface decorateHander, MapHandlerInterface mapHandler, DecoratePlayer player, Decoration decoration, int row, int col, Tool tool)
     {
         this.decorateHander = decorateHander;
         this.mapHandler = mapHandler;
         this.player = player;
         this.decoration = decoration;
-        this.location = location;
+        this.row = row;
+        this.col = col;
         this.tool = tool;
     }
 
@@ -49,7 +51,7 @@ public class Decorate implements HasPlayer
                     System.out.println("you don't have the correct tool: " + tool);
                     break;
                 }
-                if (!mapHandler.paint(player, location))
+                if (!mapHandler.paint(player, row, col))
                 {
                     // maphandler handles this
                     break;
@@ -69,7 +71,7 @@ public class Decorate implements HasPlayer
                     System.out.println("you don't have the correct tool: " + tool);
                     break;
                 }
-                if (!mapHandler.build(player, location))
+                if (!mapHandler.build(player, row, col))
                 {
                     // maphandler handles this
                     break;
@@ -89,7 +91,7 @@ public class Decorate implements HasPlayer
                     System.out.println("you dont have the correct tool: " + tool);
                     break;
                 }
-                if (!mapHandler.destroy(player, location))
+                if (!mapHandler.destroy(player, row, col))
                 {
                     // maphandler handles this
                     break;

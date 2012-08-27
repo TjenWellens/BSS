@@ -160,7 +160,7 @@ public class ClientHandler implements Updatable
                 } else if (leesObject instanceof Decorate)
                 {
                     Decorate decorate = (Decorate) leesObject;
-                    input.decorate(playerId, decorate.getDecoration(), decorate.getPosition(), decorate.getTool());
+                    input.decorate(playerId, decorate.getDecoration(), decorate.getRow(), decorate.getCol(), decorate.getTool());
                 } else if (leesObject instanceof Engage)
                 {
                     Engage engage = (Engage) leesObject;
@@ -250,6 +250,18 @@ public class ClientHandler implements Updatable
         } catch (IOException e)
         {
             System.out.println(e);
+        } finally
+        {
+            if (clientSocket != null)
+            {
+                try
+                {
+                    clientSocket.close();
+                } catch (IOException ex)
+                {
+                    System.out.println(ex);
+                }
+            }
         }
     }
 }

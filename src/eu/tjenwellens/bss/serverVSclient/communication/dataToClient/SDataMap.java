@@ -1,6 +1,9 @@
 package eu.tjenwellens.bss.serverVSclient.communication.dataToClient;
 
+import eu.tjenwellens.bss.map.GetMap;
 import eu.tjenwellens.bss.map.GetTile;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -8,25 +11,23 @@ import eu.tjenwellens.bss.map.GetTile;
  */
 public class SDataMap implements DataMap
 {
-    private DataTile[][] tiles;
+    private List<DataTile> tiles;
+    private int rows;
+    private int cols;
 
-    public SDataMap(GetTile[][] map)
+    public SDataMap(GetMap map)
     {
-        if (map != null)
+        tiles = new ArrayList<DataTile>();
+        for (GetTile getTile : map.getTiles())
         {
-            this.tiles = new DataTile[map.length][map[0].length];
-            for (int i = 0; i < map.length; i++)
-            {
-                for (int j = 0; j < map[i].length; j++)
-                {
-                    this.tiles[i][j] = new SDataTile(map[i][j]);
-                }
-            }
+            tiles.add(new SDataTile(getTile));
         }
+        this.rows = map.getRows();
+        this.cols = map.getCols();
     }
 
     @Override
-    public DataTile[][] getTiles()
+    public List<DataTile> getTiles()
     {
         return tiles;
     }
@@ -35,5 +36,17 @@ public class SDataMap implements DataMap
     public boolean isEmpty()
     {
         return tiles != null;
+    }
+
+    @Override
+    public int getRows()
+    {
+        return rows;
+    }
+
+    @Override
+    public int getCols()
+    {
+        return cols;
     }
 }

@@ -1,6 +1,5 @@
 package eu.tjenwellens.bss.map;
 
-import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.DecoratePlayer;
 
 /**
@@ -9,14 +8,14 @@ import eu.tjenwellens.bss.actionhandlers.decorateAction.DecoratePlayer;
  */
 public interface MapHandlerInterface
 {
-    GetTile[][] getMapCopy();
+    GetMap getMapCopy();
     //not player but an interface of player
 
-    boolean build(DecoratePlayer player, Position tilePosition);
+    boolean build(DecoratePlayer player, int row, int col);
 
-    boolean paint(DecoratePlayer player, Position tilePosition);
+    boolean paint(DecoratePlayer player, int row, int col);
 
-    boolean destroy(DecoratePlayer player, Position tilePosition);
+    boolean destroy(DecoratePlayer player, int row, int col);
 
     GetTile getTile(int row, int col);
 }

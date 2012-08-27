@@ -1,11 +1,11 @@
 package eu.tjenwellens.bss.serverVSclient.communication.init;
 
-import java.io.Serializable;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
 
 /**
  *
  * @author Tjen
  */
-public class OK implements Serializable
+public class OK extends Command
 {
 }

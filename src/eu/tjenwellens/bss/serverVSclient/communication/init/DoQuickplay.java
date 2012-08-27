@@ -1,13 +1,13 @@
 package eu.tjenwellens.bss.serverVSclient.communication.init;
 
 import eu.tjenwellens.bss.Position;
-import java.io.Serializable;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
 
 /**
  *
  * @author Tjen
  */
-public class DoQuickplay implements Serializable
+public class DoQuickplay extends Command
 {
     private String playerName;
     private String factionName;

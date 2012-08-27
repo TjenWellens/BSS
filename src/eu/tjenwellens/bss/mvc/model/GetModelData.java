@@ -1,10 +1,10 @@
 package eu.tjenwellens.bss.mvc.model;
 
+import eu.tjenwellens.bss.factions.Faction;
+import eu.tjenwellens.bss.map.GetMap;
+import eu.tjenwellens.bss.players.GetPlayer;
 import java.util.HashMap;
 import java.util.List;
-import eu.tjenwellens.bss.factions.Faction;
-import eu.tjenwellens.bss.map.GetTile;
-import eu.tjenwellens.bss.players.GetPlayer;
 
 /**
  *
@@ -12,7 +12,7 @@ import eu.tjenwellens.bss.players.GetPlayer;
  */
 public interface GetModelData
 {
-    GetTile[][] getMap();
+    GetMap getMap();
 
     HashMap<Integer, GetPlayer> getPlayers();
 

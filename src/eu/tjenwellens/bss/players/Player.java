@@ -126,9 +126,9 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
     }
 
     @Override
-    public boolean decorate(Decoration decoration, Position location, Tool tool, DecorateHanderInterface decorationHander)
+    public boolean decorate(Decoration decoration, int row, int col, Tool tool, DecorateHanderInterface decorationHander)
     {
-        return state.decorate(this, decoration, location, tool, decorationHander);
+        return state.decorate(this, decoration, row, col, tool, decorationHander);
     }
 
     @Override

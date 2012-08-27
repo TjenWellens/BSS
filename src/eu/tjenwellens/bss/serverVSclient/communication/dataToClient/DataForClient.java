@@ -1,9 +1,5 @@
 package eu.tjenwellens.bss.serverVSclient.communication.dataToClient;
 
-import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataFaction;
-import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataGamer;
-import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataMap;
-import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataPlayer;
 import java.io.Serializable;
 import java.util.List;
 

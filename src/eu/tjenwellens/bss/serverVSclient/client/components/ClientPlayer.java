@@ -1,46 +1,29 @@
 package eu.tjenwellens.bss.serverVSclient.client.components;
 
+import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataPlayer;
+
 /**
  *
  * @author tjen
  */
 public class ClientPlayer
 {
-    /* "players"    + [beginDelim]
-     + playerName + [pieceDelim]
-     + int factionId + [pieceDelim]
-     + int x + [pieceDelim]
-     + int y + [pieceDelim]
-     + int stateID + [pieceDelim]
-     + int continuesmoving + [pieceEnd]
-     ...
-     + [endDelim]
-     */
-    String playerName;
-    int factionID;
-    int x;
-    int y;
-    int stateID;
-    int continuesMoving;
+    public String playerName;
+    public int yPosition;
+    public int xPosition;
+    public String factionName;
+    public String state;
+    public int winns;
+    public int losses;
 
-    public boolean fromData(String[] props)
+    public ClientPlayer(DataPlayer dataPlayer)
     {
-        if (props.length < 6)
-        {
-            return false;
-        }
-        playerName = props[0];
-        try
-        {
-            factionID = Integer.parseInt(props[1]);
-            x = Integer.parseInt(props[2]);
-            y = Integer.parseInt(props[3]);
-            stateID = Integer.parseInt(props[4]);
-            continuesMoving = Integer.parseInt(props[5]);
-        } catch (NumberFormatException e)
-        {
-            return false;
-        }
-        return true;
+        this.playerName = dataPlayer.getPlayerName();
+        this.yPosition = dataPlayer.getYPosition();
+        this.xPosition = dataPlayer.getXPosition();
+        this.factionName = dataPlayer.getFactionName();
+        this.state = dataPlayer.getState();
+        this.winns = dataPlayer.getWinns();
+        this.losses = dataPlayer.getLosses();
     }
 }

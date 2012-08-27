@@ -64,7 +64,7 @@ public class PlayerAttackState extends PlayerGeneralState
     }
 
     @Override
-    public boolean decorate(StatePlayer player, Decoration decoration, Position location, Tool tool, DecorateHanderInterface decorationHander)
+    public boolean decorate(StatePlayer player, Decoration decoration, int row, int col, Tool tool, DecorateHanderInterface decorationHander)
     {
         return false;
     }

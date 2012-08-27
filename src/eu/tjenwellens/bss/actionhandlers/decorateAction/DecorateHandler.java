@@ -1,6 +1,5 @@
 package eu.tjenwellens.bss.actionhandlers.decorateAction;
 
-import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.ActionPlayer;
 import eu.tjenwellens.bss.map.MapHandlerInterface;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
@@ -22,11 +21,11 @@ public class DecorateHandler implements DecorateHanderInterface
     }
 
     @Override
-    public boolean addDecorate(DecoratePlayer player, Decoration decoration, Position location, Tool tool)
+    public boolean addDecorate(DecoratePlayer player, Decoration decoration, int row, int col, Tool tool)
     {
-        if (decoration != null && location != null && tool != null)
+        if (decoration != null && row >= 0 && col >= 0 && tool != null)
         {
-            decorates.add(new Decorate(this, mapHandler, player, decoration, location, tool));
+            decorates.add(new Decorate(this, mapHandler, player, decoration, row, col, tool));
             return true;
         }
         return false;

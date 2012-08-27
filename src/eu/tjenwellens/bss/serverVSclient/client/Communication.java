@@ -20,7 +20,7 @@ public interface Communication
     public void chooseWeapon(Weapon weapon);
 
     // -decorate
-    public void decorate(Decoration d, int x, int y, Tool t);
+    public void decorate(Decoration d, int row, int col, Tool t);
 
     // -engage
     public void engage(String opponentName);

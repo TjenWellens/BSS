@@ -36,7 +36,7 @@ public interface PlayerActions extends PlayerHandlerPlayer
 //    @Override
 //    boolean die();
     @Override
-    boolean decorate(Decoration decoration, Position location, Tool tool, DecorateHanderInterface decorateHander);
+    boolean decorate(Decoration decoration, int row, int col, Tool tool, DecorateHanderInterface decorateHander);
 
     @Override
     boolean bank(Transaction transaction, int diamands, Item item, BankHandlerInterface bankHandler);

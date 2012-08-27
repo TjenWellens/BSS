@@ -1,11 +1,11 @@
 package eu.tjenwellens.bss.serverVSclient.communication.dataToServer;
 
-import java.io.Serializable;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
 
 /**
  *
  * @author Tjen
  */
-public class Idle implements Serializable
+public class Idle extends Command
 {
 }

@@ -1,10 +1,10 @@
 package eu.tjenwellens.bss.serverVSclient.parse;
 
-import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataForClient;
 import eu.tjenwellens.bss.factions.Faction;
 import eu.tjenwellens.bss.mvc.view.View;
 import eu.tjenwellens.bss.players.GetPlayer;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataFaction;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataForClient;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataGamer;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataMap;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataPlayer;

@@ -1,6 +1,5 @@
 package eu.tjenwellens.bss.actionhandlers.decorateAction;
 
-import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.ActionHandlerInterface;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 
@@ -10,7 +9,7 @@ import eu.tjenwellens.bss.players.inventory.items.Tool;
  */
 public interface DecorateHanderInterface extends ActionHandlerInterface
 {
-    public boolean addDecorate(DecoratePlayer player, Decoration decoration, Position location, Tool tool);
+    public boolean addDecorate(DecoratePlayer player, Decoration decoration, int row, int col, Tool tool);
 
     public boolean updateDecorates();
 

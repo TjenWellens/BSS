@@ -178,7 +178,7 @@ public class PlayerHandler implements PlayerHandlerInterface
     }
 
     @Override
-    public boolean decorate(int playerId, Decoration decoration, Position location, Tool tool)
+    public boolean decorate(int playerId, Decoration decoration, int row, int col, Tool tool)
     {
         if (!playerExists(playerId))
         {
@@ -196,12 +196,12 @@ public class PlayerHandler implements PlayerHandlerInterface
             System.out.println("ERROR: PlayerHandler.decorate");
             return false;
         }
-        if (location == null)
+        if (row < 0 || col < 0)
         {
             System.out.println("ERROR: PlayerHandler.decorate");
             return false;
         }
-        player.decorate(decoration, location, tool, decorateHander);
+        player.decorate(decoration, row, col, tool, decorateHander);
         return true;
     }
 

@@ -1,7 +1,6 @@
 package eu.tjenwellens.bss.map;
 
 import eu.tjenwellens.bss.factions.Faction;
-import java.awt.Point;
 
 /**
  *
@@ -13,5 +12,7 @@ public interface GetTile
 
     boolean isWalled();
 
-    Point getPoint();
+    int getRow();
+
+    int getCol();
 }

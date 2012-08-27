@@ -1,6 +1,5 @@
 package eu.tjenwellens.bss.map;
 
-import java.awt.Point;
 import eu.tjenwellens.bss.factions.Faction;
 
 /**
@@ -11,13 +10,15 @@ public class Tile implements GetTile
 {
     private final Faction faction;
     private final boolean walled;
-    private Point point;
+    private int row;
+    private int col;
 
-    public Tile(Faction faction, boolean walled, Point point)
+    public Tile(Faction faction, boolean walled, int row, int col)
     {
         this.faction = faction;
         this.walled = walled;
-        this.point = point;
+        this.row = row;
+        this.col = col;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class Tile implements GetTile
             return false;
         }
         final Tile other = (Tile) obj;
-        if (this.point != other.point && (this.point == null || !this.point.equals(other.point)))
+        if (this.row != other.row || this.col != other.col)
         {
             return false;
         }
@@ -43,7 +44,8 @@ public class Tile implements GetTile
     public int hashCode()
     {
         int hash = 7;
-        hash = 41 * hash + (this.point != null ? this.point.hashCode() : 0);
+        hash = 59 * hash + this.row;
+        hash = 59 * hash + this.col;
         return hash;
     }
 
@@ -66,8 +68,14 @@ public class Tile implements GetTile
     }
 
     @Override
-    public Point getPoint()
+    public int getRow()
     {
-        return point;
+        return row;
+    }
+
+    @Override
+    public int getCol()
+    {
+        return col;
     }
 }

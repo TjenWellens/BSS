@@ -1,9 +1,14 @@
 package eu.tjenwellens.bss.serverVSclient.client.mvc;
 
-import eu.tjenwellens.bss.factions.Faction;
-import eu.tjenwellens.bss.map.Tile;
-import eu.tjenwellens.bss.serverVSclient.CommunicationConstants;
+import eu.tjenwellens.bss.serverVSclient.client.components.ClientFaction;
+import eu.tjenwellens.bss.serverVSclient.client.components.ClientGamer;
+import eu.tjenwellens.bss.serverVSclient.client.components.ClientMap;
 import eu.tjenwellens.bss.serverVSclient.client.components.ClientPlayer;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataFaction;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataForClient;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataGamer;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataMap;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,93 +16,46 @@ import java.util.List;
  *
  * @author tjen
  */
-public class Data implements CommunicationConstants
+public class Data
 {
-    String[] line;
-    List<ClientPlayer> players;
-    List<Tile> tiles;
-    List<Faction> factions;
+    ClientGamer gamer = null;
+    List<ClientPlayer> players = null;
+    ClientMap map = null;
+    List<ClientFaction> factions = null;
 
-    /*
-     * line 1: "update" line 2: "Players..."[endDelim]"Factions..."[endDelim]"Map..."
-     */
-    public Data(String[] line)
+    public Data(DataForClient dfc)
     {
-        this.line = line;
-        decode(line[1]);
-    }
-
-    private void decode(String data)
-    {
-        for (String block : data.split(END))
+        // gamer
+        DataGamer dg = dfc.getPlayer();
+        if (dg != null)
         {
-            decodeBlock(block);
+            this.gamer = new ClientGamer(dg);
         }
-    }
-
-    private void decodeBlock(String block)
-    {
-        block = block.trim();
-        if (block.startsWith("update"))
+        // players
+        List<DataPlayer> dps = dfc.getOpponents();
+        if (dps != null)
         {
-            // do nothing and proceed to next block
-        } else if (block.startsWith("players"))
-        {
-            decodePlayers(block);
-        } else if (block.startsWith("map"))
-        {
-            decodeMap(block);
-        } else if (block.startsWith("factions"))
-        {
-            decodeFactions(block);
-        } else
-        {
-            System.out.println("UNKNOWN DATA RECEIVED");
-        }
-    }
-
-    /* "players"    + [beginDelim]
-     *              + playerName + [pieceDelim]
-     *              + int factionId + [pieceDelim]
-     *              + int x + [pieceDelim]
-     *              + int y + [pieceDelim]
-     *              + int stateID + [pieceDelim]
-     *              + int continuesmoving
-     *              + [pieceEnd]
-     *              ...
-     */
-    private ArrayList<ClientPlayer> decodePlayers(String decode)
-    {
-        ArrayList<ClientPlayer> tempPlayers = new ArrayList<ClientPlayer>();
-
-        String[] playerStrs = decode.split(BEGIN)[1].split(PIECE_END);
-
-        for (String playerStr : playerStrs)
-        {
-            ClientPlayer player = new ClientPlayer();
-            if (player.fromData(playerStr.split(PIECE_BEGIN)))
+            players = new ArrayList<ClientPlayer>();
+            for (DataPlayer dataPlayer : dps)
             {
-                tempPlayers.add(player);
-            } else
-            {
-                System.out.println("Decode failure");
+                players.add(new ClientPlayer(dataPlayer));
             }
         }
-
-        return tempPlayers;
-    }
-
-    private ArrayList<Tile> decodeMap(String decode)
-    {
-        ArrayList<Tile> tempTiles = new ArrayList<Tile>();
-
-        return tempTiles;
-    }
-
-    private ArrayList<Faction> decodeFactions(String decode)
-    {
-        ArrayList<Faction> tempTiles = new ArrayList<Faction>();
-
-        return tempTiles;
+        // map
+        DataMap dm = dfc.getMap();
+        if (dm != null)
+        {
+            map = new ClientMap(dm);
+        }
+        // factions
+        List<DataFaction> dfs = dfc.getFactions();
+        if (dfs != null)
+        {
+            factions = new ArrayList<ClientFaction>();
+            for (DataFaction dataFaction : dfs)
+            {
+                factions.add(new ClientFaction(dataFaction));
+            }
+        }
     }
 }

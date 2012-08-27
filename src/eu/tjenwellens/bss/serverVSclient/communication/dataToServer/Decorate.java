@@ -1,24 +1,25 @@
 package eu.tjenwellens.bss.serverVSclient.communication.dataToServer;
 
-import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
-import java.io.Serializable;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
 
 /**
  *
  * @author Tjen
  */
-public class Decorate implements Serializable
+public class Decorate extends Command
 {
     private Decoration decoration;
-    private Position position;
+    private int row;
+    private int col;
     private Tool tool;
 
-    public Decorate(Decoration decoration, Position position, Tool tool)
+    public Decorate(Decoration decoration, int row, int col, Tool tool)
     {
         this.decoration = decoration;
-        this.position = position;
+        this.row = row;
+        this.col = col;
         this.tool = tool;
     }
 
@@ -27,9 +28,14 @@ public class Decorate implements Serializable
         return decoration;
     }
 
-    public Position getPosition()
+    public int getRow()
     {
-        return position;
+        return row;
+    }
+
+    public int getCol()
+    {
+        return col;
     }
 
     public Tool getTool()

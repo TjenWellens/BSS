@@ -27,7 +27,7 @@ public interface PlayerHandlerInterface
 
     boolean engage(int playerId, String opponentName);
 
-    boolean decorate(int playerId, Decoration decoration, Position location, Tool tool);
+    boolean decorate(int playerId, Decoration decoration, int row, int col, Tool tool);
 
     boolean bank(int playerId, Transaction transaction, int diamands, Item item);
 

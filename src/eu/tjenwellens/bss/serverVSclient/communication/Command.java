@@ -1,9 +1,11 @@
 package eu.tjenwellens.bss.serverVSclient.communication;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Tjen
  */
-public class CloseStream extends Command
+public class Command implements Serializable
 {
 }

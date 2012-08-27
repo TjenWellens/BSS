@@ -6,14 +6,13 @@
 package eu.tjenwellens.bss.serverVSclient.client.mvc.concretes;
 
 import eu.tjenwellens.bss.GameConstants;
-import eu.tjenwellens.bss.Position;
-import eu.tjenwellens.bss.factions.Faction;
-import eu.tjenwellens.bss.map.GetTile;
-import eu.tjenwellens.bss.players.GetPlayer;
+import eu.tjenwellens.bss.serverVSclient.client.components.ClientFaction;
+import eu.tjenwellens.bss.serverVSclient.client.components.ClientMap;
+import eu.tjenwellens.bss.serverVSclient.client.components.ClientPlayer;
+import eu.tjenwellens.bss.serverVSclient.client.components.ClientTile;
 import eu.tjenwellens.bss.serverVSclient.client.mvc.Observer;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,9 +21,9 @@ import java.util.List;
  */
 public class MapPanel extends javax.swing.JPanel implements Observer
 {
-    public List<Faction> factions;
-    public GetTile[][] map;
-    public HashMap<String, GetPlayer> players = new HashMap<String, GetPlayer>();
+    public List<ClientFaction> factions;
+    public ClientMap map;
+    public List<ClientPlayer> players;
 
     /**
      * Creates new form MapPanel
@@ -32,6 +31,41 @@ public class MapPanel extends javax.swing.JPanel implements Observer
     public MapPanel()
     {
         initComponents();
+    }
+
+    private ClientTile getTile(int row, int col)
+    {
+        ClientTile ret = map.tiles.get(row * map.cols + col);
+        if (ret.col == col && ret.row == row)
+        {
+            return ret;
+        }
+        System.out.println("ClientTile not at assumed position");
+        for (ClientTile clientTile : map.tiles)
+        {
+            if (clientTile.col == col && clientTile.row == row)
+            {
+                return clientTile;
+            }
+        }
+        return null;
+    }
+
+    private Color getColor(String colorName)
+    {
+        if ("rood".equalsIgnoreCase(colorName))
+        {
+            return Color.red;
+        } else if ("blauw".equalsIgnoreCase(colorName))
+        {
+            return (Color.blue);
+        } else if ("geel".equalsIgnoreCase(colorName))
+        {
+            return (Color.yellow);
+        } else
+        {
+            return (Color.gray);
+        }
     }
 
     @Override
@@ -43,27 +77,27 @@ public class MapPanel extends javax.swing.JPanel implements Observer
             if (map != null)
             {
                 Color lineColor = Color.LIGHT_GRAY;
-                int maprows = map.length;
-                int mapcols = map[0].length;
+                int maprows = map.rows;
+                int mapcols = map.cols;
                 int tilew = (this.getWidth() / mapcols);
                 int tileh = (this.getHeight() / maprows);
-                for (int y = 0; y < map.length; y++)
+                for (int y = 0; y < maprows; y++)
                 {
                     // raster _-_-
                     g.setColor(lineColor);
-                    g.drawLine(0, y * tileh, map.length * tilew, y * tileh);
-                    for (int x = 0; x < map[y].length; x++)
+                    g.drawLine(0, y * tileh, maprows * tilew, y * tileh);
+                    for (int x = 0; x < mapcols; x++)
                     {
                         // raster | | |
                         g.setColor(lineColor);
-                        g.drawLine(x * tilew, 0, x * tilew, map[0].length * tileh);
+                        g.drawLine(x * tilew, 0, x * tilew, mapcols * tileh);
                         // tile
-                        GetTile tile = map[y][x];
-                        g.setColor(tile.getFaction().getColor());
+                        ClientTile tile = getTile(y, x);
+                        g.setColor(getColor(tile.factionName));
                         g.fillRect(x * tilew, y * tileh, tilew, tileh);
 
                         // wall
-                        if (tile.isWalled())
+                        if (tile.isWalled)
                         {
                             g.setColor(Color.black);
                             g.drawLine(x * tilew, y * tileh, x * tilew + tilew, y * tileh + tileh);
@@ -72,22 +106,23 @@ public class MapPanel extends javax.swing.JPanel implements Observer
                     }
                 }
                 g.setColor(lineColor);
-                for (int x = 0; x < map.length; x++)
+                for (int x = 0; x < maprows; x++)
                 {
                     // raster _-_-
-                    g.drawLine(x * tilew, 0, x * tilew, map[0].length * tileh);
-                    for (int y = 0; y < map[x].length; y++)
+                    g.drawLine(x * tilew, 0, x * tilew, mapcols * tileh);
+                    for (int y = 0; y < mapcols; y++)
                     {
                         // raster | | |
-                        g.drawLine(0, y * tileh, map.length * tilew, y * tileh);
+                        g.drawLine(0, y * tileh, maprows * tilew, y * tileh);
                     }
                 }
             }
             if (players != null)
             {
-                for (GetPlayer getPlayer : players.values())
+                for (ClientPlayer getPlayer : players)
                 {
-                    Position p = getPlayer.getPosition();
+                    int xPosition = getPlayer.xPosition;
+                    int yPosition = getPlayer.yPosition;
                     int mapw = GameConstants.MAP_WIDTH;
                     int maph = GameConstants.MAP_HEIGHT;
                     int panelWidth = this.getWidth();
@@ -95,9 +130,9 @@ public class MapPanel extends javax.swing.JPanel implements Observer
                     double xFactor = (double) panelWidth / (double) mapw;
                     double yFactor = (double) panelHeight / (double) maph;
                     int pSize = (int) ((double) GameConstants.PLAYER_RADIUS * (double) xFactor);
-                    int x = (int) ((p.getX() + ((double) GameConstants.PLAYER_RADIUS / (double) 2)) * xFactor);
-                    int y = (int) ((p.getY() + ((double) GameConstants.PLAYER_RADIUS / (double) 2)) * yFactor);
-                    g.setColor(getPlayer.getFaction().getColor());
+                    int x = (int) ((xPosition + ((double) GameConstants.PLAYER_RADIUS / (double) 2)) * xFactor);
+                    int y = (int) ((yPosition + ((double) GameConstants.PLAYER_RADIUS / (double) 2)) * yFactor);
+                    g.setColor(getColor(getPlayer.factionName));
                     g.fillOval(x, y, pSize, pSize);
                 }
             }

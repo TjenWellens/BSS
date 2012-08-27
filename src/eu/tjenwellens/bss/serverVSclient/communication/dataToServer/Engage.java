@@ -1,12 +1,12 @@
 package eu.tjenwellens.bss.serverVSclient.communication.dataToServer;
 
-import java.io.Serializable;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
 
 /**
  *
  * @author Tjen
  */
-public class Engage implements Serializable
+public class Engage extends Command
 {
     private String opponentName;
 

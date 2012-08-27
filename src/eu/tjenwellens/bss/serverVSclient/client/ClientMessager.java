@@ -1,12 +1,24 @@
 package eu.tjenwellens.bss.serverVSclient.client;
 
+import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
-import eu.tjenwellens.bss.serverVSclient.client.mvc.Data;
 import eu.tjenwellens.bss.serverVSclient.client.mvc.ServerToModel;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Bank;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.ChooseWeapon;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Decorate;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Engage;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Idle;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Walk;
+import eu.tjenwellens.bss.serverVSclient.communication.init.DoLogin;
+import eu.tjenwellens.bss.serverVSclient.communication.init.DoQuickplay;
+import eu.tjenwellens.bss.serverVSclient.communication.init.DoSave;
+import eu.tjenwellens.bss.serverVSclient.communication.init.DoSignup;
+import eu.tjenwellens.bss.serverVSclient.communication.init.Logout;
 
 /**
  *
@@ -25,118 +37,72 @@ public class ClientMessager extends ServerHandler implements Communication
     @Override
     public void bank(Transaction transaction, int diamonds, Item item)
     {
-        String command = "command bank "
-                + transaction.toString() + " "
-                + diamonds + " "
-                + item.toString();
-        send(command);
+        send(new Bank(transaction, diamonds, item));
     }
 
     @Override
     public void chooseWeapon(Weapon weapon)
     {
-        String command = "command chooseweapon " + weapon;
-        send(command);
+        send(new ChooseWeapon(weapon));
     }
 
     @Override
-    public void decorate(Decoration d, int x, int y, Tool t)
+    public void decorate(Decoration d, int row, int col, Tool t)
     {
-        String command = "command decorate "
-                + d.toString() + " "
-                + x + " "
-                + y + " "
-                + t.toString();
-        send(command);
+        send(new Decorate(d, row, col, t));
     }
 
     @Override
     public void engage(String opponentName)
     {
-        String command = "command "
-                + opponentName;
-        send(command);
+        send(new Engage(opponentName));
     }
 
     @Override
     public void idle()
     {
-        String command = "command idle";
-        send(command);
+        send(new Idle());
     }
 
     @Override
     public void walk(int x, int y)
     {
-        String command = "command walk "
-                + x + " "
-                + y;
-        send(command);
+        send(new Walk(new Position(x, y)));
     }
 
     @Override
     public void login(String name, String pass, String playerName, String factionName, int x, int y)
     {
-        String command = "login "
-                + name + " "
-                + pass + " "
-                + playerName + " "
-                + factionName + " "
-                + x + " "
-                + y;
-        send(command);
+        send(new DoLogin(name, pass, playerName, factionName, new Position(x, y)));
     }
 
     @Override
     public void logout()
     {
-        String command = "logout";
-        send(command);
+        send(new Logout());
     }
 
     @Override
     public void quickplay(String playerName, String factionName, int x, int y)
     {
-        String command = "quickplay "
-                + playerName + " "
-                + factionName + " "
-                + x + " "
-                + y;
-        send(command);
+        send(new DoQuickplay(playerName, factionName, new Position(x, y)));
     }
 
     @Override
     public void signup(String name, String pass, String playerName)
     {
-        String command = "signup "
-                + name + " "
-                + pass + " "
-                + playerName;
-        send(command);
+        send(new DoSignup(name, pass, playerName));
     }
 
     @Override
     public void save(String name, String pass, String playerName)
     {
-        String command = "save "
-                + name + " "
-                + pass + " "
-                + playerName;
-        send(command);
+        send(new DoSave(name, pass, playerName));
     }
 
     @Override
-    public void interpretLine(String line)
+    protected void handleInput(Command command)
     {
-        line = line.trim();
-        // TODO: convert line to data if possible
-        if (line.startsWith("update ")) // if the input are actual updates
-        {
-            Data data = new Data(line.split(" "));
-            model.update(data);
-        } else if (line.startsWith("end")) // if connection is ended
-        {
-            end();
-        }// ...
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

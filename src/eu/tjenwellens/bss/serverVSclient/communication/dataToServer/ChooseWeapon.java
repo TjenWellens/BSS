@@ -1,13 +1,13 @@
 package eu.tjenwellens.bss.serverVSclient.communication.dataToServer;
 
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
-import java.io.Serializable;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
 
 /**
  *
  * @author Tjen
  */
-public class ChooseWeapon implements Serializable
+public class ChooseWeapon extends Command
 {
     private Weapon weapon;
 

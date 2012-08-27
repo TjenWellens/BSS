@@ -14,7 +14,7 @@ public abstract class TileFactory
 
     public static GetTile createTile(Faction faction, boolean walled, int xPos, int yPos)
     {
-        return new Tile(faction, walled, new Point(xPos, yPos));
+        return new Tile(faction, walled, xPos, yPos);
     }
 
     public static GetTile createTile(Faction faction, int xPos, int yPos)

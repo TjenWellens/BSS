@@ -57,10 +57,10 @@ public abstract class PlayerGeneralState implements PlayerState
     }
 
     @Override
-    public boolean decorate(StatePlayer player, Decoration decoration, Position location, Tool tool, DecorateHanderInterface decorationHander)
+    public boolean decorate(StatePlayer player, Decoration decoration, int row, int col, Tool tool, DecorateHanderInterface decorationHander)
     {
         player.resetActions();
-        if (decorationHander.addDecorate(player, decoration, location, tool))
+        if (decorationHander.addDecorate(player, decoration, row, col, tool))
         {
             player.addActionHandler(decorationHander);
             player.setState(PlayerState.DECORATE);

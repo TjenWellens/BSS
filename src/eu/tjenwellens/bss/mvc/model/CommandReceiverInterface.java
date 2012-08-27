@@ -19,7 +19,7 @@ public interface CommandReceiverInterface
 
     void engageCommand(int playerId, String opponentName);
 
-    void decorateCommand(int playerId, Decoration decoration, Position location, Tool tool);
+    void decorateCommand(int playerId, Decoration decoration, int row, int col, Tool tool);
 
     void bankCommand(int playerId, Transaction transaction, int diamands, Item item);
 

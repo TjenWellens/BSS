@@ -21,7 +21,7 @@ public interface InputInterface
     public void chooseWeapon(int playerID, Weapon weapon);
 
     // -decorate
-    public void decorate(int playerID, Decoration d, Position destination, Tool t);
+    public void decorate(int playerID, Decoration d, int row, int col, Tool t);
 
     // -engage
     public void engage(int playerID, String opponentName);

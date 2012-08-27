@@ -3,10 +3,13 @@ package eu.tjenwellens.bss.mvc.view;
 import java.util.HashMap;
 import java.util.List;
 import eu.tjenwellens.bss.factions.Faction;
+import eu.tjenwellens.bss.map.GetMap;
 import eu.tjenwellens.bss.map.GetTile;
 import eu.tjenwellens.bss.mvc.model.GetModelData;
 import eu.tjenwellens.bss.mvc.observe.GlobalObserver;
 import eu.tjenwellens.bss.players.GetPlayer;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -16,7 +19,7 @@ public class View implements GlobalObserver
 {
     private GetModelData model;
     private List<Faction> factions = null;
-    private GetTile[][] map = null;
+    private GetMap map = null;
     private HashMap<Integer, GetPlayer> players = null;
 
     public View(GetModelData model)
@@ -28,7 +31,7 @@ public class View implements GlobalObserver
     public void notifyGlobalObserver()
     {
         factions = model.getFactions();
-        map = model.getMap();
+        map = new PrivateMap(model.getMap());
         players = model.getPlayers();
     }
 
@@ -42,7 +45,7 @@ public class View implements GlobalObserver
         return factions;
     }
 
-    public GetTile[][] getMap()
+    public GetMap getMap()
     {
         return map;
     }
@@ -50,5 +53,37 @@ public class View implements GlobalObserver
     public HashMap<Integer, GetPlayer> getPlayers()
     {
         return players;
+    }
+
+    private static class PrivateMap implements GetMap
+    {
+        private int rows;
+        private int cols;
+        private List<GetTile> tiles;
+
+        public PrivateMap(GetMap getMap)
+        {
+            rows = getMap.getRows();
+            cols = getMap.getCols();
+            tiles = getMap.getTiles();
+        }
+
+        @Override
+        public List<GetTile> getTiles()
+        {
+            return tiles;
+        }
+
+        @Override
+        public int getRows()
+        {
+            return rows;
+        }
+
+        @Override
+        public int getCols()
+        {
+            return cols;
+        }
     }
 }

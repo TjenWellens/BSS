@@ -1,12 +1,13 @@
 package eu.tjenwellens.bss.serverVSclient.communication.init;
 
-import java.io.Serializable;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
+
 
 /**
  *
  * @author Tjen
  */
-public class Err implements Serializable
+public class Err extends Command
 {
     private String errorMessage;
 

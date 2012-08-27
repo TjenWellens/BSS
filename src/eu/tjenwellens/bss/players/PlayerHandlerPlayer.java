@@ -25,7 +25,7 @@ public interface PlayerHandlerPlayer extends GetPlayer, AttackPlayer, WalkObstac
 
     boolean engage(AttackPlayer opponent, EngageHandlerInterface engageHandler);
 
-    boolean decorate(Decoration decoration, Position location, Tool tool, DecorateHanderInterface decorateHander);
+    boolean decorate(Decoration decoration, int row, int col, Tool tool, DecorateHanderInterface decorateHander);
 
     boolean bank(Transaction transaction, int diamands, Item item, BankHandlerInterface bankHandler);
 

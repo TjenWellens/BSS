@@ -2,13 +2,13 @@ package eu.tjenwellens.bss.serverVSclient.communication.dataToServer;
 
 import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
 import eu.tjenwellens.bss.players.inventory.items.Item;
-import java.io.Serializable;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
 
 /**
  *
  * @author Tjen
  */
-public class Bank implements Serializable
+public class Bank extends Command
 {
     private Transaction transaction;
     private int diamonds;

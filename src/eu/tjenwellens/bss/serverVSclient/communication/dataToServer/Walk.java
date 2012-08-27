@@ -1,13 +1,13 @@
 package eu.tjenwellens.bss.serverVSclient.communication.dataToServer;
 
 import eu.tjenwellens.bss.Position;
-import java.io.Serializable;
+import eu.tjenwellens.bss.serverVSclient.communication.Command;
 
 /**
  *
  * @author Tjen
  */
-public class Walk implements Serializable
+public class Walk extends Command
 {
     private Position position;
 

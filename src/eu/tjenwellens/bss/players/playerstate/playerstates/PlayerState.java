@@ -38,7 +38,7 @@ public interface PlayerState
 
     boolean engage(StatePlayer player, AttackPlayer opponent, EngageHandlerInterface engageHandler);
 
-    boolean decorate(StatePlayer player, Decoration decoration, Position location, Tool tool, DecorateHanderInterface decorationHander);
+    boolean decorate(StatePlayer player, Decoration decoration, int row, int col, Tool tool, DecorateHanderInterface decorationHander);
 
     boolean bank(StatePlayer player, Transaction transaction, int diamands, Item item,
             Inventory inventory, BankAccount bankAccount, Store store, BankHandlerInterface bankHandler);
