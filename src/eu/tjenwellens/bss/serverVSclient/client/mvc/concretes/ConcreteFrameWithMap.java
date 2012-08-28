@@ -192,7 +192,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
                 .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
                     .addComponent(btnCancel))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
@@ -209,7 +209,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGap(104, 104, 104)
                 .addComponent(loginInternalFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addContainerGap(324, Short.MAX_VALUE))
         );
 
         loginPanel.setBounds(10, 10, 530, 720);
@@ -441,7 +441,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         {
             account = character;
 //            pass = Integer.parseInt(password);
-            communication.quickplay(character, factionName, 10, 10);
+            communication.login(name, password, character, factionName, 10, 10);
             gamePanel.setVisible(true);
             actionPanel.setVisible(true);
             active = true;
@@ -464,8 +464,8 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         int panelHeight = drawPanel.getHeight();
         double xFactor = (double) mapw / (double) panelWidth;
         double yFactor = (double) maph / (double) panelHeight;
-        int x = (int) ((evt.getX() ) * xFactor);
-        int y = (int) ((evt.getY() ) * yFactor);
+        int x = (int) ((evt.getX()) * xFactor);
+        int y = (int) ((evt.getY()) * yFactor);
         Position p = new Position(x, y);
         if (evt.getButton() == MouseEvent.BUTTON1)
         {// Move ya ass!

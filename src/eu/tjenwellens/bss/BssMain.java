@@ -1,9 +1,5 @@
 package eu.tjenwellens.bss;
 
-import eu.tjenwellens.bss.mvc.concretes.ConcreteFrameWithMap;
-import eu.tjenwellens.bss.mvc.controller.Controller;
-import eu.tjenwellens.bss.mvc.model.Model;
-import eu.tjenwellens.bss.mvc.view.View;
 import eu.tjenwellens.bss.serverVSclient.ClientMain;
 import eu.tjenwellens.bss.serverVSclient.ServerMain;
 

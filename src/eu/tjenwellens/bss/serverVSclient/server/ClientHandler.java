@@ -50,11 +50,11 @@ public class ClientHandler implements Updatable
     private int socketErrorCounter = 0;
     private int maxSockErrors = 100;
     // player information
-    private int playerId = -1;
+    private int playerId = 0;
     // state: 
     // not inited   = no init received
-    // inited       = init received && playerid < 0
-    // logged in    = init received && playerid > 0
+    // inited       = init received && playerid == 0
+    // logged in    = init received && playerid != 0
     private boolean initReceived = false;
 
     ClientHandler(Socket clientSocket, String clientAddress, ClientListener clientListener, InputInterface input, OutputInterface output)
@@ -121,7 +121,7 @@ public class ClientHandler implements Updatable
             {
                 // need to init first
                 System.out.println("ERROR: need to init stream" + leesObject);
-            } else if (playerId < 0)    // player needs to log in
+            } else if (playerId == 0)    // player needs to log in
             {
                 if (leesObject instanceof DoLogin)
                 {
@@ -216,7 +216,7 @@ public class ClientHandler implements Updatable
 
     private void manageOutput() throws IOException, ClassNotFoundException
     {
-        if (playerId < 0)
+        if (playerId == 0)
         {
 //            System.out.println("player not initialized");
             return;
@@ -257,6 +257,7 @@ public class ClientHandler implements Updatable
 
     private void closeSocket()
     {
+        input.logout(playerId);
         try
         {
             out.writeObject(new CloseStream());

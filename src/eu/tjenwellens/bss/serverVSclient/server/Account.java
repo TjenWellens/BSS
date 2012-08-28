@@ -19,6 +19,12 @@ public class Account
         this.playerName = playerName;
     }
 
+    @Override
+    public String toString()
+    {
+        return "Account{" + "id=" + id + ", name=" + name + ", pass=" + pass + ", playerName=" + playerName + '}';
+    }
+
     boolean validate(String name, String pass, String playerName)
     {
         if (!this.name.equals(name))
@@ -34,6 +40,11 @@ public class Account
             return false;
         }
         return true;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     public int getId()

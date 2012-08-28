@@ -3,6 +3,7 @@ package eu.tjenwellens.bss.mvc.model;
 import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
+import eu.tjenwellens.bss.players.GetPlayer;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;

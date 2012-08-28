@@ -89,13 +89,13 @@ public class MapHandler implements MapHandlerInterface, GameConstants
         }
         if (!map.isPositionInMap(row, col))
         {
-            System.out.println("ERROR: Wall not built, position not in map: ");
+            System.out.println("ERROR: Tile not painted, position not in map: ");
             return false;
         }
         GetTile tile = getTile(row, col);
         if (tile.isWalled())
         {
-            System.out.println("ERROR: Wall not built, allready walled: ");
+            System.out.println("ERROR: Tile not painted, allready walled: ");
             return false;
         }
         map.setTile(TileFactory.createTile(playerFaction, false, col, row));
@@ -113,7 +113,7 @@ public class MapHandler implements MapHandlerInterface, GameConstants
         }
         if (!map.isPositionInMap(row, col))
         {
-            System.out.println("ERROR: Wall not built, position not in map: ");
+            System.out.println("ERROR: Wall not destroyed, position not in map: ");
             return false;
         }
         GetTile tile = getTile(row, col);

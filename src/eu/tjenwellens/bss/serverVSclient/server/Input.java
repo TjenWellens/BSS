@@ -22,7 +22,7 @@ public class Input implements InputInterface
     {
         this.ci = commandInvoker;
         this.cr = commandReceiver;
-        this.ah = new SimpleAccountHandler(commandInvoker, commandReceiver);
+        this.ah = new DBAccountHandler(commandInvoker, commandReceiver);
     }
 
     @Override
