@@ -36,6 +36,12 @@ public class Map implements MapI
     }
 
     @Override
+    public String toString()
+    {
+        return tiles.toString();
+    }
+
+    @Override
     public List<GetTile> getTiles()
     {
         return new ArrayList<GetTile>(tiles);
@@ -54,7 +60,7 @@ public class Map implements MapI
     }
 
     @Override
-    public boolean positionInMap(int row, int col)
+    public boolean isPositionInMap(int row, int col)
     {
         return 0 <= row && row < rows && 0 <= col && col < cols;
     }
@@ -80,7 +86,7 @@ public class Map implements MapI
     @Override
     public GetTile getTile(int row, int col)
     {
-        if (!positionInMap(row, col))
+        if (!isPositionInMap(row, col))
         {
             return null;
         }

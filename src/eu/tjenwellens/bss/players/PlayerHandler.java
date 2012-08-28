@@ -182,13 +182,13 @@ public class PlayerHandler implements PlayerHandlerInterface
     {
         if (!playerExists(playerId))
         {
-            System.out.println("ERROR: PlayerHandler.decorate");
+            System.out.println("ERROR: PlayerHandler.decorate: player does not exist");
             return false;
         }
         PlayerHandlerPlayer player = getLocalPlayer(playerId);
         if (player == null)
         {
-            System.out.println("ERROR: PlayerHandler.decorate");
+            System.out.println("ERROR: PlayerHandler.decorate: player is null");
             return false;
         }
         if (decoration == null)
@@ -198,7 +198,7 @@ public class PlayerHandler implements PlayerHandlerInterface
         }
         if (row < 0 || col < 0)
         {
-            System.out.println("ERROR: PlayerHandler.decorate");
+            System.out.println("ERROR: PlayerHandler.decorate: invalid location");
             return false;
         }
         player.decorate(decoration, row, col, tool, decorateHander);
@@ -210,18 +210,18 @@ public class PlayerHandler implements PlayerHandlerInterface
     {
         if (!playerExists(playerId))
         {
-            System.out.println("ERROR: PlayerHandler.bank");
+            System.out.println("ERROR: PlayerHandler.bank: player does not exist");
             return false;
         }
         PlayerHandlerPlayer player = getLocalPlayer(playerId);
         if (player == null)
         {
-            System.out.println("ERROR: PlayerHandler.bank");
+            System.out.println("ERROR: PlayerHandler.bank: player is null");
             return false;
         }
-        if (transaction != null)
+        if (transaction == null)
         {
-            System.out.println("ERROR: PlayerHandler.bank");
+            System.out.println("ERROR: PlayerHandler.bank: transaction is null");
             return false;
         }
         player.bank(transaction, diamands, item, bankHandler);
@@ -233,18 +233,18 @@ public class PlayerHandler implements PlayerHandlerInterface
     {
         if (!playerExists(playerId))
         {
-            System.out.println("ERROR: PlayerHandler.chooseWeapon");
+            System.out.println("ERROR: PlayerHandler.chooseWeapon: player does not exist");
             return false;
         }
         PlayerHandlerPlayer player = getLocalPlayer(playerId);
         if (player == null)
         {
-            System.out.println("ERROR: PlayerHandler.chooseWeapon");
+            System.out.println("ERROR: PlayerHandler.chooseWeapon: player is null");
             return false;
         }
-        if (weapon != null)
+        if (weapon == null)
         {
-            System.out.println("ERROR: PlayerHandler.chooseWeapon");
+            System.out.println("ERROR: PlayerHandler.chooseWeapon: weapon is null");
             return false;
         }
         player.chooseWeapon(weapon);
@@ -295,8 +295,7 @@ public class PlayerHandler implements PlayerHandlerInterface
     @Override
     public HashMap<Integer, GetPlayer> getPlayersCopy()
     {
-        HashMap<Integer, GetPlayer> playersCopy = new HashMap<Integer, GetPlayer>(players);
-        return playersCopy;
+        return new HashMap<Integer, GetPlayer>(players);
     }
 
     private static class ImmutableGetPlayer implements GetPlayer

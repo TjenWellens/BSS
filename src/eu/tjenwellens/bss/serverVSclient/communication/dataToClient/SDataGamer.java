@@ -1,7 +1,9 @@
 package eu.tjenwellens.bss.serverVSclient.communication.dataToClient;
 
+import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.attackAction.AttackResult;
 import eu.tjenwellens.bss.players.GetPlayer;
+import eu.tjenwellens.bss.players.OpponentPlayer;
 
 /**
  *
@@ -10,12 +12,10 @@ import eu.tjenwellens.bss.players.GetPlayer;
 public class SDataGamer implements DataGamer
 {
     private String playerName;
-    private int xPosition;
-    private int yPosition;
+    private Position position;
     private String factionName;
     private String state;
-    private int xDestination;
-    private int yDestination;
+    private Position destination;
     private int winns;
     private int losses;
     private int duelResult;
@@ -24,17 +24,28 @@ public class SDataGamer implements DataGamer
     public SDataGamer(GetPlayer player)
     {
         playerName = player.getPlayerName();
-        xPosition = player.getPosition().getX();
-        yPosition = player.getPosition().getY();
+        position = player.getPosition();
         factionName = player.getFaction().getFactionName();
         state = player.getState().name();
-        xDestination = player.getDestination().getX();
-        yDestination = player.getDestination().getY();
+        destination = player.getDestination();
         winns = player.getWinns();
         losses = player.getLosses();
         AttackResult a = player.getPreviousDuelResult();
-        duelResult = a.isDraw() ? 0 : a.getWinner().getPlayerID() == player.getPlayerID() ? 1 : 0;
-        opponentName = player.getOpponent().getPlayerName();
+        if (a != null)
+        {
+            duelResult = a.isDraw() ? 0 : a.getWinner().getPlayerID() == player.getPlayerID() ? 1 : 0;
+        } else
+        {
+            duelResult = -3;
+        }
+        OpponentPlayer op = player.getOpponent();
+        if (op == null)
+        {
+            opponentName = null;
+        } else
+        {
+            opponentName = player.getOpponent().getPlayerName();
+        }
     }
 
     @Override
@@ -43,16 +54,9 @@ public class SDataGamer implements DataGamer
         return playerName;
     }
 
-    @Override
-    public int getXPosition()
+    public Position getPosition()
     {
-        return xPosition;
-    }
-
-    @Override
-    public int getYPosition()
-    {
-        return yPosition;
+        return position;
     }
 
     @Override
@@ -67,16 +71,9 @@ public class SDataGamer implements DataGamer
         return state;
     }
 
-    @Override
-    public int getXDestination()
+    public Position getDestination()
     {
-        return xDestination;
-    }
-
-    @Override
-    public int getYDestination()
-    {
-        return yDestination;
+        return destination;
     }
 
     @Override

@@ -232,7 +232,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
     @Override
     public Position getDestination()
     {
-        return position;
+        return destination;
     }
 
     @Override

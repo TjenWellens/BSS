@@ -19,7 +19,7 @@ public interface MapI extends GetMap
 
     void setTile(GetTile getTile);
 
-    boolean positionInMap(int row, int col);
+    boolean isPositionInMap(int row, int col);
 
     GetTile getTile(int row, int col);
 

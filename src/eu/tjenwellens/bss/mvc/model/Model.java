@@ -234,6 +234,7 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
     @Override
     public void createPlayerCommand(int id, String playerName, String factionName, Position position)
     {
+        System.out.println("Model.createPlayer");
         Faction faction = factionHandler.getFactionByName(factionName);
         if (faction == null || faction.equals(factionHandler.getNullFaction()))
         {

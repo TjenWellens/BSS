@@ -28,19 +28,19 @@ public class MapHandler implements MapHandlerInterface, GameConstants
         tileWidth = (int) (MAP_WIDTH / rows);
         tileHeight = (int) (MAP_HEIGHT / cols);
         GetTile[][] tiles = new GetTile[rows][cols];
-        for (int row = 0; row < tiles.length; row++)
+        for (int row = 0; row < rows; row++)
         {
-            for (int col = 0; col < tiles[row].length; col++)
+            for (int col = 0; col < cols; col++)
             {
-                tiles[row][col] = TileFactory.createTile(noFaction, col, row);
+                tiles[row][col] = TileFactory.createTile(noFaction, row, col);
             }
         }
         tiles[3][3] = TileFactory.createTile(noFaction, true, 3, 3);
-        tiles[3][4] = TileFactory.createTile(noFaction, true, 4, 3);
+        tiles[3][4] = TileFactory.createTile(noFaction, true, 3, 4);
         tiles[3][5] = TileFactory.createTile(noFaction, true, 3, 5);
-        tiles[5][3] = TileFactory.createTile(noFaction, true, 3, 5);
-        tiles[4][5] = TileFactory.createTile(noFaction, true, 5, 4);
-        tiles[5][4] = TileFactory.createTile(noFaction, true, 4, 5);
+        tiles[5][3] = TileFactory.createTile(noFaction, true, 5, 3);
+        tiles[4][5] = TileFactory.createTile(noFaction, true, 4, 5);
+        tiles[5][4] = TileFactory.createTile(noFaction, true, 5, 4);
         tiles[5][5] = TileFactory.createTile(noFaction, true, 5, 5);
         // init map
         map = new Map(tiles);
@@ -49,7 +49,7 @@ public class MapHandler implements MapHandlerInterface, GameConstants
     @Override
     public boolean build(DecoratePlayer player, int row, int col)
     {
-        if (!map.positionInMap(row, col))
+        if (!map.isPositionInMap(row, col))
         {
             System.out.println("ERROR: Wall not built, position not in map: ");
             return false;
@@ -87,7 +87,7 @@ public class MapHandler implements MapHandlerInterface, GameConstants
         {
             return false;
         }
-        if (!map.positionInMap(row, col))
+        if (!map.isPositionInMap(row, col))
         {
             System.out.println("ERROR: Wall not built, position not in map: ");
             return false;
@@ -111,7 +111,7 @@ public class MapHandler implements MapHandlerInterface, GameConstants
         {
             return false;
         }
-        if (!map.positionInMap(row, col))
+        if (!map.isPositionInMap(row, col))
         {
             System.out.println("ERROR: Wall not built, position not in map: ");
             return false;

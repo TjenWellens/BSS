@@ -13,8 +13,9 @@ public class Controller implements TickObserver, TickObservable, CommandInvokerI
     private Ticker updater = new Ticker(GameConstants.TICKS_PER_SECOND);
     private CommandInvokerInterface ci = new CommandInvoker();
 
-    public Controller()
+    public Controller(CommandInvokerInterface ci)
     {
+        this.ci=ci;
     }
 
     public void start()

@@ -35,7 +35,7 @@ public class SDataMap implements DataMap
     @Override
     public boolean isEmpty()
     {
-        return tiles != null;
+        return tiles.isEmpty();
     }
 
     @Override

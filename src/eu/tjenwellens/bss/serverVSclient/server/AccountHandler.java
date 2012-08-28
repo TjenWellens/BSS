@@ -8,7 +8,7 @@ import eu.tjenwellens.bss.Position;
  */
 public interface AccountHandler
 {
-    int signup(String name, String pass, String playerName);
+    boolean signup(String name, String pass, String playerName);
 
     int login(String name, String pass, String playerName, String factionName, Position position);
 

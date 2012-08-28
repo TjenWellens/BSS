@@ -1,4 +1,4 @@
-package eu.tjenwellens.bss.serverVSclient.communication.init;
+package eu.tjenwellens.bss.serverVSclient.communication.init_exit;
 
 /**
  *

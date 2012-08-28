@@ -12,13 +12,13 @@ public abstract class TileFactory
 {
     private static HashMap<Point, GetTile[]> tiles = new HashMap<Point, GetTile[]>();
 
-    public static GetTile createTile(Faction faction, boolean walled, int xPos, int yPos)
+    public static GetTile createTile(Faction faction, boolean walled, int row, int col)
     {
-        return new Tile(faction, walled, xPos, yPos);
+        return new Tile(faction, walled, row, col);
     }
 
-    public static GetTile createTile(Faction faction, int xPos, int yPos)
+    public static GetTile createTile(Faction faction, int row, int col)
     {
-        return createTile(faction, false, xPos, yPos);
+        return createTile(faction, false, row, col);
     }
 }

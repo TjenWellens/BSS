@@ -1,9 +1,10 @@
 package eu.tjenwellens.bss.serverVSclient.client;
 
 import eu.tjenwellens.bss.serverVSclient.Updatable;
-import eu.tjenwellens.bss.serverVSclient.communication.CloseStream;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.CloseStream;
 import eu.tjenwellens.bss.serverVSclient.communication.Command;
-import eu.tjenwellens.bss.serverVSclient.communication.init.InitStream;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataForClient;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.InitStream;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -51,9 +52,24 @@ public abstract class ServerHandler implements Updatable
                 while (linkOpen && this.checkForInputStream.available() > 0)
                 {
                     Object leesObject = this.in.readObject();
-                    if (leesObject instanceof Command)
+                    if (leesObject == null)
                     {
+                        System.out.println("ERROR: Client - Serverhandler - leesobject is null");
+                    } else if (leesObject instanceof Command)
+                    {
+                        System.out.println("Handle command");
                         handleInput((Command) leesObject);
+                    } else if (leesObject instanceof DataForClient)
+                    {
+//                        System.out.println("Handle data");
+                        DataForClient dfc = (DataForClient) leesObject;
+                        if (leesObject != null)
+                        {
+                            handleData(dfc);
+                        } else
+                        {
+                            System.out.println("ERROR: Client - Serverhandler - leesobject is null 2");
+                        }
                     } else
                     {
                         System.out.println("Error: not a command: " + leesObject);
@@ -63,6 +79,7 @@ public abstract class ServerHandler implements Updatable
             } catch (Exception e)
             {
                 System.out.println(e);
+                e.printStackTrace();
             }
         }
     }
@@ -88,6 +105,7 @@ public abstract class ServerHandler implements Updatable
         } catch (IOException e)
         {
             System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -108,6 +126,7 @@ public abstract class ServerHandler implements Updatable
         } catch (IOException e)
         {
             System.out.println(e);
+            e.printStackTrace();
         } finally
         {
             if (sock != null)
@@ -115,9 +134,10 @@ public abstract class ServerHandler implements Updatable
                 try
                 {
                     sock.close();
-                } catch (IOException ex)
+                } catch (IOException e)
                 {
-                    System.out.println(ex);
+                    System.out.println(e);
+                    e.printStackTrace();
                 }
             }
         }
@@ -132,8 +152,11 @@ public abstract class ServerHandler implements Updatable
         } catch (IOException e)
         {
             System.out.println(e);
+            e.printStackTrace();
         }
     }
 
     protected abstract void handleInput(Command command);
+
+    protected abstract void handleData(DataForClient data);
 }

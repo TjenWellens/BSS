@@ -26,4 +26,39 @@ public class ClientPlayer
         this.winns = dataPlayer.getWinns();
         this.losses = dataPlayer.getLosses();
     }
+
+    public String getPlayerName()
+    {
+        return playerName;
+    }
+
+    public int getYPosition()
+    {
+        return yPosition;
+    }
+
+    public int getXPosition()
+    {
+        return xPosition;
+    }
+
+    public String getFactionName()
+    {
+        return factionName;
+    }
+
+    public String getState()
+    {
+        return state;
+    }
+
+    public int getWinns()
+    {
+        return winns;
+    }
+
+    public int getLosses()
+    {
+        return losses;
+    }
 }

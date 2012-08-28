@@ -82,9 +82,10 @@ public class Ticker extends Thread implements TickObservable
             try
             {
                 Thread.sleep(sleepTime);  // sleep a bit
-            } catch (InterruptedException ex)
+            } catch (InterruptedException e)
             {
-                System.out.println(ex);
+                System.out.println(e);
+                e.printStackTrace();
             }
             beforeTime = System.currentTimeMillis();
         }

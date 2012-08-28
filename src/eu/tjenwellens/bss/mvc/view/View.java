@@ -17,10 +17,10 @@ import java.util.Arrays;
  */
 public class View implements GlobalObserver
 {
-    private GetModelData model;
-    private List<Faction> factions = null;
-    private GetMap map = null;
-    private HashMap<Integer, GetPlayer> players = null;
+    private volatile GetModelData model;
+    private volatile List<Faction> factions = null;
+    private volatile GetMap map = null;
+    private volatile HashMap<Integer, GetPlayer> players = null;
 
     public View(GetModelData model)
     {
@@ -30,8 +30,10 @@ public class View implements GlobalObserver
     @Override
     public void notifyGlobalObserver()
     {
+//        System.out.println("notified");
         factions = model.getFactions();
         map = new PrivateMap(model.getMap());
+//        System.out.println("View map"+model.getMap());
         players = model.getPlayers();
     }
 

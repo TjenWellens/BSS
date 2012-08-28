@@ -1,5 +1,6 @@
 package eu.tjenwellens.bss.serverVSclient.communication.dataToClient;
 
+import eu.tjenwellens.bss.Position;
 import java.io.Serializable;
 
 /**
@@ -10,18 +11,14 @@ public interface DataGamer extends Serializable
 {
     String getPlayerName();
 
-    int getXPosition();
-
-    int getYPosition();
+    Position getPosition();
 
     String getFactionName();
 
     String getState();
 
     // walk
-    int getXDestination();
-
-    int getYDestination();
+    Position getDestination();
 
     // battleresult
     int getWinns();

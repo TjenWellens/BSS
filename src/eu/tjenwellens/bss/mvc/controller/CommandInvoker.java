@@ -24,6 +24,7 @@ public class CommandInvoker implements CommandInvokerInterface
         for (Command command : currentCommands)
         {   // is fifo
             Output.add("CommandInvoker.executeCommands: ", command);
+//            System.out.println("CommandInvoker.executeCommands: "+ command);
             command.execute();
         }
     }

@@ -6,10 +6,6 @@ import eu.tjenwellens.bss.mvc.controller.Controller;
 import eu.tjenwellens.bss.mvc.model.CommandReceiverInterface;
 import eu.tjenwellens.bss.mvc.model.Model;
 import eu.tjenwellens.bss.mvc.view.View;
-import eu.tjenwellens.bss.serverVSclient.client.ClientMessager;
-import eu.tjenwellens.bss.serverVSclient.client.Communication;
-import eu.tjenwellens.bss.serverVSclient.client.mvc.ServerToModel;
-import eu.tjenwellens.bss.serverVSclient.client.mvc.concretes.ConcreteFrameWithMap;
 import eu.tjenwellens.bss.serverVSclient.parse.SimpleViewToData;
 import eu.tjenwellens.bss.serverVSclient.parse.ViewToData;
 import eu.tjenwellens.bss.serverVSclient.server.ClientListener;
@@ -64,19 +60,18 @@ public class ServerMain
         //</editor-fold>
 
         runServer();
-        runClient();
     }
 
-    private static void runServer()
+    public static void runServer()
     {
         //server
         Model model = Model.getInstance();
         View view = new View(model);
         model.registerGlobalObserver(view);
-        Controller controller = new Controller();
+        CommandInvokerInterface commandInvokerInterface = new CommandInvoker();
+        Controller controller = new Controller(commandInvokerInterface);
         controller.registerTickObserver(model);
         ConcreteUpdater updater = new ConcreteUpdater(2);
-        CommandInvokerInterface commandInvokerInterface = new CommandInvoker();
         CommandReceiverInterface commandReceiverInterface = Model.getInstance();
         InputInterface inputInterface = new Input(commandInvokerInterface, commandReceiverInterface);
         ViewToData viewToData = new SimpleViewToData();
@@ -86,19 +81,5 @@ public class ServerMain
         clientListener.start();
         updater.start();
         controller.start();
-    }
-
-    private static void runClient()
-    {
-        Controller c = new Controller();
-        //TODO: 
-        ServerToModel serverToModel = null;
-        Communication communication = new ClientMessager(serverToModel, "127.0.0.1");
-
-        ConcreteFrameWithMap cfwm = new ConcreteFrameWithMap(communication);
-        c.registerTickObserver(cfwm);
-        cfwm.setVisible(true);
-
-        c.start();
     }
 }

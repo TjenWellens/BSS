@@ -1,7 +1,19 @@
 package eu.tjenwellens.bss.serverVSclient.server;
 
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.InitStream;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.OkQuickplay;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.OkSignUp;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.DoLogin;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.ErrLogin;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.Logout;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.DoQuickplay;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.DoSave;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.DoSignup;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.ErrQuickplay;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.OKLogin;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.ErrSignUp;
 import eu.tjenwellens.bss.serverVSclient.Updatable;
-import eu.tjenwellens.bss.serverVSclient.communication.CloseStream;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.CloseStream;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataForClient;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Bank;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.ChooseWeapon;
@@ -9,7 +21,6 @@ import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Decorate;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Engage;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Idle;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Walk;
-import eu.tjenwellens.bss.serverVSclient.communication.init.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -65,9 +76,11 @@ public class ClientHandler implements Updatable
         }
         try
         {
+//            System.out.println("Check input loop");
             // input
             manageInput();
 
+//            System.out.println("Do output");
             // output
             manageOutput();
 
@@ -134,6 +147,7 @@ public class ClientHandler implements Updatable
                     }
                 } else if (leesObject instanceof DoQuickplay)
                 {
+                    System.out.println("Quickplay received");
                     DoQuickplay quickplay = (DoQuickplay) leesObject;
                     playerId = input.quickplay(quickplay.getPlayerName(), quickplay.getFactionName(), quickplay.getPosition());
                     if (playerId >= 0)
@@ -204,16 +218,19 @@ public class ClientHandler implements Updatable
     {
         if (playerId < 0)
         {
+//            System.out.println("player not initialized");
             return;
         }
         DataForClient dfc = output.getData(playerId);
         if (dfc == null)
         {
+//            System.out.println("data for client is not present");
             return;
         }
         // all is ok
         out.writeObject(dfc);
         out.flush();
+//        System.out.println("Data written");
     }
 
     private void initSocket()

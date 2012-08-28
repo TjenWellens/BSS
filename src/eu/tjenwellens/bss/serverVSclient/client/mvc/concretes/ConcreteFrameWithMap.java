@@ -10,8 +10,6 @@ import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.mvc.TickObserver;
-import eu.tjenwellens.bss.mvc.concretes.MapPanel;
-import eu.tjenwellens.bss.players.GetPlayer;
 import eu.tjenwellens.bss.players.inventory.items.Material;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.ToolFactory;
@@ -19,27 +17,32 @@ import eu.tjenwellens.bss.players.inventory.items.ToolType;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
 import eu.tjenwellens.bss.players.inventory.items.WeaponFactory;
 import eu.tjenwellens.bss.serverVSclient.client.Communication;
+import eu.tjenwellens.bss.serverVSclient.client.components.ClientGamer;
+import eu.tjenwellens.bss.serverVSclient.client.components.ClientPlayer;
+import eu.tjenwellens.bss.serverVSclient.client.mvc.Data;
+import eu.tjenwellens.bss.serverVSclient.client.mvc.Observer;
 import java.awt.event.MouseEvent;
-import java.util.Iterator;
 
 /**
  *
  * @author tjen
  */
-public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObserver
+public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObserver, Observer
 {
     private volatile boolean active = false;
     private Communication communication;
+    private Data data;
 //    int pass;
     String account;
 
     /**
      * Creates new form ConcreteFrameWithMap
      */
-    public ConcreteFrameWithMap(Communication communication)
+    public ConcreteFrameWithMap(Communication communication, Data data)
     {
         initComponents();
         this.communication = communication;
+        this.data = data;
         gamePanel.setVisible(false);
     }
 
@@ -50,7 +53,8 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         loginPanel = new javax.swing.JPanel();
@@ -79,14 +83,17 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         btnIdle = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         output = new javax.swing.JTextArea();
+        drawPanel = new eu.tjenwellens.bss.serverVSclient.client.mvc.concretes.MapPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         loginInternalFrame.setVisible(true);
 
         txtName.setText("tjen");
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtName.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 loginActionPerformed(evt);
             }
         });
@@ -98,29 +105,37 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         jLabel3.setText("Character:");
 
         txtPassword.setText("1");
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtPassword.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 loginActionPerformed(evt);
             }
         });
 
         txtCharacter.setText("tjen");
-        txtCharacter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtCharacter.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 loginActionPerformed(evt);
             }
         });
 
         btnLogin.setText("Login");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnLogin.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 loginActionPerformed(evt);
             }
         });
 
         btnCancel.setText("Cancel");
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCancel.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCancelActionPerformed(evt);
             }
         });
@@ -177,7 +192,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
                 .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
                     .addComponent(btnCancel))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
@@ -194,31 +209,37 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGap(104, 104, 104)
                 .addComponent(loginInternalFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
 
         loginPanel.setBounds(10, 10, 530, 720);
         jLayeredPane1.add(loginPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        txtWeapon.setText("stone");
+        txtWeapon.setText("steen");
 
         btbBuyWeapon.setText("BuyWeapon");
-        btbBuyWeapon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btbBuyWeapon.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btbBuyWeaponActionPerformed(evt);
             }
         });
 
         btnWeaponToInventory.setText("ToInventory");
-        btnWeaponToInventory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnWeaponToInventory.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnWeaponToInventoryActionPerformed(evt);
             }
         });
 
         btnWieldWeapon.setText("Wield");
-        btnWieldWeapon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnWieldWeapon.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnWieldWeaponActionPerformed(evt);
             }
         });
@@ -253,22 +274,28 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         txtTool.setText("penseel");
 
         btnBuyTool.setText("BuyTool");
-        btnBuyTool.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnBuyTool.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnBuyToolActionPerformed(evt);
             }
         });
 
         btnToolToInventory.setText("ToInventory");
-        btnToolToInventory.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnToolToInventory.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnToolToInventoryActionPerformed(evt);
             }
         });
 
         btnIdle.setText("Idle");
-        btnIdle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnIdle.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnIdleActionPerformed(evt);
             }
         });
@@ -283,7 +310,9 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
                     .addComponent(btnToolToInventory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                     .addComponent(btnBuyTool, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                     .addComponent(txtTool, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                    .addComponent(btnIdle, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(toolPanelLayout.createSequentialGroup()
+                        .addComponent(btnIdle)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         toolPanelLayout.setVerticalGroup(
@@ -328,6 +357,25 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
                 .addContainerGap())
         );
 
+        drawPanel.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                drawPanelMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout drawPanelLayout = new javax.swing.GroupLayout(drawPanel);
+        drawPanel.setLayout(drawPanelLayout);
+        drawPanelLayout.setHorizontalGroup(
+            drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+        drawPanelLayout.setVerticalGroup(
+            drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
         gamePanel.setLayout(gamePanelLayout);
         gamePanelLayout.setHorizontalGroup(
@@ -336,11 +384,17 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
                 .addContainerGap()
                 .addComponent(actionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gamePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gamePanelLayout.createSequentialGroup()
-                .addGap(519, 519, 519)
+                .addGap(13, 13, 13)
+                .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(actionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -389,6 +443,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
 //            pass = Integer.parseInt(password);
             communication.quickplay(character, factionName, 10, 10);
             gamePanel.setVisible(true);
+            actionPanel.setVisible(true);
             active = true;
             tick();
             loginPanel.setVisible(false);
@@ -405,12 +460,12 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         // 
         int mapw = GameConstants.MAP_WIDTH;
         int maph = GameConstants.MAP_HEIGHT;
-        int panelWidth = mapPanel2.getWidth();
-        int panelHeight = mapPanel2.getHeight();
+        int panelWidth = drawPanel.getWidth();
+        int panelHeight = drawPanel.getHeight();
         double xFactor = (double) mapw / (double) panelWidth;
         double yFactor = (double) maph / (double) panelHeight;
-        int x = (int) (evt.getX() * xFactor) - (GameConstants.PLAYER_RADIUS / 2);
-        int y = (int) (evt.getY() * yFactor) - (GameConstants.PLAYER_RADIUS / 2);
+        int x = (int) ((evt.getX() ) * xFactor);
+        int y = (int) ((evt.getY() ) * yFactor);
         Position p = new Position(x, y);
         if (evt.getButton() == MouseEvent.BUTTON1)
         {// Move ya ass!
@@ -419,26 +474,23 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         } else if (evt.getButton() == MouseEvent.BUTTON3)
         {// CHAARGEEEE!!!!
             System.out.println("CHAARGEEEE!!!!");
-            GetPlayer me = null;
-            GetPlayer opponent = null;
-            for (Iterator<GetPlayer> it = mapPanel2.players.values().iterator(); it.hasNext();)
+            ClientGamer me = data.getGamer();
+            ClientPlayer opponent = null;
+            for (ClientPlayer getPlayer : data.getPlayers())
             {
-                GetPlayer getPlayer = it.next();
-                if (me == null && getPlayer.getPlayerName().equalsIgnoreCase(account))
+                if (opponent == null)
                 {
-                    me = getPlayer;
-                } else if (opponent == null)
-                {
-                    Position oppPos = getPlayer.getPosition();
-                    if (oppPos.distance(p) <= 20)
+                    int xpos = getPlayer.xPosition;
+                    int ypos = getPlayer.yPosition;
+                    if (new Position(xpos, ypos).distance(p) <= 20)
                     {
                         opponent = getPlayer;
                     }
                 }
                 if (me != null && opponent != null)
                 {
-                    Position myPos = me.getPosition();
-                    Position opPos = opponent.getPosition();
+                    Position myPos = new Position(me.position.getX(), me.position.getY());
+                    Position opPos = new Position(opponent.xPosition, opponent.yPosition);
 
                     if (myPos.distance(opPos) <= GameConstants.ATTACK_RANGE)
                     {
@@ -507,6 +559,12 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         // 
         communication.idle();
     }//GEN-LAST:event_btnIdleActionPerformed
+
+    private void drawPanelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_drawPanelMouseClicked
+    {//GEN-HEADEREND:event_drawPanelMouseClicked
+        // TODO add your handling code here:
+        mouseClickOnMapPanel(evt);
+    }//GEN-LAST:event_drawPanelMouseClicked
     //
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
@@ -518,6 +576,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
     private javax.swing.JButton btnToolToInventory;
     private javax.swing.JButton btnWeaponToInventory;
     private javax.swing.JButton btnWieldWeapon;
+    private eu.tjenwellens.bss.serverVSclient.client.mvc.concretes.MapPanel drawPanel;
     private javax.swing.JPanel gamePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -537,48 +596,58 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
     private javax.swing.JTextField txtWeapon;
     private javax.swing.JPanel weaponPanel;
     // End of variables declaration//GEN-END:variables
-    private MapPanel mapPanel2;
+//    private MapPanel drawPanel;
 
     @Override
     public void tick()
     {
         if (active)
         {
-            mapPanel2.paintComponent(mapPanel2.getGraphics());
+            drawPanel.paintComponent(drawPanel.getGraphics());
             updateOutput();
         }
     }
 
     private void updateOutput()
     {
-        String text = "";
-        for (Iterator<GetPlayer> it = mapPanel2.players.values().iterator(); it.hasNext();)
+        if (data == null || data.getGamer() == null)
         {
-            GetPlayer getPlayer = it.next();
-            char[] cs = getPlayer.toString().replace(", ", "$").toCharArray();
-            String insertString = "    ";
-            StringBuilder insert = new StringBuilder();
-            StringBuilder reb = new StringBuilder(cs.length);
-            for (char c : cs)
-            {
-                if (c == '{')
-                {
-                    insert.append(insertString);
-                    reb.append('\n').append(insert);
-                } else if (c == '}')
-                {
-                    insert.delete(insert.length() - insertString.length() + 1, insert.length()).deleteCharAt(insert.length() - 1);
-                } else if (c == '$')
-                {
-                    reb.append('\n').append(insert);
-                } else
-                {
-                    reb.append(c);
-                }
-            }
-            reb.append('\n');
-            text += reb;
+            return;
         }
+        String text = data.getGamer().toString();
+
+//        for (ClientPlayer clientPlayer : data.getPlayers())
+//        {
+//            char[] cs = clientPlayer.toString().replace(", ", "$").toCharArray();
+//            String insertString = "    ";
+//            StringBuilder insert = new StringBuilder();
+//            StringBuilder reb = new StringBuilder(cs.length);
+//            for (char c : cs)
+//            {
+//                if (c == '{')
+//                {
+//                    insert.append(insertString);
+//                    reb.append('\n').append(insert);
+//                } else if (c == '}')
+//                {
+//                    insert.delete(insert.length() - insertString.length() + 1, insert.length()).deleteCharAt(insert.length() - 1);
+//                } else if (c == '$')
+//                {
+//                    reb.append('\n').append(insert);
+//                } else
+//                {
+//                    reb.append(c);
+//                }
+//            }
+//            reb.append('\n');
+//            text += reb;
+//        }
         output.setText(text);
+    }
+
+    @Override
+    public void update()
+    {
+        drawPanel.update(data);
     }
 }

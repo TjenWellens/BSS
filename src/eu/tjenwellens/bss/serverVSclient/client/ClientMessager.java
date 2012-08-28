@@ -8,17 +8,22 @@ import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
 import eu.tjenwellens.bss.serverVSclient.client.mvc.ServerToModel;
 import eu.tjenwellens.bss.serverVSclient.communication.Command;
+import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataForClient;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Bank;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.ChooseWeapon;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Decorate;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Engage;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Idle;
 import eu.tjenwellens.bss.serverVSclient.communication.dataToServer.Walk;
-import eu.tjenwellens.bss.serverVSclient.communication.init.DoLogin;
-import eu.tjenwellens.bss.serverVSclient.communication.init.DoQuickplay;
-import eu.tjenwellens.bss.serverVSclient.communication.init.DoSave;
-import eu.tjenwellens.bss.serverVSclient.communication.init.DoSignup;
-import eu.tjenwellens.bss.serverVSclient.communication.init.Logout;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.CloseStream;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.DoLogin;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.DoQuickplay;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.DoSave;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.DoSignup;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.Err;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.InitStream;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.Logout;
+import eu.tjenwellens.bss.serverVSclient.communication.init_exit.OK;
 
 /**
  *
@@ -34,6 +39,7 @@ public class ClientMessager extends ServerHandler implements Communication
         this.model = model;
     }
 
+    //<editor-fold defaultstate="collapsed" desc="actions">
     @Override
     public void bank(Transaction transaction, int diamonds, Item item)
     {
@@ -69,7 +75,9 @@ public class ClientMessager extends ServerHandler implements Communication
     {
         send(new Walk(new Position(x, y)));
     }
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="init actions">
     @Override
     public void login(String name, String pass, String playerName, String factionName, int x, int y)
     {
@@ -99,10 +107,33 @@ public class ClientMessager extends ServerHandler implements Communication
     {
         send(new DoSave(name, pass, playerName));
     }
+    //</editor-fold>
 
     @Override
     protected void handleInput(Command command)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (command instanceof InitStream)
+        {
+            // init done
+        }
+        if (command instanceof CloseStream)
+        {
+            end();
+        } else if (command instanceof Err)
+        {
+            System.out.println("Err: " + command);
+        } else if (command instanceof OK)
+        {
+            System.out.println("Ok: " + command);
+        } else
+        {
+            System.out.println("ERROR: command not recognized: " + command);
+        }
+    }
+
+    @Override
+    protected void handleData(DataForClient data)
+    {
+        model.updateData(data);
     }
 }

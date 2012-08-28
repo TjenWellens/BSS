@@ -1,10 +1,12 @@
 package eu.tjenwellens.bss.serverVSclient.client.mvc;
 
+import eu.tjenwellens.bss.serverVSclient.communication.dataToClient.DataForClient;
+
 /**
  *
  * @author tjen
  */
 public interface ServerToModel
 {
-    void update(Data data);
+    void updateData(DataForClient data);
 }

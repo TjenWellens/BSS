@@ -16,13 +16,13 @@ public class Input implements InputInterface
 {
     private CommandInvokerInterface ci;
     private CommandReceiverInterface cr;
-    private AccountHandler lh;
+    private AccountHandler ah;
 
     public Input(CommandInvokerInterface commandInvoker, CommandReceiverInterface commandReceiver)
     {
         this.ci = commandInvoker;
         this.cr = commandReceiver;
-        this.lh = new SimpleAccountHandler(commandInvoker, commandReceiver);
+        this.ah = new SimpleAccountHandler(commandInvoker, commandReceiver);
     }
 
     @Override
@@ -64,30 +64,30 @@ public class Input implements InputInterface
     @Override
     public int login(String name, String pass, String playerName, String factionName, Position position)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return ah.login(name, pass, playerName, factionName, position);
     }
 
     @Override
     public int quickplay(String playerName, String factionName, Position position)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return ah.quickPlay(playerName, factionName, position);
     }
 
     @Override
     public boolean signup(String name, String pass, String playerName)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return ah.signup(name, pass, playerName);
     }
 
     @Override
     public int save(int playerID, String name, String pass, String playerName)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return ah.save(playerID, name, pass, playerName);
     }
 
     @Override
     public void logout(int playerID)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        ah.logout(playerID);
     }
 }

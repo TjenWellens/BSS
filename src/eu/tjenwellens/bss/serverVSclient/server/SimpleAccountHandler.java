@@ -29,27 +29,30 @@ public class SimpleAccountHandler implements AccountHandler
     }
 
     @Override
-    public int signup(String name, String pass, String playerName)
+    public boolean signup(String name, String pass, String playerName)
     {
         if (name == null || pass == null || playerName == null)
         {
-            return -1;
+            System.out.println("Signup failure: null value");
+            return false;
         }
         int id = name_id.size();
         if (name_id.containsKey(name))
         {
-            return -1;
+            System.out.println("Signup failure: account name already exists");
+            return false;
         }
         if (playerNames.contains(playerName))
         {
-            return -1;
+            System.out.println("Signup failure: playerName already exists");
+            return false;
         }
         // all is ok
         Account account = new Account(id, name, pass, playerName);
         name_id.put(name, id);
         playerNames.add(playerName);
         accounts.put(id, account);
-        return id;
+        return true;
     }
 
     @Override
@@ -84,11 +87,14 @@ public class SimpleAccountHandler implements AccountHandler
         int id1 = name_id.size();
         String name = NAME + id1;
         String pass = PASS;
-        int id2 = signup(name, pass, playerName);
-        int id3 = login(name, pass, playerName, factionName, position);
-        if (id1 != id2 || id2 != id3)
+        if (!signup(name, pass, playerName))
         {
-            System.out.println("ERROR: id's in quickplay: " + id1 + ", " + id2 + ", " + id3);
+            return -1;
+        }
+        int id3 = login(name, pass, playerName, factionName, position);
+        if (id1 != id3)
+        {
+            System.out.println("ERROR: id's in quickplay: " + id1 + ", " + id3);
         }
         return id3;
     }

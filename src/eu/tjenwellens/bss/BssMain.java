@@ -4,6 +4,8 @@ import eu.tjenwellens.bss.mvc.concretes.ConcreteFrameWithMap;
 import eu.tjenwellens.bss.mvc.controller.Controller;
 import eu.tjenwellens.bss.mvc.model.Model;
 import eu.tjenwellens.bss.mvc.view.View;
+import eu.tjenwellens.bss.serverVSclient.ClientMain;
+import eu.tjenwellens.bss.serverVSclient.ServerMain;
 
 /**
  *
@@ -43,53 +45,54 @@ public class BssMain
         }
         //</editor-fold>
 
-        runServer();
+        ServerMain.runServer();
+        ClientMain.runClient();
     }
 
-    public static void runMultiplayerGame()
-    {
-        Model m = Model.getInstance();
-        View v = new View(m);
-        m.registerGlobalObserver(v);
-        Controller c = new Controller();
-        c.registerTickObserver(m);
-
-        ConcreteFrameWithMap cfwm = new ConcreteFrameWithMap(m, v, c);
-        c.registerTickObserver(cfwm);
-        cfwm.setVisible(true);
-        ConcreteFrameWithMap cfwm2 = new ConcreteFrameWithMap(m, v, c);
-        c.registerTickObserver(cfwm2);
-        cfwm2.setVisible(true);
-
-        c.start();
-    }
-
-    public static void runSingleplayerGame()
-    {
-        Model m = Model.getInstance();
-        View v = new View(m);
-        m.registerGlobalObserver(v);
-        Controller c = new Controller();
-        c.registerTickObserver(m);
-
-        ConcreteFrameWithMap cfwm = new ConcreteFrameWithMap(m, v, c);
-        c.registerTickObserver(cfwm);
-        cfwm.setVisible(true);
+//    public static void runMultiplayerGame()
+//    {
+//        Model m = Model.getInstance();
+//        View v = new View(m);
+//        m.registerGlobalObserver(v);
+//        Controller c = new Controller();
+//        c.registerTickObserver(m);
+//
+//        ConcreteFrameWithMap cfwm = new ConcreteFrameWithMap(m, v, c);
+//        c.registerTickObserver(cfwm);
+//        cfwm.setVisible(true);
 //        ConcreteFrameWithMap cfwm2 = new ConcreteFrameWithMap(m, v, c);
 //        c.registerTickObserver(cfwm2);
 //        cfwm2.setVisible(true);
-
-        c.start();
-    }
-
-    private static void runServer()
-    {
-        Model m = Model.getInstance();
-        View v = new View(m);
-        m.registerGlobalObserver(v);
-        Controller c = new Controller();
-        c.registerTickObserver(m);
-
-        c.start();
-    }
+//
+//        c.start();
+//    }
+//
+//    public static void runSingleplayerGame()
+//    {
+//        Model m = Model.getInstance();
+//        View v = new View(m);
+//        m.registerGlobalObserver(v);
+//        Controller c = new Controller();
+//        c.registerTickObserver(m);
+//
+//        ConcreteFrameWithMap cfwm = new ConcreteFrameWithMap(m, v, c);
+//        c.registerTickObserver(cfwm);
+//        cfwm.setVisible(true);
+////        ConcreteFrameWithMap cfwm2 = new ConcreteFrameWithMap(m, v, c);
+////        c.registerTickObserver(cfwm2);
+////        cfwm2.setVisible(true);
+//
+//        c.start();
+//    }
+//
+//    private static void runServer()
+//    {
+//        Model m = Model.getInstance();
+//        View v = new View(m);
+//        m.registerGlobalObserver(v);
+//        Controller c = new Controller();
+//        c.registerTickObserver(m);
+//
+//        c.start();
+//    }
 }

@@ -30,9 +30,11 @@ public class SimpleViewToData implements ViewToData
         List<DataPlayer> players = new ArrayList<DataPlayer>();
         for (Map.Entry<Integer, GetPlayer> entry : view.getPlayers().entrySet())
         {
+//                System.out.println("check players");
             if (entry.getKey() == playerId)
             {
                 gamer = new SDataGamer(entry.getValue());
+//                System.out.println("Gamer found");
             } else
             {
                 players.add(new SDataPlayer(entry.getValue()));
@@ -46,6 +48,7 @@ public class SimpleViewToData implements ViewToData
         DataMap map = new SDataMap(view.getMap());
         if (map.isEmpty())
         {
+            System.out.println("Map is empty");
             map = null;
         }
         // init factions

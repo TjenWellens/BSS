@@ -1,10 +1,12 @@
 package eu.tjenwellens.bss;
 
+import java.io.Serializable;
+
 /**
  *
  * @author tjen
  */
-public class Position
+public class Position implements Serializable
 {
     private int x;
     private int y;
