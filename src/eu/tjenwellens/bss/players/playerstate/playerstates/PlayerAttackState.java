@@ -14,7 +14,6 @@ import eu.tjenwellens.bss.players.inventory.Inventory;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
-import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
 import eu.tjenwellens.bss.players.playerstate.StatePlayer;
 
 /**

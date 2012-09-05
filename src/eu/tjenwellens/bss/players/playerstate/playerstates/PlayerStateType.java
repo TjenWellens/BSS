@@ -20,93 +20,80 @@ import eu.tjenwellens.bss.players.playerstate.StatePlayer;
  *
  * @author tjen
  */
-public abstract class PlayerGeneralState implements PlayerState
+public enum PlayerStateType implements PlayerState
 {
+    DECORATE(new PlayerDecorateState()),
+    ENGAGE(new PlayerEngageState()),
+    WALK(new PlayerWalkState()),
+    IDLE(new PlayerIdleState()),
+    GHOSTIDLE(new PlayerGhostIdleState()),
+    GHOSTWALK(new PlayerGhostWalkState()),
+    BANK(new PlayerBankState()),
+    ATTACK(new PlayerAttackState());
+    private PlayerState ps;
+
+    private PlayerStateType(PlayerState ps)
+    {
+        this.ps = ps;
+    }
+
     @Override
     public boolean walk(StatePlayer player, Position destination, WalkHandlerInterface walkHandler)
     {
-        player.resetActions();
-        if (walkHandler.addWalk(player, destination))
-        {
-            player.addActionHandler(walkHandler);
-            player.setState(PlayerStateType.WALK);
-            return true;
-        }
-        return false;
+        return ps.walk(player, destination, walkHandler);
     }
 
     @Override
     public boolean idle(StatePlayer player)
     {
-        player.resetActions();
-        player.setState(PlayerStateType.IDLE);
-        return true;
+        return ps.idle(player);
     }
 
     @Override
     public boolean engage(StatePlayer player, AttackPlayer opponent, EngageHandlerInterface engageHandler)
     {
-        player.resetActions();
-        if (engageHandler.addEngage(player, opponent))
-        {
-            player.addActionHandler(engageHandler);
-            player.setState(PlayerStateType.ENGAGE);
-            return true;
-        }
-        return false;
+        return ps.engage(player, opponent, engageHandler);
     }
 
     @Override
     public boolean decorate(StatePlayer player, Decoration decoration, int row, int col, Tool tool, DecorateHanderInterface decorationHander)
     {
-        player.resetActions();
-        if (decorationHander.addDecorate(player, decoration, row, col, tool))
-        {
-            player.addActionHandler(decorationHander);
-            player.setState(PlayerStateType.DECORATE);
-            return true;
-        }
-        return false;
+        return ps.decorate(player, decoration, row, col, tool, decorationHander);
     }
 
     @Override
-    public boolean bank(StatePlayer player, Transaction transaction, int diamands, Item item,
-            Inventory inventory, BankAccount bankAccount, Store store, BankHandlerInterface bankHandler)
+    public boolean bank(StatePlayer player, Transaction transaction, int diamands, Item item, Inventory inventory, BankAccount bankAccount, Store store, BankHandlerInterface bankHandler)
     {
-        player.resetActions();
-        if (bankHandler.addBankJob(player, transaction, diamands, item, inventory, store, bankAccount))
-        {
-            player.addActionHandler(bankHandler);
-            player.setState(PlayerStateType.BANK);
-            return true;
-        }
-        return false;
+        return ps.bank(player, transaction, diamands, item, inventory, bankAccount, store, bankHandler);
     }
 
     @Override
     public boolean attack(StatePlayer player, AttackPlayer opponent)
     {
-        player.resetActions();
-        player.setState(PlayerStateType.ATTACK);
-        return true;
+        return ps.attack(player, opponent);
     }
 
     @Override
     public boolean chooseWeapon(StatePlayer player, Weapon weapon, Inventory inventory)
     {
-        return false;
+        return ps.chooseWeapon(player, weapon, inventory);
     }
 
     @Override
-    public abstract String toString();
+    public boolean isAttackable()
+    {
+        return ps.isAttackable();
+    }
 
-//    @Override
-//    public abstract boolean isAttackable();
-//    @Override
-//    public abstract PlayerStateType getPlayerStateType();
+    @Override
+    public PlayerStateType getPlayerStateType()
+    {
+        return ps.getPlayerStateType();
+    }
+
     @Override
     public boolean isGhost()
     {
-        return false;
+        return ps.isGhost();
     }
 }

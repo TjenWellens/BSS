@@ -1,6 +1,5 @@
 package eu.tjenwellens.bss.players.playerstate.playerstates;
 
-import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
 import eu.tjenwellens.bss.players.playerstate.StatePlayer;
 
 /**

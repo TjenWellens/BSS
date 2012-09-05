@@ -23,7 +23,7 @@ import eu.tjenwellens.bss.players.inventory.SimpleInventory;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
-import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
+import eu.tjenwellens.bss.players.playerstate.playerstates.PlayerStateType;
 import eu.tjenwellens.bss.players.playerstate.StatePlayer;
 import eu.tjenwellens.bss.players.playerstate.playerstates.PlayerState;
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
         this.faction = faction;
         this.position = position;
         // init
-        this.state = PlayerState.IDLE;
+        this.state = PlayerStateType.IDLE;
         this.inventory = new SimpleInventory();
         this.bankAccount = new SimpleBankAccount();
         this.store = SimpleStore.getInstance();
@@ -76,7 +76,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
         this.faction = faction;
         this.position = position;
         // init
-        this.state = PlayerState.IDLE;
+        this.state = PlayerStateType.IDLE;
         this.inventory = inventory;
         this.bankAccount = bankAccount;
         this.store = store;
@@ -188,7 +188,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
     {
         this.previousDuelResult = duelResult;
         winns++;
-        state = PlayerState.IDLE;
+        state = PlayerStateType.IDLE;
         resetActions();
     }
 
@@ -198,7 +198,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
         this.previousDuelResult = duelResult;
         losses++;
         opponent.addDiamands(inventory.removeAllDiamands());
-        state = PlayerState.GHOSTIDLE;
+        state = PlayerStateType.GHOSTIDLE;
         resetActions();
     }
 
@@ -339,7 +339,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
     {
         if (state.isGhost())
         {
-            state = PlayerState.IDLE;
+            state = PlayerStateType.IDLE;
             return true;
         }
         return false;

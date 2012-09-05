@@ -25,7 +25,7 @@ import eu.tjenwellens.bss.players.inventory.SimpleInventory;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
-import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
+import eu.tjenwellens.bss.players.playerstate.playerstates.PlayerStateType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;

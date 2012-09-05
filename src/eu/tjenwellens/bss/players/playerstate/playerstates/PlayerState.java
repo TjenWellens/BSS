@@ -14,7 +14,6 @@ import eu.tjenwellens.bss.players.inventory.Inventory;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
-import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
 import eu.tjenwellens.bss.players.playerstate.StatePlayer;
 
 /**
@@ -23,15 +22,6 @@ import eu.tjenwellens.bss.players.playerstate.StatePlayer;
  */
 public interface PlayerState
 {
-    PlayerState WALK = new PlayerWalkState();
-    PlayerState IDLE = new PlayerIdleState();
-    PlayerState ENGAGE = new PlayerEngageState();
-    PlayerState DECORATE = new PlayerDecorateState();
-    PlayerState BANK = new PlayerBankState();
-    PlayerState ATTACK = new PlayerAttackState();
-    PlayerState GHOSTWALK = new PlayerGhostWalkState();
-    PlayerState GHOSTIDLE = new PlayerGhostIdleState();
-
     boolean walk(StatePlayer player, Position destination, WalkHandlerInterface walkHandler);
 
     boolean idle(StatePlayer player);

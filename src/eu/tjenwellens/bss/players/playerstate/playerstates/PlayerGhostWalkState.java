@@ -14,7 +14,6 @@ import eu.tjenwellens.bss.players.inventory.Inventory;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
-import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
 import eu.tjenwellens.bss.players.playerstate.StatePlayer;
 
 /**
@@ -42,14 +41,14 @@ public class PlayerGhostWalkState extends PlayerGeneralState
     @Override
     public PlayerStateType getPlayerStateType()
     {
-        return PlayerStateType.GHOST_WALK;
+        return PlayerStateType.GHOSTWALK;
     }
 
     @Override
     public boolean idle(StatePlayer player)
     {
         player.resetActions();
-        player.setState(PlayerState.GHOSTIDLE);
+        player.setState(PlayerStateType.GHOSTIDLE);
         return true;
     }
 
@@ -61,7 +60,7 @@ public class PlayerGhostWalkState extends PlayerGeneralState
         if (walkHandler.addWalk(player, destination))
         {
             player.addActionHandler(walkHandler);
-            player.setState(PlayerState.GHOSTWALK);
+            player.setState(PlayerStateType.GHOSTWALK);
             return true;
         }
         return false;

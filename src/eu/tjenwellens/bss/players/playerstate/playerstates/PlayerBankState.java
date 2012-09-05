@@ -7,7 +7,6 @@ import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.actionhandlers.engageAction.EngageHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
-import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
 import eu.tjenwellens.bss.players.playerstate.StatePlayer;
 
 /**
