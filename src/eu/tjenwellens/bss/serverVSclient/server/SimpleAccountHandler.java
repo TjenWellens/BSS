@@ -139,7 +139,6 @@ public class SimpleAccountHandler implements AccountHandler
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
     public boolean deleteAccount(String name, String pass, String playerName)
     {
         if (name == null || pass == null || playerName == null)

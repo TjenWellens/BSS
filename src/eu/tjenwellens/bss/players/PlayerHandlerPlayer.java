@@ -9,6 +9,7 @@ import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.actionhandlers.engageAction.EngageHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkObstaclePlayer;
+import eu.tjenwellens.bss.database.SavePlayer;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
@@ -17,7 +18,7 @@ import eu.tjenwellens.bss.players.inventory.items.Weapon;
  *
  * @author tjen
  */
-public interface PlayerHandlerPlayer extends GetPlayer, AttackPlayer, WalkObstaclePlayer
+public interface PlayerHandlerPlayer extends GetPlayer, AttackPlayer, WalkObstaclePlayer, SavePlayer
 {
     boolean walk(Position destination, WalkHandlerInterface walkHandler);
 
@@ -30,4 +31,6 @@ public interface PlayerHandlerPlayer extends GetPlayer, AttackPlayer, WalkObstac
     boolean bank(Transaction transaction, int diamands, Item item, BankHandlerInterface bankHandler);
 
     boolean chooseWeapon(Weapon weapon);
+
+    void updateID(int newID);
 }

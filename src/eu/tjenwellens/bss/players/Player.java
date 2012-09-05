@@ -1,6 +1,5 @@
 package eu.tjenwellens.bss.players;
 
-import java.util.ArrayList;
 import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.ActionHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.attackAction.AttackPlayer;
@@ -27,6 +26,7 @@ import eu.tjenwellens.bss.players.inventory.items.Weapon;
 import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
 import eu.tjenwellens.bss.players.playerstate.StatePlayer;
 import eu.tjenwellens.bss.players.playerstate.playerstates.PlayerState;
+import java.util.ArrayList;
 
 /**
  *
@@ -52,7 +52,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
     // battle
     private AttackPlayer opponent = null;
     // actions
-    private ArrayList<ActionHandlerInterface> actionHandlers = new ArrayList<ActionHandlerInterface>();
+    private ArrayList<ActionHandlerInterface> actionHandlers = new ArrayList<>();
 
     Player(int playerID, String playerName, Faction faction, Position position)
     {
@@ -60,10 +60,26 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
         this.playerName = playerName;
         this.faction = faction;
         this.position = position;
+        // init
         this.state = PlayerState.IDLE;
-        inventory = new SimpleInventory();
-        bankAccount = new SimpleBankAccount();
-        store = SimpleStore.getInstance();
+        this.inventory = new SimpleInventory();
+        this.bankAccount = new SimpleBankAccount();
+        this.store = SimpleStore.getInstance();
+    }
+
+    Player(int playerID, String playerName, int winns, int losses, Faction faction, Position position, Inventory inventory, BankAccount bankAccount, Store store)
+    {
+        this.playerID = playerID;
+        this.playerName = playerName;
+        this.winns = winns;
+        this.losses = losses;
+        this.faction = faction;
+        this.position = position;
+        // init
+        this.state = PlayerState.IDLE;
+        this.inventory = inventory;
+        this.bankAccount = bankAccount;
+        this.store = store;
     }
 
     @Override
@@ -333,5 +349,11 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
     public boolean hasItem(Item item)
     {
         return inventory.hasItem(item);
+    }
+
+    @Override
+    public void updateID(int newID)
+    {
+        this.playerID = newID;
     }
 }

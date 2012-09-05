@@ -10,14 +10,13 @@ import java.util.List;
  */
 public class ConcreteUpdater extends Thread implements Updater
 {
-    private volatile List<Updatable> observers;
+    private List<Updatable> observers = new ArrayList<>();
     private volatile boolean running = false;
-    private volatile int ticsPerSecond = 1;
+    private int ticsPerSecond = 1;
 
     public ConcreteUpdater(int ticsPerSecond)
     {
         this.initTicsPerSecond(ticsPerSecond);
-        this.observers = new ArrayList<Updatable>();
         running = false;
         this.setName("updater");
     }
@@ -35,13 +34,13 @@ public class ConcreteUpdater extends Thread implements Updater
     @Override
     public void addUpdatable(Updatable o)
     {
-        observers.add(o);
+        this.getObservers().add(o);
     }
 
     @Override
     public void removeUpdatable(Updatable o)
     {
-        observers.remove(o);
+        this.getObservers().remove(o);
     }
 
     private void initTicsPerSecond(int tps)
@@ -54,6 +53,16 @@ public class ConcreteUpdater extends Thread implements Updater
         this.initTicsPerSecond(ticsPerSecond);
     }
 
+    synchronized private List<Updatable> getObservers()
+    {
+        return observers;
+    }
+
+    synchronized private List<Updatable> getObserversCopy()
+    {
+        return new ArrayList<>(getObservers());
+    }
+
     @Override
     @SuppressWarnings("SleepWhileInLoop")
     public void run()
@@ -64,7 +73,7 @@ public class ConcreteUpdater extends Thread implements Updater
         running = true;
         while (running)
         {
-            for (Iterator<Updatable> it = this.observers.iterator(); it.hasNext();)
+            for (Iterator<Updatable> it = this.getObserversCopy().iterator(); it.hasNext();)
             {
                 Updatable observer = it.next();
                 observer.update();

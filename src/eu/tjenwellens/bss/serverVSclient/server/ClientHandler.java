@@ -48,7 +48,7 @@ public class ClientHandler implements Updatable
     // end
     private volatile boolean linkOpen = false;
     private int socketErrorCounter = 0;
-    private int maxSockErrors = 100;
+    private int maxSockErrors = 5;
     // player information
     private int playerId = 0;
     // state: 
@@ -90,7 +90,7 @@ public class ClientHandler implements Updatable
             {
                 socketErrorCounter++;
             }
-            System.out.println("ClientHandler" + e);
+            System.out.println("ClientHandler: " + e);
             if (socketErrorCounter > maxSockErrors)
             {
                 closeSocket();
@@ -251,35 +251,31 @@ public class ClientHandler implements Updatable
 
     protected void end()
     {
-        clientListener.disconnectClientHandler(this);
+//        clientListener.disconnectClientHandler(this);
         closeSocket();
     }
 
     private void closeSocket()
     {
         input.logout(playerId);
+
         try
         {
             out.writeObject(new CloseStream());
             out.flush();
-            clientSocket.close();
-            System.out.println("SERVER_CLIENT: Client (" + clientAddress + ") connection closed\n");
-            this.linkOpen = false;
         } catch (IOException e)
         {
             System.out.println(e);
-        } finally
-        {
-            if (clientSocket != null)
-            {
-                try
-                {
-                    clientSocket.close();
-                } catch (IOException ex)
-                {
-                    System.out.println(ex);
-                }
-            }
         }
+        try
+        {
+            clientSocket.close();
+        } catch (IOException e)
+        {
+            System.out.println(e);
+        }
+        System.out.println("SERVER_CLIENT: Client (" + clientAddress + ") connection closed\n");
+        this.linkOpen = false;
+        clientListener.disconnectClientHandler(this);
     }
 }

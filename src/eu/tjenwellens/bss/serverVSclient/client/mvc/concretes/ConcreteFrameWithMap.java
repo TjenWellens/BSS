@@ -45,7 +45,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         this.data = data;
         gamePanel.setVisible(false);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,7 +104,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
 
         jLabel3.setText("Character:");
 
-        txtPassword.setText("1");
+        txtPassword.setText("tjen");
         txtPassword.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -192,7 +192,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
                 .addGroup(loginInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin)
                     .addComponent(btnCancel))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
@@ -209,7 +209,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGap(104, 104, 104)
                 .addComponent(loginInternalFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
 
         loginPanel.setBounds(10, 10, 530, 720);
@@ -650,4 +650,4 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
     {
         drawPanel.update(data);
     }
-}
+    }

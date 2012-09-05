@@ -1,28 +1,35 @@
 package eu.tjenwellens.bss.players;
 
-import java.util.ArrayList;
-import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
-import eu.tjenwellens.bss.actionhandlers.bankAction.BankHandlerInterface;
-import eu.tjenwellens.bss.actionhandlers.decorateAction.DecorateHanderInterface;
-import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.Position;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
-import eu.tjenwellens.bss.actionhandlers.bankAction.GetBankAccount;
-import eu.tjenwellens.bss.actionhandlers.bankAction.shop.GetStore;
-import eu.tjenwellens.bss.debug.Output;
 import eu.tjenwellens.bss.actionhandlers.attackAction.AttackHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.attackAction.AttackResult;
+import eu.tjenwellens.bss.actionhandlers.bankAction.BankAccount;
+import eu.tjenwellens.bss.actionhandlers.bankAction.BankHandlerInterface;
+import eu.tjenwellens.bss.actionhandlers.bankAction.GetBankAccount;
+import eu.tjenwellens.bss.actionhandlers.bankAction.SimpleBankAccount;
+import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
+import eu.tjenwellens.bss.actionhandlers.bankAction.shop.GetStore;
+import eu.tjenwellens.bss.actionhandlers.bankAction.shop.SimpleStore;
+import eu.tjenwellens.bss.actionhandlers.bankAction.shop.Store;
+import eu.tjenwellens.bss.actionhandlers.decorateAction.DecorateHanderInterface;
+import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.actionhandlers.engageAction.EngageHandlerInterface;
+import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkObstaclePlayer;
+import eu.tjenwellens.bss.database.PlayerSaver;
+import eu.tjenwellens.bss.debug.Output;
 import eu.tjenwellens.bss.factions.Faction;
 import eu.tjenwellens.bss.players.inventory.GetInventory;
+import eu.tjenwellens.bss.players.inventory.Inventory;
+import eu.tjenwellens.bss.players.inventory.SimpleInventory;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
 import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -30,8 +37,8 @@ import eu.tjenwellens.bss.players.playerstate.PlayerStateType;
  */
 public class PlayerHandler implements PlayerHandlerInterface
 {
-    private HashMap<Integer, PlayerHandlerPlayer> players = new HashMap<Integer, PlayerHandlerPlayer>();
-    private HashMap<String, Integer> playerIds = new HashMap<String, Integer>();
+    private HashMap<Integer, PlayerHandlerPlayer> players = new HashMap<>();
+    private HashMap<String, Integer> playerIds = new HashMap<>();
     private Faction nullFaction;
     private AttackHandlerInterface attackHandler;
     private BankHandlerInterface bankHandler;
@@ -39,6 +46,23 @@ public class PlayerHandler implements PlayerHandlerInterface
     private EngageHandlerInterface engageHandler;
     private WalkHandlerInterface walkHandler;
 
+    private void addPlayer(int id, String playerName, PlayerHandlerPlayer player)
+    {
+        players.put(id, player);
+        playerIds.put(playerName, id);
+    }
+
+    private PlayerHandlerPlayer removePlayer(int id)
+    {
+        PlayerHandlerPlayer player = players.remove(id);
+        if (player != null)
+        {
+            playerIds.remove(player.getPlayerName());
+        }
+        return player;
+    }
+
+    //<editor-fold defaultstate="collapsed" desc="init handlers">
     @Override
     public void setAttackHandler(AttackHandlerInterface attackHandler)
     {
@@ -68,12 +92,14 @@ public class PlayerHandler implements PlayerHandlerInterface
     {
         this.walkHandler = walkHandler;
     }
+    //</editor-fold>
 
     public PlayerHandler(Faction nullFaction)
     {
         this.nullFaction = nullFaction;
     }
 
+    //<editor-fold defaultstate="collapsed" desc="player info (exists, name, etc)">
     @Override
     public boolean playerExists(int id)
     {
@@ -99,8 +125,14 @@ public class PlayerHandler implements PlayerHandlerInterface
 
     protected PlayerHandlerPlayer getPlayerByName(String playerName)
     {
-        return players.get(playerIds.get(playerName));
+        return players.get(getPlayerID(playerName));
     }
+
+    protected PlayerHandlerPlayer getPlayerByID(int playerID)
+    {
+        return players.get(playerID);
+    }
+    //</editor-fold>
 
     @Override
     public String toString()
@@ -113,6 +145,7 @@ public class PlayerHandler implements PlayerHandlerInterface
         return returnStr;
     }
 
+    //<editor-fold defaultstate="collapsed" desc="player actions">
     @Override
     public boolean walk(int id, Position destination)
     {
@@ -254,18 +287,81 @@ public class PlayerHandler implements PlayerHandlerInterface
     @Override
     public boolean createPlayer(int id, String playerName, Faction faction, Position position)
     {
-        PlayerHandlerPlayer player = players.get(id);
         if (playerExists(id))
         {
             System.out.println("ERROR: failed to create player: player already exists");
             return false;
         }
-        player = new Player(id, playerName, faction, position);
-        players.put(id, player);
-        playerIds.put(playerName, id);
+        PlayerHandlerPlayer player = new Player(id, playerName, faction, position);
+        addPlayer(id, playerName, player);
         System.out.println("created player");
         return true;
     }
+
+    @Override
+    public boolean loadPlayer(int id, String playerName, int winns, int losses, Faction faction, Position position)
+    {
+        if (playerExists(id))
+        {
+            System.out.println("ERROR: failed to load player: player is already loaded");
+            return false;
+        }
+        // TODO: load inventory, bank and store
+        Inventory inventory = new SimpleInventory();
+        BankAccount bankAccount = new SimpleBankAccount();
+        Store store = SimpleStore.getInstance();
+        PlayerHandlerPlayer player = new Player(id, playerName, winns, losses, faction, position, inventory, bankAccount, store);
+        addPlayer(id, playerName, player);
+        System.out.println("created player"+player);
+        return true;
+    }
+
+    @Override
+    public boolean saveAndLogoutPlayer(int id, PlayerSaver saver)
+    {
+        if (!playerExists(id))
+        {
+            return false;
+        }
+        PlayerHandlerPlayer player = removePlayer(id);
+        if (player == null)
+        {
+            return false;
+        }
+        if (saver != null)
+        {
+            saver.savePlayer(player);
+        } else
+        {
+            System.out.println("Error: saver is null");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean logoutPlayer(int id)
+    {
+        if (!playerExists(id))
+        {
+            return false;
+        }
+        PlayerHandlerPlayer player = removePlayer(id);
+        return player != null;
+    }
+
+    @Override
+    public boolean updatePlayerID(int id, int newID)
+    {
+        PlayerHandlerPlayer player = removePlayer(id);
+        if (player == null)
+        {
+            return false;
+        }
+        player.updateID(newID);
+        addPlayer(id, player.getPlayerName(), player);
+        return true;
+    }
+    //</editor-fold>
 
     protected synchronized List<PlayerHandlerPlayer> copyPlayers()
     {
@@ -283,7 +379,7 @@ public class PlayerHandler implements PlayerHandlerInterface
     @Override
     public HashMap<Integer, WalkObstaclePlayer> getWalkObstaclesCopy()
     {
-        HashMap<Integer, WalkObstaclePlayer> playersCopy = new HashMap<Integer, WalkObstaclePlayer>(players.size(), 1f);
+        HashMap<Integer, WalkObstaclePlayer> playersCopy = new HashMap<>(players.size(), 1f);
         for (Iterator<PlayerHandlerPlayer> playerIterator = copyPlayers().iterator(); playerIterator.hasNext();)
         {
             PlayerHandlerPlayer player = playerIterator.next();
@@ -298,6 +394,7 @@ public class PlayerHandler implements PlayerHandlerInterface
         return new HashMap<Integer, GetPlayer>(players);
     }
 
+    //<editor-fold defaultstate="collapsed" desc="ImmutableGetPlayer (unused)">
     private static class ImmutableGetPlayer implements GetPlayer
     {
         private int playerID;
@@ -448,4 +545,5 @@ public class PlayerHandler implements PlayerHandlerInterface
             return winns;
         }
     }
+    //</editor-fold>
 }

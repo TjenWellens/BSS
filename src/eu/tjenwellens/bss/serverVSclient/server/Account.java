@@ -52,6 +52,11 @@ public class Account
         return id;
     }
 
+    public String getPass()
+    {
+        return pass;
+    }
+
     public String getPlayerName()
     {
         return playerName;

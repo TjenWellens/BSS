@@ -1,33 +1,31 @@
 package eu.tjenwellens.bss.mvc.model;
 
-import java.util.HashMap;
-import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
-import eu.tjenwellens.bss.factions.Faction;
-import eu.tjenwellens.bss.mvc.observe.ModelObservable;
-import java.util.ArrayList;
-import java.util.List;
 import eu.tjenwellens.bss.Position;
-import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
-import eu.tjenwellens.bss.actionhandlers.bankAction.BankHandlerInterface;
-import eu.tjenwellens.bss.mvc.TickObserver;
 import eu.tjenwellens.bss.actionhandlers.attackAction.AttackHandler;
 import eu.tjenwellens.bss.actionhandlers.attackAction.AttackHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.bankAction.BankHandler;
-import eu.tjenwellens.bss.factions.FactionHandler;
-import eu.tjenwellens.bss.factions.FactionHandlerInterface;
+import eu.tjenwellens.bss.actionhandlers.bankAction.BankHandlerInterface;
+import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.DecorateHanderInterface;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.DecorateHandler;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.actionhandlers.engageAction.EngageHandler;
 import eu.tjenwellens.bss.actionhandlers.engageAction.EngageHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandler;
+import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
+import eu.tjenwellens.bss.database.PlayerSaver;
+import eu.tjenwellens.bss.factions.Faction;
+import eu.tjenwellens.bss.factions.FactionHandler;
+import eu.tjenwellens.bss.factions.FactionHandlerInterface;
 import eu.tjenwellens.bss.factions.Kleur;
 import eu.tjenwellens.bss.map.GetMap;
 import eu.tjenwellens.bss.map.MapHandler;
 import eu.tjenwellens.bss.map.MapHandlerInterface;
+import eu.tjenwellens.bss.mvc.TickObserver;
 import eu.tjenwellens.bss.mvc.observe.FactionObserver;
 import eu.tjenwellens.bss.mvc.observe.GlobalObserver;
 import eu.tjenwellens.bss.mvc.observe.MapObserver;
+import eu.tjenwellens.bss.mvc.observe.ModelObservable;
 import eu.tjenwellens.bss.mvc.observe.PlayerObserver;
 import eu.tjenwellens.bss.players.GetPlayer;
 import eu.tjenwellens.bss.players.PlayerHandler;
@@ -35,6 +33,9 @@ import eu.tjenwellens.bss.players.PlayerHandlerInterface;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
 import eu.tjenwellens.bss.players.inventory.items.Weapon;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -53,10 +54,13 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
     protected EngageHandlerInterface engageHandler;
     protected BankHandlerInterface bankHandler;
     // Observers
-    protected ArrayList<GlobalObserver> globalObservers = new ArrayList<GlobalObserver>();
-    protected ArrayList<PlayerObserver> playerObservers = new ArrayList<PlayerObserver>();
-    protected ArrayList<MapObserver> mapObservers = new ArrayList<MapObserver>();
-    protected ArrayList<FactionObserver> factionObservers = new ArrayList<FactionObserver>();
+    protected ArrayList<GlobalObserver> globalObservers = new ArrayList<>();
+    protected ArrayList<PlayerObserver> playerObservers = new ArrayList<>();
+    /**
+     *
+     */
+    protected ArrayList<MapObserver> mapObservers = new ArrayList<>();
+    protected ArrayList<FactionObserver> factionObservers = new ArrayList<>();
     protected volatile boolean notify = false;
 
     private Model()
@@ -238,14 +242,50 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
         Faction faction = factionHandler.getFactionByName(factionName);
         if (faction == null || faction.equals(factionHandler.getNullFaction()))
         {
-            System.out.println("No such faction");
+            System.out.println("No such faction, player not created");
         } else
         {
             notify = playerHandler.createPlayer(id, playerName, faction, position) || notify;
         }
     }
+
+    @Override
+    public void loadPlayerCommand(int id, String playerName, int winns, int losses, String factionName, Position position)
+    {
+        System.out.println("Model.loadPlayer");
+        Faction faction = factionHandler.getFactionByName(factionName);
+        if (faction == null || faction.equals(factionHandler.getNullFaction()))
+        {
+            System.out.println("No such faction, player not loaded");
+        } else
+        {
+            notify = playerHandler.loadPlayer(id, playerName, winns, losses, faction, position) || notify;
+        }
+    }
+
+    @Override
+    public void saveAndLogoutPlayerCommand(int id, PlayerSaver saver)
+    {
+        System.out.println("Model.saveAndLogoutPlayerCommand");
+        notify = playerHandler.saveAndLogoutPlayer(id, saver) || notify;
+    }
+
+    @Override
+    public void logoutPlayerCommand(int id)
+    {
+        System.out.println("Model.logoutPlayerCommand");
+        notify = playerHandler.logoutPlayer(id) || notify;
+    }
+
+    @Override
+    public void updateIDCommand(int id, int newID)
+    {
+        System.out.println("Model.updateID");
+        notify = playerHandler.updatePlayerID(id, newID) || notify;
+    }
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="getters for view">
     @Override
     public GetMap getMap()
     {
@@ -263,4 +303,5 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
     {
         return factionHandler.getFactionsCopy();
     }
+    //</editor-fold>
 }

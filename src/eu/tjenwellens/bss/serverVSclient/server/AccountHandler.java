@@ -17,6 +17,4 @@ public interface AccountHandler
     int save(int oldID, String name, String pass, String playerName);
 
     void logout(int playerID);
-
-    boolean deleteAccount(String name, String pass, String playerName);
 }

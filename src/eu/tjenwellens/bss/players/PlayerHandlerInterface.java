@@ -9,6 +9,7 @@ import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.actionhandlers.engageAction.EngageHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.actionhandlers.walkAction.WalkObstaclePlayer;
+import eu.tjenwellens.bss.database.PlayerSaver;
 import eu.tjenwellens.bss.factions.Faction;
 import eu.tjenwellens.bss.players.inventory.items.Item;
 import eu.tjenwellens.bss.players.inventory.items.Tool;
@@ -35,6 +36,8 @@ public interface PlayerHandlerInterface
 
     boolean createPlayer(int id, String playerName, Faction faction, Position position);
 
+    boolean loadPlayer(int id, String playerName, int winns, int losses, Faction faction, Position position);
+
     HashMap<Integer, GetPlayer> getPlayersCopy();
 
     HashMap<Integer, WalkObstaclePlayer> getWalkObstaclesCopy();
@@ -56,4 +59,10 @@ public interface PlayerHandlerInterface
     public void setEngageHandler(EngageHandlerInterface engageHandler);
 
     public void setWalkHandler(WalkHandlerInterface walkHandler);
+
+    public boolean saveAndLogoutPlayer(int id, PlayerSaver saver);
+
+    public boolean logoutPlayer(int id);
+
+    public boolean updatePlayerID(int id, int newID);
 }
