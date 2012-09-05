@@ -2,7 +2,6 @@ package eu.tjenwellens.bss.factions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -12,8 +11,8 @@ import java.util.List;
 public class FactionHandler implements FactionHandlerInterface
 {
     private Faction nullFaction = new Faction(0, "None", Kleur.WIT);
-    private HashMap<Integer, Faction> factions = new HashMap<Integer, Faction>();
-    private HashMap<String, Integer> factionIds = new HashMap<String, Integer>();
+    private HashMap<Integer, Faction> factions = new HashMap<>();
+    private HashMap<String, Integer> factionIds = new HashMap<>();
     private int factionCounter = 1;
 
     public FactionHandler()
@@ -40,11 +39,6 @@ public class FactionHandler implements FactionHandlerInterface
         }
     }
 
-    protected Iterator<Faction> getDuels()
-    {
-        return factions.values().iterator();
-    }
-
     @Override
     public boolean joinFaction(String factionName, FactionPlayer player)
     {
@@ -69,7 +63,7 @@ public class FactionHandler implements FactionHandlerInterface
     @Override
     public synchronized List<Faction> getFactionsCopy()
     {
-        return new ArrayList<Faction>(factions.values());
+        return new ArrayList<>(factions.values());
     }
 
     @Override

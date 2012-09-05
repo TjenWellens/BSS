@@ -28,7 +28,6 @@ import eu.tjenwellens.bss.players.inventory.items.Weapon;
 import eu.tjenwellens.bss.players.playerstate.playerstates.PlayerStateType;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -380,9 +379,8 @@ public class PlayerHandler implements PlayerHandlerInterface
     public HashMap<Integer, WalkObstaclePlayer> getWalkObstaclesCopy()
     {
         HashMap<Integer, WalkObstaclePlayer> playersCopy = new HashMap<>(players.size(), 1f);
-        for (Iterator<PlayerHandlerPlayer> playerIterator = copyPlayers().iterator(); playerIterator.hasNext();)
+        for (PlayerHandlerPlayer player : copyPlayers())
         {
-            PlayerHandlerPlayer player = playerIterator.next();
             playersCopy.put(player.getPlayerID(), player);
         }
         return playersCopy;

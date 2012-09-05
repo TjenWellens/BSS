@@ -2,7 +2,6 @@ package eu.tjenwellens.bss.mvc.controller;
 
 import eu.tjenwellens.bss.mvc.TickObserver;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public class Ticker extends Thread implements TickObservable
     public Ticker(int ticsPerSecond)
     {
         this.initTicsPerSecond(ticsPerSecond);
-        this.observers = new ArrayList<TickObserver>();
+        this.observers = new ArrayList<>();
         running = false;
         this.setName("updater");
     }
@@ -65,9 +64,8 @@ public class Ticker extends Thread implements TickObservable
         running = true;
         while (running)
         {
-            for (Iterator<TickObserver> it = this.observers.iterator(); it.hasNext();)
+            for (TickObserver observer : this.observers)
             {
-                TickObserver observer = it.next();
                 observer.tick();
             }
 
@@ -85,7 +83,6 @@ public class Ticker extends Thread implements TickObservable
             } catch (InterruptedException e)
             {
                 System.out.println(e);
-                e.printStackTrace();
             }
             beforeTime = System.currentTimeMillis();
         }

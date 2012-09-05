@@ -1,7 +1,6 @@
 package eu.tjenwellens.bss.serverVSclient;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -58,7 +57,7 @@ public class ConcreteUpdater extends Thread implements Updater
         return observers;
     }
 
-    synchronized private List<Updatable> getObserversCopy()
+    private List<Updatable> getObserversCopy()
     {
         return new ArrayList<>(getObservers());
     }
@@ -73,9 +72,8 @@ public class ConcreteUpdater extends Thread implements Updater
         running = true;
         while (running)
         {
-            for (Iterator<Updatable> it = this.getObserversCopy().iterator(); it.hasNext();)
+            for (Updatable observer : this.getObserversCopy())
             {
-                Updatable observer = it.next();
                 observer.update();
             }
 
@@ -93,7 +91,6 @@ public class ConcreteUpdater extends Thread implements Updater
             } catch (InterruptedException e)
             {
                 System.out.println(e);
-                e.printStackTrace();
             }
             beforeTime = System.currentTimeMillis();
         }
