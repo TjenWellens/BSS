@@ -469,7 +469,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         Position p = new Position(x, y);
         if (evt.getButton() == MouseEvent.BUTTON1)
         {// Move ya ass!
-            System.out.println("Move ya ass!");
+//            System.out.println("Move ya ass!");
             communication.walk(x, y);
         } else if (evt.getButton() == MouseEvent.BUTTON3)
         {// CHAARGEEEE!!!!

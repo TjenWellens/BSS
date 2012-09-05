@@ -1,9 +1,9 @@
 package eu.tjenwellens.bss.database;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
@@ -17,6 +17,16 @@ public class PlayerDB extends DB
     private static final String KEY_PLAYERNAME = "playername";
     private static final String KEY_WINNS = "winns";
     private static final String KEY_LOSSES = "losses";
+    // queries
+    private static final String insert =
+            " INSERT INTO " + TABLE
+            + " ( " + KEY_ID + " , " + KEY_PLAYERNAME + " , " + KEY_WINNS + " , " + KEY_LOSSES
+            + " ) values (?, ?, ?, ?)";
+    private static final String update =
+            "UPDATE " + TABLE
+            + " SET " + KEY_ID + " = ?, " + KEY_PLAYERNAME + " = ?, " + KEY_WINNS + " = ?, " + KEY_LOSSES + " = ?"
+            + " WHERE " + KEY_ID + " = ?";
+    private static final String getPlayer = "SELECT * FROM " + TABLE + " WHERE " + KEY_ID + " = ?";
 
     public DBPlayer getPlayer(int id, String playerName)
     {
@@ -31,17 +41,19 @@ public class PlayerDB extends DB
     private DBPlayer getPlayer(int id)
     {
         DBPlayer player = null;
-        String q = "SELECT * FROM " + TABLE + " WHERE " + KEY_ID + " = " + id;
-        try (Connection c = getConnection(); Statement stmt = c.createStatement(); ResultSet rs = stmt.executeQuery(q))
+        try (Connection c = getConnection(); PreparedStatement s = c.prepareStatement(getPlayer))
         {
-
-            if (rs.next())
+            s.setInt(1, id);
+            try (ResultSet rs = s.executeQuery())
             {
+                if (rs.next())
+                {
 //                int id = rs.getInt(KEY_ID);
-                String playerName = rs.getString(KEY_PLAYERNAME);
-                int winns = rs.getInt(KEY_WINNS);
-                int losses = rs.getInt(KEY_LOSSES);
-                player = new DBPlayer(id, playerName, winns, losses);
+                    String playerName = rs.getString(KEY_PLAYERNAME);
+                    int winns = rs.getInt(KEY_WINNS);
+                    int losses = rs.getInt(KEY_LOSSES);
+                    player = new DBPlayer(id, playerName, winns, losses);
+                }
             }
         } catch (SQLException ex)
         {
@@ -54,10 +66,13 @@ public class PlayerDB extends DB
     {
 //        name = name.toLowerCase();
         int i = 0;
-        String q = "Insert into " + TABLE + " (" + KEY_ID + ", " + KEY_PLAYERNAME + ") values ('" + id + "', '" + playerName + "')";
-        try (Connection c = getConnection(); Statement stmt = c.createStatement())
+        try (Connection c = getConnection(); PreparedStatement s = c.prepareStatement(insert))
         {
-            i = stmt.executeUpdate(q);
+            s.setInt(1, id);
+            s.setString(2, playerName);
+            s.setInt(3, 0);
+            s.setInt(4, 0);
+            i = s.executeUpdate();
         } catch (SQLException e)
         {
             System.out.println(e);
@@ -69,35 +84,26 @@ public class PlayerDB extends DB
     {
 //        name = name.toLowerCase();
         int i = 0;
-        String update = "UPDATE " + TABLE
-                + " SET " + KEY_ID + " = " + player.getPlayerID()
-                + " , " + KEY_PLAYERNAME + " = '" + player.getPlayerName() + "'"
-                + " , " + KEY_WINNS + " = " + player.getWinns()
-                + " , " + KEY_LOSSES + " = " + player.getLosses()
-                + " WHERE " + KEY_ID + " = " + id;
-        String insert = " INSERT INTO " + TABLE
-                + " ( " + KEY_ID
-                + " , " + KEY_PLAYERNAME
-                + " , " + KEY_WINNS
-                + " , " + KEY_LOSSES
-                + " ) values ( " + player.getPlayerID()
-                + " , " + "'" + player.getPlayerName() + "'"
-                + " , " + player.getWinns()
-                + " , " + player.getLosses() + ")";
-        DBPlayer p = getPlayer(id);
-        try (Connection c = getConnection(); Statement stmt = c.createStatement())
+        String prep;
+        boolean exists = getPlayer(id) != null;
+        if (exists)
         {
-            if (p == null)
+            prep = update;
+        } else
+        {
+            prep = insert;
+        }
+        try (Connection c = getConnection(); PreparedStatement s = c.prepareStatement(prep))
+        {
+            s.setInt(1, player.getPlayerID());
+            s.setString(2, player.getPlayerName());
+            s.setInt(3, player.getWinns());
+            s.setInt(4, player.getLosses());
+            if (exists)
             {
-                i = stmt.executeUpdate(insert);
-            } else
-            {
-                i = stmt.executeUpdate(update);
+                s.setInt(5, id);
             }
-//            if (i == 0)
-//            {
-//                i = stmt.executeUpdate(create);
-//            }
+            i = s.executeUpdate();
         } catch (SQLException e)
         {
             System.out.println("hier: " + e);

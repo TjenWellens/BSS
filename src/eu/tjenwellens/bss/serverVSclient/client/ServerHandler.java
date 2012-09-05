@@ -57,7 +57,7 @@ public abstract class ServerHandler implements Updatable
                         System.out.println("ERROR: Client - Serverhandler - leesobject is null");
                     } else if (leesObject instanceof Command)
                     {
-                        System.out.println("Handle command");
+//                        System.out.println("Handle command");
                         handleInput((Command) leesObject);
                     } else if (leesObject instanceof DataForClient)
                     {

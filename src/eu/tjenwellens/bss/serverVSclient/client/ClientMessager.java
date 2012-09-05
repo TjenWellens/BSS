@@ -116,7 +116,7 @@ public class ClientMessager extends ServerHandler implements Communication
         {
             // init done
         }
-        if (command instanceof CloseStream)
+        else if (command instanceof CloseStream)
         {
             end();
         } else if (command instanceof Err)

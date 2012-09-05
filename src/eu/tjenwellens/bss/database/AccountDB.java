@@ -2,6 +2,7 @@ package eu.tjenwellens.bss.database;
 
 import eu.tjenwellens.bss.serverVSclient.server.Account;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -22,21 +23,29 @@ public class AccountDB extends DB
     private static final String KEY_NAME = "name";
     private static final String KEY_PASS = "pass";
     private static final String KEY_PLAYERNAME = "playername";
+    // queries
+    private static final String getAcount = "SELECT * FROM accounts WHERE " + KEY_NAME + " = ?";
+    private static final String getAll = "SELECT * FROM " + TABLE;
+    private static final String insert = "Insert into " + TABLE + " (" + KEY_NAME + ", " + KEY_PASS + ", " + KEY_PLAYERNAME + ") values (?, ?, ?)";
+    private static final String update = "UPDATE Persons" + TABLE
+            + "SET " + KEY_ID + "=?, " + KEY_NAME + "=?, " + KEY_PASS + "=?, " + KEY_PLAYERNAME + "=? WHERE " + KEY_ID + "=?";
 
     public Account getAccount(String name)
     {
         Account a = null;
         name = name.toLowerCase();
-        String q = "SELECT * FROM accounts WHERE " + KEY_NAME + " = '" + name + "'";
-        try (Connection c = getConnection(); Statement stmt = c.createStatement(); ResultSet rs = stmt.executeQuery(q))
+        try (Connection c = getConnection(); PreparedStatement stmt = c.prepareStatement(getAcount))
         {
-
-            if (rs.next())
+            stmt.setString(1, name);
+            try (ResultSet rs = stmt.executeQuery())
             {
-                int id = rs.getInt(KEY_ID);
-                String pass = rs.getString(KEY_PASS);
-                String playerName = rs.getString(KEY_PLAYERNAME);
-                a = new Account(id, name, pass, playerName);
+                if (rs.next())
+                {
+                    int id = rs.getInt(KEY_ID);
+                    String pass = rs.getString(KEY_PASS);
+                    String playerName = rs.getString(KEY_PLAYERNAME);
+                    a = new Account(id, name, pass, playerName);
+                }
             }
         } catch (SQLException ex)
         {
@@ -48,8 +57,7 @@ public class AccountDB extends DB
     public List<Account> getAllAccounts()
     {
         List<Account> accounts = new ArrayList<>();
-        String q = "SELECT * FROM " + TABLE;
-        try (Connection c = getConnection(); Statement stmt = c.createStatement(); ResultSet rs = stmt.executeQuery(q))
+        try (Connection c = getConnection(); PreparedStatement stmt = c.prepareStatement(getAll); ResultSet rs = stmt.executeQuery())
         {
             while (rs.next())
             {
@@ -70,10 +78,12 @@ public class AccountDB extends DB
     {
         name = name.toLowerCase();
         int i = 0;
-        String q = "Insert into " + TABLE + " (" + KEY_NAME + ", " + KEY_PASS + ", " + KEY_PLAYERNAME + ") values ('" + name + "', '" + pass + "', '" + playerName + "')";
-        try (Connection c = getConnection(); Statement stmt = c.createStatement())
+        try (Connection c = getConnection(); PreparedStatement stmt = c.prepareStatement(insert))
         {
-            i = stmt.executeUpdate(q);
+            stmt.setString(1, name);
+            stmt.setString(2, pass);
+            stmt.setString(3, playerName);
+            i = stmt.executeUpdate();
         } catch (SQLException e)
         {
             System.out.println(e);
@@ -85,15 +95,14 @@ public class AccountDB extends DB
     {
 //        name = name.toLowerCase();
         int i = 0;
-        String q = "UPDATE Persons" + TABLE
-                + "SET " + KEY_ID + "=" + account.getId()
-                + ", " + KEY_NAME + "=" + account.getName()
-                + ", " + KEY_PASS + "=" + account.getPass()
-                + ", " + KEY_PLAYERNAME + "=" + account.getPlayerName()
-                + "WHERE " + KEY_ID + "=" + id;
-        try (Connection c = getConnection(); Statement stmt = c.createStatement())
+        try (Connection c = getConnection(); PreparedStatement stmt = c.prepareStatement(update))
         {
-            i = stmt.executeUpdate(q);
+            stmt.setInt(1, account.getId());
+            stmt.setString(2, account.getName());
+            stmt.setString(3, account.getPass());
+            stmt.setString(4, account.getPlayerName());
+            stmt.setInt(5, id);
+            i = stmt.executeUpdate();
         } catch (SQLException e)
         {
             System.out.println(e);
@@ -106,7 +115,7 @@ public class AccountDB extends DB
         try (Connection connection = getConnection())
         {
             Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM " + TABLE);
+            ResultSet rs = stmt.executeQuery(getAll);
             while (rs.next())
             {
                 int id = rs.getInt(KEY_ID);
