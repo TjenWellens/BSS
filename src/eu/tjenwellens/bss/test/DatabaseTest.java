@@ -1,6 +1,7 @@
 package eu.tjenwellens.bss.test;
 
 import eu.tjenwellens.bss.database.AccountDB;
+import eu.tjenwellens.bss.database.DB;
 import eu.tjenwellens.bss.database.DBPlayer;
 import eu.tjenwellens.bss.database.PlayerDB;
 import eu.tjenwellens.bss.serverVSclient.server.Account;
@@ -22,7 +23,8 @@ public class DatabaseTest
      */
     public static void main(String[] args)
     {
-        System.out.println(new PlayerDB().updatePlayer(-5, new DBPlayer(-11, "-11", -11, -11)));
+//        System.out.println(new PlayerDB().updatePlayer(-5, new DBPlayer(-11, "-11", -11, -11)));
+        System.out.println(DB.canConnect());
 //        DBAccount dba = DBAccount.getInstance();
 //        for (int i = 0; i < 10; i++)
 //        {

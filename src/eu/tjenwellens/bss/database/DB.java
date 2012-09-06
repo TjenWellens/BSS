@@ -26,8 +26,21 @@ public class DB
         }
     }
 
-    protected Connection getConnection() throws SQLException
+    protected static Connection getConnection() throws SQLException
     {
         return DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    public static boolean canConnect()
+    {
+        try (Connection c = getConnection())
+        {
+            System.out.println("Database server found");
+        } catch (SQLException e)
+        {
+            System.out.println("No database server found...");
+            return false;
+        }
+        return true;
     }
 }

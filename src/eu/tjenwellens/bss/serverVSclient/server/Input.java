@@ -4,6 +4,7 @@ import eu.tjenwellens.bss.Position;
 import eu.tjenwellens.bss.actionhandlers.bankAction.Transaction;
 import eu.tjenwellens.bss.actionhandlers.decorateAction.Decoration;
 import eu.tjenwellens.bss.commands.command.*;
+import eu.tjenwellens.bss.database.DB;
 import eu.tjenwellens.bss.mvc.controller.CommandInvokerInterface;
 import eu.tjenwellens.bss.mvc.model.CommandReceiverInterface;
 import eu.tjenwellens.bss.players.inventory.items.*;
@@ -22,7 +23,13 @@ public class Input implements InputInterface
     {
         this.ci = commandInvoker;
         this.cr = commandReceiver;
-        this.ah = new DBAccountHandler(commandInvoker, commandReceiver);
+        if (DB.canConnect())
+        {
+            this.ah = new DBAccountHandler(ci, cr);
+        } else
+        {
+            this.ah = new SimpleAccountHandler(ci, cr);
+        }
     }
 
     @Override
