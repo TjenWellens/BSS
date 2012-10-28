@@ -15,9 +15,9 @@ public class SimpleAccountHandler implements AccountHandler
 {
     private final static String PASS = "p";
     private final static String NAME = "p";
-    private volatile HashMap<String, Integer> name_id = new HashMap<String, Integer>();
-    private volatile HashSet<String> playerNames = new HashSet<String>();
-    private volatile HashMap<Integer, Account> accounts = new HashMap<Integer, Account>();
+    private volatile HashMap<String, Integer> name_id = new HashMap<>();
+    private volatile HashSet<String> playerNames = new HashSet<>();
+    private volatile HashMap<Integer, Account> accounts = new HashMap<>();
     private CommandInvokerInterface ci;
     private CommandReceiverInterface cr;
 
@@ -25,7 +25,8 @@ public class SimpleAccountHandler implements AccountHandler
     {
         this.cr = cr;
         this.ci = ci;
-        // TODO: load state
+        // TODO: remove
+        initAccounts();
     }
 
     @Override
@@ -48,10 +49,7 @@ public class SimpleAccountHandler implements AccountHandler
             return false;
         }
         // all is ok
-        Account account = new Account(id, name, pass, playerName);
-        name_id.put(name, id);
-        playerNames.add(playerName);
-        accounts.put(id, account);
+        addAccount(new Account(id, name, pass, playerName));
         return true;
     }
 
@@ -164,5 +162,27 @@ public class SimpleAccountHandler implements AccountHandler
         name_id.remove(name);
         accounts.remove(id);
         playerNames.remove(playerName);
+    }
+
+    private void initAccounts()
+    {
+        addAccount(new Account(1, "1", "1", "1"));
+        addAccount(new Account(2, "2", "2", "2"));
+        addAccount(new Account(3, "3", "3", "3"));
+        addAccount(new Account(4, "4", "4", "4"));
+        addAccount(new Account(5, "5", "5", "5"));
+        addAccount(new Account(6, "6", "6", "6"));
+        addAccount(new Account(7, "7", "7", "7"));
+        addAccount(new Account(8, "8", "8", "8"));
+        addAccount(new Account(9, "9", "9", "9"));
+        addAccount(new Account(10, "tjen", "tjen", "tjen"));
+        addAccount(new Account(11, "miel", "miel", "miel"));
+    }
+
+    private void addAccount(Account a)
+    {
+        name_id.put(a.getName(), a.getId());
+        playerNames.add(a.getPlayerName());
+        accounts.put(a.getId(), a);
     }
 }

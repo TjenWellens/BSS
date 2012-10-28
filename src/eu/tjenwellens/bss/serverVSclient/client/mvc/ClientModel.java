@@ -18,33 +18,33 @@ import java.util.List;
  */
 public class ClientModel implements Observable, Data, ServerToModel
 {
-    private volatile ClientGamer gamer = null;
-    private volatile List<ClientPlayer> players = null;
-    private volatile ClientMap map = null;
-    private volatile List<ClientFaction> factions = null;
-    private List<Observer> observers = new ArrayList<Observer>();
+    private ClientGamer gamer = null;
+    private List<ClientPlayer> players = null;
+    private ClientMap map = null;
+    private List<ClientFaction> factions = null;
+    private final List<Observer> observers = new ArrayList<>();
     private boolean updateReady;
 
     @Override
-    public ClientGamer getGamer()
+    synchronized public ClientGamer getGamer()
     {
         return this.gamer;
     }
 
     @Override
-    public List<ClientPlayer> getPlayers()
+    synchronized public List<ClientPlayer> getPlayers()
     {
         return this.players;
     }
 
     @Override
-    public ClientMap getMap()
+    synchronized public ClientMap getMap()
     {
         return this.map;
     }
 
     @Override
-    public List<ClientFaction> getFactions()
+    synchronized public List<ClientFaction> getFactions()
     {
         return this.factions;
     }
@@ -64,7 +64,7 @@ public class ClientModel implements Observable, Data, ServerToModel
         List<DataPlayer> dps = dfc.getOpponents();
         if (dps != null)
         {
-            this.players = new ArrayList<ClientPlayer>();
+            this.players = new ArrayList<>();
             for (DataPlayer dataPlayer : dps)
             {
                 this.players.add(new ClientPlayer(dataPlayer));
@@ -82,7 +82,7 @@ public class ClientModel implements Observable, Data, ServerToModel
         List<DataFaction> dfs = dfc.getFactions();
         if (dfs != null)
         {
-            this.factions = new ArrayList<ClientFaction>();
+            this.factions = new ArrayList<>();
             for (DataFaction dataFaction : dfs)
             {
                 this.factions.add(new ClientFaction(dataFaction));
@@ -111,7 +111,12 @@ public class ClientModel implements Observable, Data, ServerToModel
 
     private void notifyObservers()
     {
-        for (Observer observer : observers)
+        List<Observer> observerCopy;
+        synchronized (this.observers)
+        {
+            observerCopy = new ArrayList<>(this.observers);
+        }
+        for (Observer observer : observerCopy)
         {
 //            System.out.println("notify");
             observer.update();

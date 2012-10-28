@@ -36,4 +36,25 @@ public class ClientMain
         t.start();
         updater.start();
     }
+
+    public static void runClient(String url)
+    {
+        if (url == null)
+        {
+            runClient();
+            return;
+        }
+        Ticker t = new Ticker(1);
+        ConcreteUpdater updater = new ConcreteUpdater(2);
+        ClientModel model = new ClientModel();
+        ClientMessager communication = new ClientMessager(model, url);
+        updater.addUpdatable(communication);
+        ConcreteFrameWithMap cfwm = new ConcreteFrameWithMap(communication, model);
+        model.registerObserver(cfwm);
+        t.registerTickObserver(cfwm);
+        cfwm.setVisible(true);
+
+        t.start();
+        updater.start();
+    }
 }

@@ -40,11 +40,34 @@ public class BssMain
 //            java.util.logging.Logger.getLogger(ConcreteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        ServerMain.runServer();
-        ClientMain.runClient();
+        if (args.length == 0)
+        {
+            ClientMain.runClient();
+        } else if (args.length > 0)
+        {
+            if (args[0].equalsIgnoreCase("client"))
+            {
+                String url = null;
+                if (args.length > 1)
+                {
+                    url = args[1];
+                }
+                ClientMain.runClient(url);
+            } else if (args[0].equalsIgnoreCase("server"))
+            {
+                ServerMain.runServer();
+            } else if (args[0].equalsIgnoreCase("serverandclient"))
+            {
+                String url = null;
+                if (args.length > 1)
+                {
+                    url = args[1];
+                }
+                ServerMain.runServer();
+                ClientMain.runClient(url);
+            }
+        }
     }
-
 //    public static void runMultiplayerGame()
 //    {
 //        Model m = Model.getInstance();
