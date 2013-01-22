@@ -1,6 +1,6 @@
 package eu.tjenwellens.bss.server.server_commands;
 
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 
 /**
  *
@@ -8,10 +8,10 @@ import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
  */
 public abstract class ServerCommand
 {
-    protected CommandReceiverInterface cr;
+    protected CommandReceiver cr;
     protected int playerID;
 
-    protected ServerCommand(CommandReceiverInterface cr, int playerID)
+    protected ServerCommand(CommandReceiver cr, int playerID)
     {
         this.cr = cr;
         this.playerID = playerID;

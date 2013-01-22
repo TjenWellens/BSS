@@ -1,6 +1,5 @@
 package eu.tjenwellens.bss.server.mvc.model;
 
-import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.actions.attackAction.AttackHandler;
 import eu.tjenwellens.bss.server.actions.attackAction.AttackHandlerInterface;
 import eu.tjenwellens.bss.server.actions.bankAction.BankHandler;
@@ -13,35 +12,33 @@ import eu.tjenwellens.bss.server.actions.engageAction.EngageHandler;
 import eu.tjenwellens.bss.server.actions.engageAction.EngageHandlerInterface;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkHandler;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkHandlerInterface;
-import eu.tjenwellens.bss.server.database.PlayerSaver;
+import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.components.factions.Faction;
 import eu.tjenwellens.bss.server.components.factions.FactionHandler;
 import eu.tjenwellens.bss.server.components.factions.FactionHandlerInterface;
 import eu.tjenwellens.bss.server.components.factions.Kleur;
-import eu.tjenwellens.bss.server.components.map.GetMap;
-import eu.tjenwellens.bss.server.components.map.MapHandler;
-import eu.tjenwellens.bss.server.components.map.MapHandlerInterface;
-import eu.tjenwellens.bss.server.mvc.TickObserver;
-import eu.tjenwellens.bss.server.mvc.model.observers.FactionObserver;
-import eu.tjenwellens.bss.server.mvc.model.observers.GlobalObserver;
-import eu.tjenwellens.bss.server.mvc.model.observers.MapObserver;
-import eu.tjenwellens.bss.server.mvc.model.observers.ModelObservable;
-import eu.tjenwellens.bss.server.mvc.model.observers.PlayerObserver;
-import eu.tjenwellens.bss.server.components.players.GetPlayer;
-import eu.tjenwellens.bss.server.components.players.PlayerHandler;
-import eu.tjenwellens.bss.server.components.players.PlayerHandlerInterface;
 import eu.tjenwellens.bss.server.components.items.Item;
 import eu.tjenwellens.bss.server.components.items.Tool;
 import eu.tjenwellens.bss.server.components.items.Weapon;
-import java.util.ArrayList;
+import eu.tjenwellens.bss.server.components.map.GetMap;
+import eu.tjenwellens.bss.server.components.map.MapHandler;
+import eu.tjenwellens.bss.server.components.map.MapHandlerInterface;
+import eu.tjenwellens.bss.server.components.players.GetPlayer;
+import eu.tjenwellens.bss.server.components.players.PlayerHandler;
+import eu.tjenwellens.bss.server.components.players.PlayerHandlerInterface;
+import eu.tjenwellens.bss.server.database.PlayerSaver;
+import eu.tjenwellens.update.Updatable;
+import eu.tjenwellens.update.Updater;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  *
  * @author tjen
  */
-public class Model implements ModelObservable, TickObserver, CommandReceiverInterface, GetModelData
+public class Model implements Updater, Updatable, CommandReceiver, GetModelData
 {
     protected static Model model = new Model();
     // handlers
@@ -54,13 +51,7 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
     protected EngageHandlerInterface engageHandler;
     protected BankHandlerInterface bankHandler;
     // Observers
-    protected ArrayList<GlobalObserver> globalObservers = new ArrayList<>();
-    protected ArrayList<PlayerObserver> playerObservers = new ArrayList<>();
-    /**
-     *
-     */
-    protected ArrayList<MapObserver> mapObservers = new ArrayList<>();
-    protected ArrayList<FactionObserver> factionObservers = new ArrayList<>();
+    private Collection<Updatable> observers = new LinkedList<>();
     protected volatile boolean notify = false;
 
     private Model()
@@ -99,88 +90,28 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
 
     //<editor-fold defaultstate="collapsed" desc="observer functions">
     @Override
-    public void registerPlayersObserver(PlayerObserver o)
+    public boolean registerUpdatable(Updatable u)
     {
-        playerObservers.add(o);
+        return observers.add(u);
     }
 
     @Override
-    public void removePlayersObserver(PlayerObserver o)
+    public boolean removeUpdatable(Updatable u)
     {
-        playerObservers.remove(o);
+        return observers.remove(u);
     }
 
-    @Override
-    public void registerMapObserver(MapObserver o)
+    protected void notifyObservers()
     {
-        mapObservers.add(o);
-    }
-
-    @Override
-    public void removeMapObserver(MapObserver o)
-    {
-        mapObservers.remove(o);
-    }
-
-    @Override
-    public void registerFactionObserver(FactionObserver o)
-    {
-        factionObservers.add(o);
-    }
-
-    @Override
-    public void removeFactionObserver(FactionObserver o)
-    {
-        factionObservers.remove(o);
-    }
-
-    @Override
-    public void registerGlobalObserver(GlobalObserver o)
-    {
-        globalObservers.add(o);
-    }
-
-    @Override
-    public void removeGlobalObserver(GlobalObserver o)
-    {
-        globalObservers.remove(o);
-    }
-
-    protected void notifyGlobalObservers()
-    {
-        for (GlobalObserver observer : globalObservers)
+        for (Updatable u : observers)
         {
-            observer.notifyGlobalObserver();
-        }
-    }
-
-    protected void notifyPlayerObservers()
-    {
-        for (PlayerObserver observer : playerObservers)
-        {
-            observer.notifyPlayerObserver();
-        }
-    }
-
-    protected void notifyMapObservers()
-    {
-        for (MapObserver observer : mapObservers)
-        {
-            observer.notifyMapObserver();
-        }
-    }
-
-    protected void notifyFactionObservers()
-    {
-        for (FactionObserver observer : factionObservers)
-        {
-            observer.notifyFactionObserver();
+            u.update();
         }
     }
     //</editor-fold>
 
     @Override
-    public void tick()
+    public void update()
     {
         notify = playerHandler.updatePlayers() || notify;
         notify = attackHandler.updateDuels() || notify;
@@ -191,10 +122,10 @@ public class Model implements ModelObservable, TickObserver, CommandReceiverInte
         notify = decorateHander.updateDecorates() || notify;
         notify = engageHandler.updateEngages() || notify;
         notify = bankHandler.updateBankJobs() || notify;
-//        if (notify)
+        if (notify)
         {
             notify = false;
-            notifyGlobalObservers();
+            notifyObservers();
         }
     }
 

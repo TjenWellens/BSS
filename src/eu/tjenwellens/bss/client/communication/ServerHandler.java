@@ -1,10 +1,10 @@
 package eu.tjenwellens.bss.client.communication;
 
-import eu.tjenwellens.bss.client.observer.Updatable;
 import eu.tjenwellens.bss.data.commands.Command;
-import eu.tjenwellens.bss.data.commands.dataToClient.DataForClient;
-import eu.tjenwellens.bss.data.commands.init_exit.CloseStream;
-import eu.tjenwellens.bss.data.commands.init_exit.InitStream;
+import eu.tjenwellens.bss.data.commands.exit.CloseStream;
+import eu.tjenwellens.bss.data.commands.init.InitStream;
+import eu.tjenwellens.bss.data.commands.play.DataForClient;
+import eu.tjenwellens.update.Updatable;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -94,8 +94,7 @@ public abstract class ServerHandler implements Updatable
             // socket
             sock = new Socket(host, port);
             out = new ObjectOutputStream(sock.getOutputStream());
-            out.writeObject(new InitStream());
-            out.flush();
+            send(new InitStream());
             checkForInputStream = new BufferedInputStream(sock.getInputStream());
             in = new ObjectInputStream(checkForInputStream);
             linkOpen = true;
@@ -116,8 +115,7 @@ public abstract class ServerHandler implements Updatable
     {
         try
         {
-            out.writeObject(new CloseStream());    // tell server that client is disconnecting
-            out.flush();
+            send(new CloseStream());
             System.out.println("CLIENT: logout sent");
             sock.close();
             linkOpen = false;
@@ -148,6 +146,7 @@ public abstract class ServerHandler implements Updatable
         } catch (IOException e)
         {
             System.out.println(e);
+            System.out.println("Command: " + command);
         }
     }
 

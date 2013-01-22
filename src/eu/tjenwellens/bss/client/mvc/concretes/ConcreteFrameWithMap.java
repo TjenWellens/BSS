@@ -6,8 +6,9 @@
 package eu.tjenwellens.bss.client.mvc.concretes;
 
 import eu.tjenwellens.bss.GameConstants;
-import eu.tjenwellens.bss.client.action.Transaction;
 import eu.tjenwellens.bss.client.action.Decoration;
+import eu.tjenwellens.bss.client.action.Transaction;
+import eu.tjenwellens.bss.client.communication.Communication;
 import eu.tjenwellens.bss.client.components.ClientGamer;
 import eu.tjenwellens.bss.client.components.ClientPlayer;
 import eu.tjenwellens.bss.client.components.items.Material;
@@ -17,9 +18,8 @@ import eu.tjenwellens.bss.client.components.items.ToolType;
 import eu.tjenwellens.bss.client.components.items.Weapon;
 import eu.tjenwellens.bss.client.components.items.WeaponFactory;
 import eu.tjenwellens.bss.client.mvc.Data;
-import eu.tjenwellens.bss.client.mvc.Observer;
 import eu.tjenwellens.bss.client.observer.TickObserver;
-import eu.tjenwellens.bss.client.communication.Communication;
+import eu.tjenwellens.update.Updatable;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
@@ -27,7 +27,7 @@ import java.awt.event.MouseEvent;
  *
  * @author tjen
  */
-public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObserver, Observer
+public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObserver, Updatable
 {
     private volatile boolean active = false;
     private Communication communication;
@@ -453,7 +453,7 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
         {
             account = character;
 //            pass = Integer.parseInt(password);
-            communication.login(name, password, character, factionName, 10, 10);
+            communication.fullInit(name, password, character, factionName, 10, 10);
             gamePanel.setVisible(true);
             actionPanel.setVisible(true);
             active = true;
@@ -574,13 +574,12 @@ public class ConcreteFrameWithMap extends javax.swing.JFrame implements TickObse
 
     private void drawPanelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_drawPanelMouseClicked
     {//GEN-HEADEREND:event_drawPanelMouseClicked
-        // TODO add your handling code here:
         mouseClickOnMapPanel(evt);
     }//GEN-LAST:event_drawPanelMouseClicked
 
     private void gamePanelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_gamePanelMouseClicked
     {//GEN-HEADEREND:event_gamePanelMouseClicked
-        // TODO add your handling code here:
+        // add your handling code here:
     }//GEN-LAST:event_gamePanelMouseClicked
     //
     // Variables declaration - do not modify//GEN-BEGIN:variables

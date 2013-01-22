@@ -1,19 +1,14 @@
 package eu.tjenwellens.bss.server;
 
-import eu.tjenwellens.bss.server.observer.ConcreteUpdater;
-import eu.tjenwellens.bss.server.mvc.controller.CommandInvoker;
-import eu.tjenwellens.bss.server.mvc.controller.CommandInvokerInterface;
+import eu.tjenwellens.bss.server.communication.ClientListener;
+import eu.tjenwellens.bss.server.communication.ConcreteInput;
+import eu.tjenwellens.bss.server.communication.ConcreteOutput;
+import eu.tjenwellens.bss.server.communication.Input;
+import eu.tjenwellens.bss.server.communication.Output;
 import eu.tjenwellens.bss.server.mvc.controller.Controller;
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
 import eu.tjenwellens.bss.server.mvc.model.Model;
 import eu.tjenwellens.bss.server.mvc.view.View;
-import eu.tjenwellens.bss.server.communication.parse.SimpleViewToData;
-import eu.tjenwellens.bss.server.communication.parse.ViewToData;
-import eu.tjenwellens.bss.server.communication.ClientListener;
-import eu.tjenwellens.bss.server.communication.Input;
-import eu.tjenwellens.bss.server.communication.InputInterface;
-import eu.tjenwellens.bss.server.communication.Output;
-import eu.tjenwellens.bss.server.communication.OutputInterface;
+import eu.tjenwellens.update.ConcreteUpdater;
 
 /**
  *
@@ -45,16 +40,7 @@ public class ServerMain
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
-//            java.util.logging.Logger.getLogger(ConcreteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
-//            java.util.logging.Logger.getLogger(ConcreteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
-//            java.util.logging.Logger.getLogger(ConcreteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
         {
 //            java.util.logging.Logger.getLogger(ConcreteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -65,22 +51,23 @@ public class ServerMain
 
     public static void runServer()
     {
-        //server
+        // MVC
         Model model = Model.getInstance();
         View view = new View(model);
-        model.registerGlobalObserver(view);
-        CommandInvokerInterface commandInvokerInterface = new CommandInvoker();
-        Controller controller = new Controller(commandInvokerInterface);
-        controller.registerTickObserver(model);
+        Controller controller = new Controller();
+        model.registerUpdatable(view);
+        controller.registerUpdatable(model);
+        // INPUT-OUTPUT
+        Input input = new ConcreteInput(controller, model);
+        Output output = new ConcreteOutput(view);
+        // CLIENTS
         ConcreteUpdater updater = new ConcreteUpdater(2);
-        CommandReceiverInterface commandReceiverInterface = Model.getInstance();
-        InputInterface inputInterface = new Input(commandInvokerInterface, commandReceiverInterface);
-        ViewToData viewToData = new SimpleViewToData();
-        OutputInterface outputInterface = new Output(viewToData, view);
-        ClientListener clientListener = new ClientListener(updater, inputInterface, outputInterface);
+        ClientListener clientListener = new ClientListener(updater, input, output);
 
         clientListener.start();
         updater.start();
         controller.start();
+        // quit server
+        new Thread(new STDINquit()).start();
     }
 }

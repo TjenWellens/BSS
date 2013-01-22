@@ -3,8 +3,8 @@ package eu.tjenwellens.bss.server.actions.bankAction;
 import eu.tjenwellens.bss.server.actions.ActionPlayer;
 import eu.tjenwellens.bss.server.actions.HasPlayer;
 import eu.tjenwellens.bss.server.actions.bankAction.shop.Store;
-import eu.tjenwellens.bss.server.components.players.inventory.Inventory;
 import eu.tjenwellens.bss.server.components.items.Item;
+import eu.tjenwellens.bss.server.components.players.inventory.Inventory;
 
 /**
  *

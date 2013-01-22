@@ -1,21 +1,19 @@
 package eu.tjenwellens.bss.server.mvc.view;
 
-import java.util.HashMap;
-import java.util.List;
 import eu.tjenwellens.bss.server.components.factions.Faction;
 import eu.tjenwellens.bss.server.components.map.GetMap;
 import eu.tjenwellens.bss.server.components.map.GetTile;
-import eu.tjenwellens.bss.server.mvc.model.GetModelData;
-import eu.tjenwellens.bss.server.mvc.model.observers.GlobalObserver;
 import eu.tjenwellens.bss.server.components.players.GetPlayer;
-import java.util.ArrayList;
-import java.util.Arrays;
+import eu.tjenwellens.bss.server.mvc.model.GetModelData;
+import eu.tjenwellens.update.Updatable;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
  * @author tjen
  */
-public class View implements GlobalObserver
+public class View implements Updatable
 {
     private volatile GetModelData model;
     private volatile List<Faction> factions = null;
@@ -28,7 +26,7 @@ public class View implements GlobalObserver
     }
 
     @Override
-    public void notifyGlobalObserver()
+    public void update()
     {
 //        System.out.println("notified");
         factions = model.getFactions();

@@ -2,8 +2,8 @@ package eu.tjenwellens.bss.server.communication;
 
 import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.server_commands.SeverCommandCreatePlayer;
-import eu.tjenwellens.bss.server.mvc.controller.CommandInvokerInterface;
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
+import eu.tjenwellens.bss.server.mvc.controller.CommandInvoker;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -18,10 +18,10 @@ public class SimpleAccountHandler implements AccountHandler
     private volatile HashMap<String, Integer> name_id = new HashMap<>();
     private volatile HashSet<String> playerNames = new HashSet<>();
     private volatile HashMap<Integer, Account> accounts = new HashMap<>();
-    private CommandInvokerInterface ci;
-    private CommandReceiverInterface cr;
+    private CommandInvoker ci;
+    private CommandReceiver cr;
 
-    public SimpleAccountHandler(CommandInvokerInterface ci, CommandReceiverInterface cr)
+    public SimpleAccountHandler(CommandInvoker ci, CommandReceiver cr)
     {
         this.cr = cr;
         this.ci = ci;
@@ -133,8 +133,9 @@ public class SimpleAccountHandler implements AccountHandler
     @Override
     public void logout(int playerID)
     {
+        // TODO: logout
         // create account with existing progress
-        throw new UnsupportedOperationException("Not supported yet.");
+//        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public boolean deleteAccount(String name, String pass, String playerName)

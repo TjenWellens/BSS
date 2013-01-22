@@ -1,7 +1,7 @@
 package eu.tjenwellens.bss.server.server_commands;
 
 import eu.tjenwellens.bss.server.components.items.Weapon;
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 
 /**
  *
@@ -11,7 +11,7 @@ public class SeverCommandChooseWeapon extends ServerCommand
 {
     private Weapon weapon;
 
-    public SeverCommandChooseWeapon(CommandReceiverInterface cr, int playerID, Weapon weapon)
+    public SeverCommandChooseWeapon(CommandReceiver cr, int playerID, Weapon weapon)
     {
         super(cr, playerID);
         this.weapon = weapon;

@@ -1,7 +1,7 @@
 package eu.tjenwellens.bss.server.communication;
 
-import eu.tjenwellens.bss.server.observer.Updatable;
-import eu.tjenwellens.bss.server.observer.Updater;
+import eu.tjenwellens.update.Updatable;
+import eu.tjenwellens.update.Updater;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,10 +14,10 @@ public class ClientListener extends Thread
 {
     private static final int PORT = 1234;
     private Updater updater;
-    private InputInterface input;
-    private OutputInterface output;
+    private Input input;
+    private Output output;
 
-    public ClientListener(Updater updater, InputInterface input, OutputInterface output)
+    public ClientListener(Updater updater, Input input, Output output)
     {
         this.updater = updater;
         this.input = input;
@@ -42,8 +42,8 @@ public class ClientListener extends Thread
                 System.out.println("SERVER: Waiting for a client...");
                 clientSocket = serverSocket.accept();
                 clientAddress = clientSocket.getInetAddress().getHostAddress();
-                ClientHandler ch = new ClientHandler(clientSocket, clientAddress, this, input, output);
-                updater.addUpdatable(ch);
+                ClientHandler ch = new ClientHandlerMessenger(clientSocket, clientAddress, this, input, output);
+                updater.registerUpdatable(ch);
             }
         } catch (IOException e)
         {

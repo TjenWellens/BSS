@@ -1,6 +1,6 @@
 package eu.tjenwellens.bss.server.communication.parse;
 
-import eu.tjenwellens.bss.data.commands.dataToClient.DataForClient;
+import eu.tjenwellens.bss.data.commands.play.DataForClient;
 import eu.tjenwellens.bss.server.mvc.view.View;
 
 /**

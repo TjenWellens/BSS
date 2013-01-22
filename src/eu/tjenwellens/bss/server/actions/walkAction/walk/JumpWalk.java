@@ -1,9 +1,9 @@
 package eu.tjenwellens.bss.server.actions.walkAction.walk;
 
 import eu.tjenwellens.bss.GameConstants;
-import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkPlayer;
+import eu.tjenwellens.bss.server.components.Position;
 
 /**
  *

@@ -1,29 +1,30 @@
 package eu.tjenwellens.bss.client.communication;
 
-import eu.tjenwellens.bss.client.action.Transaction;
 import eu.tjenwellens.bss.client.action.Decoration;
+import eu.tjenwellens.bss.client.action.Transaction;
 import eu.tjenwellens.bss.client.components.items.Item;
 import eu.tjenwellens.bss.client.components.items.Tool;
 import eu.tjenwellens.bss.client.components.items.Weapon;
 import eu.tjenwellens.bss.client.mvc.ServerToModel;
 import eu.tjenwellens.bss.data.commands.Command;
-import eu.tjenwellens.bss.data.commands.dataToClient.DataForClient;
 import eu.tjenwellens.bss.data.commands.dataToClient.inventory.SDataItem;
-import eu.tjenwellens.bss.data.commands.dataToServer.Bank;
-import eu.tjenwellens.bss.data.commands.dataToServer.ChooseWeapon;
-import eu.tjenwellens.bss.data.commands.dataToServer.Decorate;
-import eu.tjenwellens.bss.data.commands.dataToServer.Engage;
-import eu.tjenwellens.bss.data.commands.dataToServer.Idle;
-import eu.tjenwellens.bss.data.commands.dataToServer.Walk;
-import eu.tjenwellens.bss.data.commands.init_exit.CloseStream;
-import eu.tjenwellens.bss.data.commands.init_exit.DoLogin;
-import eu.tjenwellens.bss.data.commands.init_exit.DoQuickplay;
-import eu.tjenwellens.bss.data.commands.init_exit.DoSave;
-import eu.tjenwellens.bss.data.commands.init_exit.DoSignup;
-import eu.tjenwellens.bss.data.commands.init_exit.Err;
-import eu.tjenwellens.bss.data.commands.init_exit.InitStream;
-import eu.tjenwellens.bss.data.commands.init_exit.Logout;
-import eu.tjenwellens.bss.data.commands.init_exit.OK;
+import eu.tjenwellens.bss.data.commands.exit.CloseStream;
+import eu.tjenwellens.bss.data.commands.exit.Logout;
+import eu.tjenwellens.bss.data.commands.init.InitStream;
+import eu.tjenwellens.bss.data.commands.init.to_client.Err;
+import eu.tjenwellens.bss.data.commands.init.to_client.OK;
+import eu.tjenwellens.bss.data.commands.init.to_client.OKFullInit;
+import eu.tjenwellens.bss.data.commands.init.to_server.DoFullInit;
+import eu.tjenwellens.bss.data.commands.init.to_server.DoQuickplay;
+import eu.tjenwellens.bss.data.commands.init.to_server.DoSave;
+import eu.tjenwellens.bss.data.commands.init.to_server.DoSignup;
+import eu.tjenwellens.bss.data.commands.play.DataForClient;
+import eu.tjenwellens.bss.data.commands.play.dataToServer.Bank;
+import eu.tjenwellens.bss.data.commands.play.dataToServer.ChooseWeapon;
+import eu.tjenwellens.bss.data.commands.play.dataToServer.Decorate;
+import eu.tjenwellens.bss.data.commands.play.dataToServer.Engage;
+import eu.tjenwellens.bss.data.commands.play.dataToServer.Idle;
+import eu.tjenwellens.bss.data.commands.play.dataToServer.Walk;
 
 /**
  *
@@ -39,7 +40,7 @@ public class ClientMessager extends ServerHandler implements Communication
         this.model = model;
     }
 
-    //<editor-fold defaultstate="collapsed" desc="actions">
+    //<editor-fold defaultstate="collapsed" desc="play">
     @Override
     public void bank(Transaction transaction, int diamonds, Item item)
     {
@@ -91,17 +92,11 @@ public class ClientMessager extends ServerHandler implements Communication
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="init actions">
+    //<editor-fold defaultstate="collapsed" desc="init">
     @Override
-    public void login(String name, String pass, String playerName, String factionName, int x, int y)
+    public void fullInit(String name, String pass, String playerName, String factionName, int x, int y)
     {
-        send(new DoLogin(name, pass, playerName, factionName, x, y));
-    }
-
-    @Override
-    public void logout()
-    {
-        send(new Logout());
+        send(new DoFullInit(name, pass, playerName, factionName, x, y));
     }
 
     @Override
@@ -122,6 +117,15 @@ public class ClientMessager extends ServerHandler implements Communication
         send(new DoSave(name, pass, playerName));
     }
     //</editor-fold>
+    
+
+    //<editor-fold defaultstate="collapsed" desc="exit">
+    @Override
+    public void logout()
+    {
+        send(new Logout());
+    }
+    //</editor-fold>
 
     @Override
     protected void handleInput(Command command)
@@ -129,6 +133,7 @@ public class ClientMessager extends ServerHandler implements Communication
         if (command instanceof InitStream)
         {
             // init done
+            System.out.println("Init done");
         } else if (command instanceof CloseStream)
         {
             end();
@@ -138,6 +143,11 @@ public class ClientMessager extends ServerHandler implements Communication
         } else if (command instanceof OK)
         {
             System.out.println("Ok: " + command);
+            if(command instanceof OKFullInit){
+                model.fullInitDone();
+            }else{
+                // ignore
+            }
         } else
         {
             System.out.println("ERROR: command not recognized: " + command);

@@ -1,6 +1,6 @@
 package eu.tjenwellens.bss.client.mvc;
 
-import eu.tjenwellens.bss.data.commands.dataToClient.DataForClient;
+import eu.tjenwellens.bss.data.commands.play.DataForClient;
 
 /**
  *
@@ -9,4 +9,6 @@ import eu.tjenwellens.bss.data.commands.dataToClient.DataForClient;
 public interface ServerToModel
 {
     void updateData(DataForClient data);
+
+    void fullInitDone();
 }

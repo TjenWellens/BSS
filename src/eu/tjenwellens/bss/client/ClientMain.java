@@ -3,8 +3,8 @@ package eu.tjenwellens.bss.client;
 import eu.tjenwellens.bss.client.communication.ClientMessager;
 import eu.tjenwellens.bss.client.mvc.ClientModel;
 import eu.tjenwellens.bss.client.mvc.concretes.ConcreteFrameWithMap;
-import eu.tjenwellens.bss.client.observer.ConcreteUpdater;
 import eu.tjenwellens.bss.client.observer.Ticker;
+import eu.tjenwellens.update.ConcreteUpdater;
 
 /**
  *
@@ -17,7 +17,6 @@ public class ClientMain
      */
     public static void main(String[] args)
     {
-        // TODO code application logic here
         runClient();
     }
 
@@ -27,9 +26,9 @@ public class ClientMain
         ConcreteUpdater updater = new ConcreteUpdater(2);
         ClientModel model = new ClientModel();
         ClientMessager communication = new ClientMessager(model, "127.0.0.1");
-        updater.addUpdatable(communication);
+        updater.registerUpdatable(communication);
         ConcreteFrameWithMap cfwm = new ConcreteFrameWithMap(communication, model);
-        model.registerObserver(cfwm);
+        model.registerUpdatable(cfwm);
         t.registerTickObserver(cfwm);
         cfwm.setVisible(true);
 
@@ -48,9 +47,9 @@ public class ClientMain
         ConcreteUpdater updater = new ConcreteUpdater(2);
         ClientModel model = new ClientModel();
         ClientMessager communication = new ClientMessager(model, url);
-        updater.addUpdatable(communication);
+        updater.registerUpdatable(communication);
         ConcreteFrameWithMap cfwm = new ConcreteFrameWithMap(communication, model);
-        model.registerObserver(cfwm);
+        model.registerUpdatable(cfwm);
         t.registerTickObserver(cfwm);
         cfwm.setVisible(true);
 

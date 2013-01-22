@@ -32,7 +32,7 @@ public interface Communication
     public void walk(int x, int y);
 
     // login
-    public void login(String name, String pass, String playerName, String factionName, int x, int y);
+    public void fullInit(String name, String pass, String playerName, String factionName, int x, int y);
 
     // end
     public void logout();

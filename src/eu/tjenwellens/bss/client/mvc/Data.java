@@ -12,11 +12,13 @@ import java.util.List;
  */
 public interface Data
 {
-    public ClientGamer getGamer();
+    ClientGamer getGamer();
 
-    public List<ClientPlayer> getPlayers();
+    List<ClientPlayer> getPlayers();
 
-    public ClientMap getMap();
+    ClientMap getMap();
 
-    public List<ClientFaction> getFactions();
+    List<ClientFaction> getFactions();
+
+    boolean isInitDone();
 }

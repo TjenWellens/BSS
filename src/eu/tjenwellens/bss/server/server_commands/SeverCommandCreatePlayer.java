@@ -1,7 +1,7 @@
 package eu.tjenwellens.bss.server.server_commands;
 
 import eu.tjenwellens.bss.server.components.Position;
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 
 /**
  *
@@ -13,7 +13,7 @@ public class SeverCommandCreatePlayer extends ServerCommand
     private String factionName;
     private Position position;
 
-    public SeverCommandCreatePlayer(CommandReceiverInterface cr, int playerID, String playerName, String factionName, Position position)
+    public SeverCommandCreatePlayer(CommandReceiver cr, int playerID, String playerName, String factionName, Position position)
     {
         super(cr, playerID);
         this.playerName = playerName;

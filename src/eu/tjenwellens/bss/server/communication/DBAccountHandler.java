@@ -1,19 +1,18 @@
 package eu.tjenwellens.bss.server.communication;
 
 import eu.tjenwellens.bss.server.components.Position;
-import eu.tjenwellens.bss.server.server_commands.ServerCommand;
-import eu.tjenwellens.bss.server.server_commands.SeverCommandCreatePlayer;
-import eu.tjenwellens.bss.server.server_commands.SeverCommandLoadPlayer;
-import eu.tjenwellens.bss.server.server_commands.SeverCommandLogoutPlayer;
-import eu.tjenwellens.bss.server.server_commands.SeverCommandSaveAndLogoutPlayer;
-import eu.tjenwellens.bss.server.server_commands.ServerCommandUpdateID;
 import eu.tjenwellens.bss.server.database.AccountDB;
 import eu.tjenwellens.bss.server.database.DBPlayer;
 import eu.tjenwellens.bss.server.database.PlayerDB;
 import eu.tjenwellens.bss.server.database.PlayerSaver;
 import eu.tjenwellens.bss.server.database.SavePlayer;
-import eu.tjenwellens.bss.server.mvc.controller.CommandInvokerInterface;
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
+import eu.tjenwellens.bss.server.mvc.controller.CommandInvoker;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
+import eu.tjenwellens.bss.server.server_commands.ServerCommand;
+import eu.tjenwellens.bss.server.server_commands.ServerCommandUpdateID;
+import eu.tjenwellens.bss.server.server_commands.SeverCommandLoadPlayer;
+import eu.tjenwellens.bss.server.server_commands.SeverCommandLogoutPlayer;
+import eu.tjenwellens.bss.server.server_commands.SeverCommandSaveAndLogoutPlayer;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -28,11 +27,11 @@ public class DBAccountHandler implements AccountHandler, PlayerSaver
     private volatile HashMap<String, Integer> name_id = new HashMap<>();
     private volatile HashSet<String> playerNames = new HashSet<>();
     private volatile HashMap<Integer, Account> accounts = new HashMap<>();
-    private CommandInvokerInterface ci;
-    private CommandReceiverInterface cr;
+    private CommandInvoker ci;
+    private CommandReceiver cr;
     private PlayerSaver playerSaver;
 
-    public DBAccountHandler(CommandInvokerInterface ci, CommandReceiverInterface cr)
+    public DBAccountHandler(CommandInvoker ci, CommandReceiver cr)
     {
         this.cr = cr;
         this.ci = ci;

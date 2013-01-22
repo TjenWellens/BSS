@@ -1,10 +1,10 @@
 package eu.tjenwellens.bss.server.actions.walkAction.walk;
 
 import eu.tjenwellens.bss.GameConstants;
-import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkObstaclePlayer;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkPlayer;
+import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.components.map.GetTile;
 import eu.tjenwellens.bss.server.components.map.MapHandlerInterface;
 import eu.tjenwellens.bss.server.components.players.PlayerHandlerInterface;
@@ -89,7 +89,7 @@ public class CollisionJumpWalk extends JumpWalk implements GameConstants
         // hoeveel tegels beslaat een speler
         int w = 1 + (int) ((double) PLAYER_RADIUS / (double) tileWidth);
         int h = 1 + (int) ((double) PLAYER_RADIUS / (double) tileHeight);
-        HashMap<GetTile, Position> tiles = new HashMap<GetTile, Position>();
+        HashMap<GetTile, Position> tiles = new HashMap<>();
         int x = (int) ((double) player.getPosition().getX() / tileWidth);
         int y = (int) ((double) player.getPosition().getY() / tileHeight);
         for (int row = y - h; row <= y + h; row++)

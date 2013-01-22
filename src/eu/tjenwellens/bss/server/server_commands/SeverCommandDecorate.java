@@ -2,7 +2,7 @@ package eu.tjenwellens.bss.server.server_commands;
 
 import eu.tjenwellens.bss.server.actions.decorateAction.Decoration;
 import eu.tjenwellens.bss.server.components.items.Tool;
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 
 /**
  *
@@ -15,7 +15,7 @@ public class SeverCommandDecorate extends ServerCommand
     private int col;
     private Tool tool;
 
-    public SeverCommandDecorate(CommandReceiverInterface cr, int playerID, Decoration decoration, int row, int col, Tool tool)
+    public SeverCommandDecorate(CommandReceiver cr, int playerID, Decoration decoration, int row, int col, Tool tool)
     {
         super(cr, playerID);
         this.decoration = decoration;

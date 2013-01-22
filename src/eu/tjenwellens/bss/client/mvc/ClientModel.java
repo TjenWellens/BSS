@@ -5,10 +5,12 @@ import eu.tjenwellens.bss.client.components.ClientGamer;
 import eu.tjenwellens.bss.client.components.ClientMap;
 import eu.tjenwellens.bss.client.components.ClientPlayer;
 import eu.tjenwellens.bss.data.commands.dataToClient.DataFaction;
-import eu.tjenwellens.bss.data.commands.dataToClient.DataForClient;
 import eu.tjenwellens.bss.data.commands.dataToClient.DataGamer;
 import eu.tjenwellens.bss.data.commands.dataToClient.DataMap;
 import eu.tjenwellens.bss.data.commands.dataToClient.DataPlayer;
+import eu.tjenwellens.bss.data.commands.play.DataForClient;
+import eu.tjenwellens.update.Updatable;
+import eu.tjenwellens.update.Updater;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +18,15 @@ import java.util.List;
  *
  * @author tjen
  */
-public class ClientModel implements Observable, Data, ServerToModel
+public class ClientModel implements Updater, Data, ServerToModel
 {
     private ClientGamer gamer = null;
     private List<ClientPlayer> players = null;
     private ClientMap map = null;
     private List<ClientFaction> factions = null;
-    private final List<Observer> observers = new ArrayList<>();
+    private final List<Updatable> observers = new ArrayList<>();
     private boolean updateReady;
+    private boolean initDone = false;
 
     @Override
     synchronized public ClientGamer getGamer()
@@ -92,35 +95,52 @@ public class ClientModel implements Observable, Data, ServerToModel
         // notify observers
         if (updateReady)
         {
-//            System.out.println("notifyobservers");
             notifyObservers();
+            updateReady = false;
         }
     }
 
     @Override
-    public void registerObserver(Observer o)
+    public boolean registerUpdatable(Updatable u)
     {
-        observers.add(o);
+        return observers.add(u);
     }
 
     @Override
-    public void removeObserver(Observer o)
+    public boolean removeUpdatable(Updatable u)
     {
-        observers.remove(o);
+        return observers.remove(u);
     }
 
     private void notifyObservers()
     {
-        List<Observer> observerCopy;
+        List<Updatable> observerCopy;
+        if (this.observers.isEmpty())
+        {
+            return;
+        }
         synchronized (this.observers)
         {
             observerCopy = new ArrayList<>(this.observers);
         }
-        for (Observer observer : observerCopy)
+        for (Updatable observer : observerCopy)
         {
 //            System.out.println("notify");
             observer.update();
         }
-        updateReady = false;
+    }
+
+    @Override
+    public void fullInitDone()
+    {
+        System.out.println("Model init done");
+        initDone = true;
+        notifyObservers();
+    }
+
+    @Override
+    public boolean isInitDone()
+    {
+        return initDone;
     }
 }

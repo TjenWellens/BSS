@@ -2,7 +2,7 @@ package eu.tjenwellens.bss.server.server_commands;
 
 import eu.tjenwellens.bss.server.actions.bankAction.Transaction;
 import eu.tjenwellens.bss.server.components.items.Item;
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 
 /**
  *
@@ -14,7 +14,7 @@ public class SeverCommandBank extends ServerCommand
     private int diamands;
     private Item item;
 
-    public SeverCommandBank(CommandReceiverInterface cr, int playerID, Transaction transaction, int diamands, Item item)
+    public SeverCommandBank(CommandReceiver cr, int playerID, Transaction transaction, int diamands, Item item)
     {
         super(cr, playerID);
         this.transaction = transaction;

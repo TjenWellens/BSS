@@ -1,7 +1,7 @@
 package eu.tjenwellens.bss.server.server_commands;
 
 import eu.tjenwellens.bss.server.components.Position;
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 
 /**
  *
@@ -11,7 +11,7 @@ public class SeverCommandWalk extends ServerCommand
 {
     private Position destination;
 
-    public SeverCommandWalk(CommandReceiverInterface cr, int playerID, Position destination)
+    public SeverCommandWalk(CommandReceiver cr, int playerID, Position destination)
     {
         super(cr, playerID);
         this.destination = destination;

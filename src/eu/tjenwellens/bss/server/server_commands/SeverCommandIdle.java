@@ -1,6 +1,6 @@
 package eu.tjenwellens.bss.server.server_commands;
 
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 
 /**
  *
@@ -8,7 +8,7 @@ import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
  */
 public class SeverCommandIdle extends ServerCommand
 {
-    public SeverCommandIdle(CommandReceiverInterface cr, int playerID)
+    public SeverCommandIdle(CommandReceiver cr, int playerID)
     {
         super(cr, playerID);
     }

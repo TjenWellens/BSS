@@ -1,7 +1,7 @@
 package eu.tjenwellens.bss.server.server_commands;
 
 import eu.tjenwellens.bss.server.database.PlayerSaver;
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiverInterface;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 
 /**
  *
@@ -11,7 +11,7 @@ public class SeverCommandSaveAndLogoutPlayer extends ServerCommand
 {
 private PlayerSaver playerSaver;
 
-    public SeverCommandSaveAndLogoutPlayer(CommandReceiverInterface cr, int playerID, PlayerSaver playerSaver)
+    public SeverCommandSaveAndLogoutPlayer(CommandReceiver cr, int playerID, PlayerSaver playerSaver)
     {
         super(cr, playerID);
         this.playerSaver = playerSaver;
