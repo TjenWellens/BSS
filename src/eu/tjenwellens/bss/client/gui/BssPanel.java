@@ -5,7 +5,6 @@ import eu.tjenwellens.bss.client.mvc.ClientModel;
 import eu.tjenwellens.update.ConcreteUpdater;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -30,7 +29,7 @@ public class BssPanel extends JPanel
         messenger = new ClientMessager(model, host);
         updater.registerUpdatable(messenger);
         updater.start();
-        this.setPreferredSize(new Dimension(500, 500));
+        this.setPreferredSize(new Dimension(700, 500));
         // layout
         this.setLayout(new BorderLayout());
         // start init

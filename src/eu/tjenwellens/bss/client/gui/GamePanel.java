@@ -12,19 +12,13 @@ import java.awt.BorderLayout;
 public class GamePanel extends javax.swing.JPanel implements Updatable
 {
     private MapPanel map;
-//    private ClientModel model;
-//    private ClientMessager messenger;
-//    private BssPanel parent;
 
     public GamePanel(ClientModel model, ClientMessager messenger, BssPanel parent)
     {
         map = new MapPanel(model, messenger, parent);
         setLayout(new BorderLayout());
         this.add(map, BorderLayout.CENTER);
-//        this.model = model;
-//        this.messenger = messenger;
-//        this.parent = parent;
-//        initComponents();
+        this.add(new ActionPanel(), BorderLayout.EAST);
     }
 
     @Override
