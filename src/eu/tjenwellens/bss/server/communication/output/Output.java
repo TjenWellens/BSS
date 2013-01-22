@@ -1,4 +1,4 @@
-package eu.tjenwellens.bss.server.communication;
+package eu.tjenwellens.bss.server.communication.output;
 
 import eu.tjenwellens.bss.data.commands.play.DataForClient;
 

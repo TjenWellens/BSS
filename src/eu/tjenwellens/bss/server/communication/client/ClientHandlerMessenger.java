@@ -1,4 +1,4 @@
-package eu.tjenwellens.bss.server.communication;
+package eu.tjenwellens.bss.server.communication.client;
 
 import eu.tjenwellens.bss.data.commands.Command;
 import eu.tjenwellens.bss.data.commands.dataToClient.inventory.DataItem;
@@ -22,6 +22,8 @@ import eu.tjenwellens.bss.data.commands.play.dataToServer.Idle;
 import eu.tjenwellens.bss.data.commands.play.dataToServer.Walk;
 import eu.tjenwellens.bss.server.actions.bankAction.Transaction;
 import eu.tjenwellens.bss.server.actions.decorateAction.Decoration;
+import eu.tjenwellens.bss.server.communication.input.Input;
+import eu.tjenwellens.bss.server.communication.output.Output;
 import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.components.items.Item;
 import eu.tjenwellens.bss.server.components.items.Material;
@@ -73,8 +75,8 @@ public class ClientHandlerMessenger extends ClientHandler
     {
         if (command instanceof DoFullInit)
         {
-            DoFullInit login = (DoFullInit) command;
-            playerId = input.login(login.getName(), login.getPass(), login.getPlayerName(), login.getFactionName(), new Position(login.getXPosition(), login.getYPosition()));
+            DoFullInit fullInit = (DoFullInit) command;
+            playerId = input.fullinit(fullInit.getName(), fullInit.getPass(), fullInit.getPlayerName(), fullInit.getFactionName(), new Position(fullInit.getXPosition(), fullInit.getYPosition()));
             if (playerId >= 0)
             {
                 send(new OKFullInit());

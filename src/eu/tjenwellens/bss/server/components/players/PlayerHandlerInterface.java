@@ -1,6 +1,5 @@
 package eu.tjenwellens.bss.server.components.players;
 
-import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.actions.attackAction.AttackHandlerInterface;
 import eu.tjenwellens.bss.server.actions.bankAction.BankHandlerInterface;
 import eu.tjenwellens.bss.server.actions.bankAction.Transaction;
@@ -9,11 +8,12 @@ import eu.tjenwellens.bss.server.actions.decorateAction.Decoration;
 import eu.tjenwellens.bss.server.actions.engageAction.EngageHandlerInterface;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkObstaclePlayer;
-import eu.tjenwellens.bss.server.database.PlayerSaver;
-import eu.tjenwellens.bss.server.components.factions.Faction;
+import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.components.items.Item;
 import eu.tjenwellens.bss.server.components.items.Tool;
 import eu.tjenwellens.bss.server.components.items.Weapon;
+import eu.tjenwellens.bss.server.database.PlayerSaver;
+import eu.tjenwellens.bss.server.communication.init.InitPlayer;
 import java.util.HashMap;
 
 /**
@@ -34,9 +34,9 @@ public interface PlayerHandlerInterface
 
     boolean chooseWeapon(int playerId, Weapon weapon);
 
-    boolean createPlayer(int id, String playerName, Faction faction, Position position);
+    boolean createPlayer(InitPlayer initPlayer);
 
-    boolean loadPlayer(int id, String playerName, int winns, int losses, Faction faction, Position position);
+    boolean loadPlayer(InitPlayer initPlayer);
 
     HashMap<Integer, GetPlayer> getPlayersCopy();
 

@@ -1,5 +1,7 @@
-package eu.tjenwellens.bss.server.communication;
+package eu.tjenwellens.bss.server.communication.client;
 
+import eu.tjenwellens.bss.server.communication.input.Input;
+import eu.tjenwellens.bss.server.communication.output.Output;
 import eu.tjenwellens.update.Updatable;
 import eu.tjenwellens.update.Updater;
 import java.io.IOException;

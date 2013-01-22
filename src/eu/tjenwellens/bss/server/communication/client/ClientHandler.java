@@ -1,4 +1,4 @@
-package eu.tjenwellens.bss.server.communication;
+package eu.tjenwellens.bss.server.communication.client;
 
 import eu.tjenwellens.bss.data.commands.Command;
 import eu.tjenwellens.bss.data.commands.exit.CloseStream;

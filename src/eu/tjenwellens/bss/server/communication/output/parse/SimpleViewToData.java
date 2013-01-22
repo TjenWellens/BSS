@@ -1,4 +1,4 @@
-package eu.tjenwellens.bss.server.communication.parse;
+package eu.tjenwellens.bss.server.communication.output.parse;
 
 import eu.tjenwellens.bss.data.commands.dataToClient.DataFaction;
 import eu.tjenwellens.bss.data.commands.dataToClient.DataGamer;

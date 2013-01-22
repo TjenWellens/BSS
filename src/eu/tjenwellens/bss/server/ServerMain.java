@@ -1,10 +1,10 @@
 package eu.tjenwellens.bss.server;
 
-import eu.tjenwellens.bss.server.communication.ClientListener;
-import eu.tjenwellens.bss.server.communication.ConcreteInput;
-import eu.tjenwellens.bss.server.communication.ConcreteOutput;
-import eu.tjenwellens.bss.server.communication.Input;
-import eu.tjenwellens.bss.server.communication.Output;
+import eu.tjenwellens.bss.server.communication.client.ClientListener;
+import eu.tjenwellens.bss.server.communication.input.ConcreteInput;
+import eu.tjenwellens.bss.server.communication.output.ConcreteOutput;
+import eu.tjenwellens.bss.server.communication.input.Input;
+import eu.tjenwellens.bss.server.communication.output.Output;
 import eu.tjenwellens.bss.server.mvc.controller.Controller;
 import eu.tjenwellens.bss.server.mvc.model.Model;
 import eu.tjenwellens.bss.server.mvc.view.View;

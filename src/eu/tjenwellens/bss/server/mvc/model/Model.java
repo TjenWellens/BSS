@@ -1,5 +1,6 @@
 package eu.tjenwellens.bss.server.mvc.model;
 
+import eu.tjenwellens.bss.server.communication.init.InitPlayer;
 import eu.tjenwellens.bss.server.actions.attackAction.AttackHandler;
 import eu.tjenwellens.bss.server.actions.attackAction.AttackHandlerInterface;
 import eu.tjenwellens.bss.server.actions.bankAction.BankHandler;
@@ -25,7 +26,6 @@ import eu.tjenwellens.bss.server.components.map.MapHandler;
 import eu.tjenwellens.bss.server.components.map.MapHandlerInterface;
 import eu.tjenwellens.bss.server.components.players.GetPlayer;
 import eu.tjenwellens.bss.server.components.players.PlayerHandler;
-import eu.tjenwellens.bss.server.components.players.PlayerHandlerInterface;
 import eu.tjenwellens.bss.server.database.PlayerSaver;
 import eu.tjenwellens.update.Updatable;
 import eu.tjenwellens.update.Updater;
@@ -42,7 +42,7 @@ public class Model implements Updater, Updatable, CommandReceiver, GetModelData
 {
     protected static Model model = new Model();
     // handlers
-    protected PlayerHandlerInterface playerHandler;
+    protected PlayerHandler playerHandler;
     protected AttackHandlerInterface attackHandler;
     protected FactionHandlerInterface factionHandler;
     protected MapHandlerInterface mapHandler;
@@ -165,7 +165,9 @@ public class Model implements Updater, Updatable, CommandReceiver, GetModelData
     {
         notify = playerHandler.chooseWeapon(id, weapon) || notify;
     }
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="init player">
     @Override
     public void createPlayerCommand(int id, String playerName, String factionName, Position position)
     {
@@ -176,7 +178,10 @@ public class Model implements Updater, Updatable, CommandReceiver, GetModelData
             System.out.println("No such faction, player not created");
         } else
         {
-            notify = playerHandler.createPlayer(id, playerName, faction, position) || notify;
+            InitPlayer ip = new InitPlayer(id, playerName);
+            ip.setPosition(position);
+            ip.setFaction(faction);
+            notify = playerHandler.createPlayer(ip) || notify;
         }
     }
 
@@ -190,7 +195,12 @@ public class Model implements Updater, Updatable, CommandReceiver, GetModelData
             System.out.println("No such faction, player not loaded");
         } else
         {
-            notify = playerHandler.loadPlayer(id, playerName, winns, losses, faction, position) || notify;
+            InitPlayer ip = new InitPlayer(id, playerName);
+            ip.setPosition(position);
+            ip.setFaction(faction);
+            ip.setWinns(winns);
+            ip.setLosses(losses);
+            notify = playerHandler.loadPlayer(ip) || notify;
         }
     }
 
@@ -200,6 +210,7 @@ public class Model implements Updater, Updatable, CommandReceiver, GetModelData
         System.out.println("Model.saveAndLogoutPlayerCommand");
         notify = playerHandler.saveAndLogoutPlayer(id, saver) || notify;
     }
+    //</editor-fold>
 
     @Override
     public void logoutPlayerCommand(int id)
@@ -214,7 +225,6 @@ public class Model implements Updater, Updatable, CommandReceiver, GetModelData
         System.out.println("Model.updateID");
         notify = playerHandler.updatePlayerID(id, newID) || notify;
     }
-    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getters for view">
     @Override

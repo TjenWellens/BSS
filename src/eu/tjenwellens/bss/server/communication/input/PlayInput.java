@@ -1,4 +1,4 @@
-package eu.tjenwellens.bss.server.communication;
+package eu.tjenwellens.bss.server.communication.input;
 
 import eu.tjenwellens.bss.server.actions.bankAction.Transaction;
 import eu.tjenwellens.bss.server.actions.decorateAction.Decoration;
@@ -9,11 +9,10 @@ import eu.tjenwellens.bss.server.components.items.Weapon;
 
 /**
  *
- * @author tjen
+ * @author Tjen
  */
-public interface Input
+public interface PlayInput
 {
-    // command
     // -bank
     public void bank(int playerID, Transaction transaction, int diamonds, Item item);
 
@@ -31,19 +30,7 @@ public interface Input
 
     // -walk
     public void walk(int playerID, Position destination);
-
-    // login
-    public int login(String name, String pass, String playerName, String factionName, Position position);
-
+    
     // end
     public void logout(int playerID);
-
-    // quickplay
-    public int quickplay(String playerName, String factionName, Position position);
-
-    // signup
-    public boolean signup(String name, String pass, String playerName);
-
-    // save
-    public int save(int playerID, String name, String pass, String playerName);
 }

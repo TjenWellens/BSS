@@ -1,9 +1,9 @@
 package eu.tjenwellens.bss.server.communication;
 
 import eu.tjenwellens.bss.server.components.Position;
-import eu.tjenwellens.bss.server.server_commands.SeverCommandCreatePlayer;
 import eu.tjenwellens.bss.server.mvc.controller.CommandInvoker;
 import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
+import eu.tjenwellens.bss.server.server_commands.SeverCommandCreatePlayer;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -54,7 +54,7 @@ public class SimpleAccountHandler implements AccountHandler
     }
 
     @Override
-    public int login(String name, String pass, String playerName, String factionName, Position position)
+    public int fullinit(String name, String pass, String playerName, String factionName, Position position)
     {
         if (name == null || pass == null || playerName == null || factionName == null || position == null)
         {
@@ -66,7 +66,7 @@ public class SimpleAccountHandler implements AccountHandler
             return -1;
         }
         Account account = accounts.get(id);
-        if (!account.validate(name, pass, playerName))
+        if (!account.validate(name, pass))
         {
             return -1;
         }
@@ -89,7 +89,7 @@ public class SimpleAccountHandler implements AccountHandler
         {
             return -1;
         }
-        int id3 = login(name, pass, playerName, factionName, position);
+        int id3 = fullinit(name, pass, playerName, factionName, position);
         if (id1 != id3)
         {
             System.out.println("ERROR: id's in quickplay: " + id1 + ", " + id3);
@@ -120,7 +120,7 @@ public class SimpleAccountHandler implements AccountHandler
         {
             return -1;
         }
-        int id = login(name, pass, playerName, factionName, oldPosition);
+        int id = fullinit(name, pass, playerName, factionName, oldPosition);
         if (id < 0)
         {
             return -1;
@@ -150,7 +150,7 @@ public class SimpleAccountHandler implements AccountHandler
             return false;
         }
         Account account = accounts.get(id);
-        if (!account.validate(name, pass, playerName))
+        if (!account.validate(name, pass))
         {
             return false;
         }

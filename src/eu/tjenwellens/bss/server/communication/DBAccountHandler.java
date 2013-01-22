@@ -94,7 +94,7 @@ public class DBAccountHandler implements AccountHandler, PlayerSaver
     }
 
     @Override
-    public int login(String name, String pass, String playerName, String factionName, Position position)
+    public int fullinit(String name, String pass, String playerName, String factionName, Position position)
     {
         if (name == null || pass == null || playerName == null || factionName == null || position == null)
         {
@@ -106,7 +106,7 @@ public class DBAccountHandler implements AccountHandler, PlayerSaver
             return 0;
         }
         Account account = accounts.get(id);
-        if (!account.validate(name, pass, playerName))
+        if (!account.validate(name, pass))
         {
             return 0;
         }
@@ -114,7 +114,7 @@ public class DBAccountHandler implements AccountHandler, PlayerSaver
 //        ci.addCommand(new CreatePlayerCommand(cr, id, playerName, factionName, position));
         DBPlayer player = new PlayerDB().getPlayer(id, playerName);
         ci.addCommand(new SeverCommandLoadPlayer(cr, id, playerName, player.getWinns(), player.getWinns(), factionName, position));
-        System.out.println("LOGIN: "+player);
+        System.out.println("fullinit: " + player);
         return id;
     }
 
@@ -133,7 +133,7 @@ public class DBAccountHandler implements AccountHandler, PlayerSaver
         {
             return 0;
         }
-        id = login(name, pass, playerName, factionName, position);
+        id = fullinit(name, pass, playerName, factionName, position);
         if (id1 != id)
         {
             System.out.println("ERROR: id's in quickplay: " + id1 + ", " + id);
@@ -178,29 +178,11 @@ public class DBAccountHandler implements AccountHandler, PlayerSaver
             return;
         }
         ci.addCommand(command);
+
         // create account with existing progress
         System.out.println("Client logged out: " + playerID);
     }
 
-//    public boolean deleteAccount(String name, String pass, String playerName)
-//    {
-//        if (name == null || pass == null || playerName == null)
-//        {
-//            return false;
-//        }
-//        Integer id = name_id.get(name);
-//        if (id == null || id == 0)
-//        {
-//            return false;
-//        }
-//        Account account = accounts.get(id);
-//        if (!account.validate(name, pass, playerName))
-//        {
-//            return false;
-//        }
-//        removeAccount(id, name, pass, playerName);
-//        return true;
-//    }
     private void removeAccount(Account account)
     {
         name_id.remove(account.getName());
@@ -223,4 +205,5 @@ public class DBAccountHandler implements AccountHandler, PlayerSaver
     {
         return PASS + id;
     }
+
 }

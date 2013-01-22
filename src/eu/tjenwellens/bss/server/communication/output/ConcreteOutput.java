@@ -1,8 +1,8 @@
-package eu.tjenwellens.bss.server.communication;
+package eu.tjenwellens.bss.server.communication.output;
 
 import eu.tjenwellens.bss.data.commands.play.DataForClient;
-import eu.tjenwellens.bss.server.communication.parse.SimpleViewToData;
-import eu.tjenwellens.bss.server.communication.parse.ViewToData;
+import eu.tjenwellens.bss.server.communication.output.parse.SimpleViewToData;
+import eu.tjenwellens.bss.server.communication.output.parse.ViewToData;
 import eu.tjenwellens.bss.server.mvc.view.View;
 
 /**

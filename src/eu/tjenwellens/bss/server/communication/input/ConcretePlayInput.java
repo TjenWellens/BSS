@@ -1,43 +1,37 @@
-package eu.tjenwellens.bss.server.communication;
+package eu.tjenwellens.bss.server.communication.input;
 
-import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.actions.bankAction.Transaction;
 import eu.tjenwellens.bss.server.actions.decorateAction.Decoration;
+import eu.tjenwellens.bss.server.components.Position;
+import eu.tjenwellens.bss.server.components.items.Item;
+import eu.tjenwellens.bss.server.components.items.Tool;
+import eu.tjenwellens.bss.server.components.items.Weapon;
+import eu.tjenwellens.bss.server.mvc.controller.CommandInvoker;
+import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 import eu.tjenwellens.bss.server.server_commands.SeverCommandBank;
 import eu.tjenwellens.bss.server.server_commands.SeverCommandChooseWeapon;
 import eu.tjenwellens.bss.server.server_commands.SeverCommandDecorate;
 import eu.tjenwellens.bss.server.server_commands.SeverCommandEngage;
 import eu.tjenwellens.bss.server.server_commands.SeverCommandIdle;
+import eu.tjenwellens.bss.server.server_commands.SeverCommandLogoutPlayer;
 import eu.tjenwellens.bss.server.server_commands.SeverCommandWalk;
-import eu.tjenwellens.bss.server.database.DB;
-import eu.tjenwellens.bss.server.mvc.controller.CommandInvoker;
-import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
-import eu.tjenwellens.bss.server.components.items.Item;
-import eu.tjenwellens.bss.server.components.items.Tool;
-import eu.tjenwellens.bss.server.components.items.Weapon;
 
 /**
  *
- * @author tjen
+ * @author Tjen
  */
-public class ConcreteInput implements Input
+public class ConcretePlayInput implements PlayInput
 {
     private CommandInvoker ci;
     private CommandReceiver cr;
-    private AccountHandler ah;
 
-    public ConcreteInput(CommandInvoker commandInvoker, CommandReceiver commandReceiver)
+    public ConcretePlayInput(CommandInvoker ci, CommandReceiver cr)
     {
-        this.ci = commandInvoker;
-        this.cr = commandReceiver;
-        if (DB.canConnect())
-        {
-            this.ah = new DBAccountHandler(ci, cr);
-        } else
-        {
-            this.ah = new SimpleAccountHandler(ci, cr);
-        }
+        this.ci = ci;
+        this.cr = cr;
     }
+    //<editor-fold defaultstate="collapsed" desc="...">
+    //</editor-fold>
 
     @Override
     public void bank(int playerID, Transaction transaction, int diamonds, Item item)
@@ -76,32 +70,9 @@ public class ConcreteInput implements Input
     }
 
     @Override
-    public int login(String name, String pass, String playerName, String factionName, Position position)
-    {
-        return ah.login(name, pass, playerName, factionName, position);
-    }
-
-    @Override
-    public int quickplay(String playerName, String factionName, Position position)
-    {
-        return ah.quickPlay(playerName, factionName, position);
-    }
-
-    @Override
-    public boolean signup(String name, String pass, String playerName)
-    {
-        return ah.signup(name, pass, playerName);
-    }
-
-    @Override
-    public int save(int playerID, String name, String pass, String playerName)
-    {
-        return ah.save(playerID, name, pass, playerName);
-    }
-
-    @Override
     public void logout(int playerID)
     {
-        ah.logout(playerID);
+        ci.addCommand(new SeverCommandLogoutPlayer(cr, playerID));
     }
+
 }

@@ -26,6 +26,7 @@ import eu.tjenwellens.bss.server.components.players.inventory.Inventory;
 import eu.tjenwellens.bss.server.components.players.inventory.SimpleInventory;
 import eu.tjenwellens.bss.server.components.players.playerstate.playerstates.PlayerStateType;
 import eu.tjenwellens.bss.server.database.PlayerSaver;
+import eu.tjenwellens.bss.server.communication.init.InitPlayer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -284,23 +285,23 @@ public class PlayerHandler implements PlayerHandlerInterface
     }
 
     @Override
-    public boolean createPlayer(int id, String playerName, Faction faction, Position position)
+    public boolean createPlayer(InitPlayer ip)
     {
-        if (playerExists(id))
+        if (playerExists(ip.getId()))
         {
             System.out.println("ERROR: failed to create player: player already exists");
             return false;
         }
-        PlayerHandlerPlayer player = new Player(id, playerName, faction, position);
-        addPlayer(id, playerName, player);
+        PlayerHandlerPlayer player = new Player(ip.getId(), ip.getPlayerName(), ip.getFaction(), ip.getPosition());
+        addPlayer(ip.getId(), ip.getPlayerName(), player);
         System.out.println("created player");
         return true;
     }
 
     @Override
-    public boolean loadPlayer(int id, String playerName, int winns, int losses, Faction faction, Position position)
+    public boolean loadPlayer(InitPlayer ip)
     {
-        if (playerExists(id))
+        if (playerExists(ip.getId()))
         {
             System.out.println("ERROR: failed to load player: player is already loaded");
             return false;
@@ -309,9 +310,19 @@ public class PlayerHandler implements PlayerHandlerInterface
         Inventory inventory = new SimpleInventory();
         BankAccount bankAccount = new SimpleBankAccount();
         Store store = SimpleStore.getInstance();
-        PlayerHandlerPlayer player = new Player(id, playerName, winns, losses, faction, position, inventory, bankAccount, store);
-        addPlayer(id, playerName, player);
-        System.out.println("created player"+player);
+        int winns = 0;
+        int losses = 0;
+        if (ip.isWinnsSet())
+        {
+            winns = ip.getWinns();
+        }
+        if (ip.isLossesSet())
+        {
+            losses = ip.getLosses();
+        }
+        PlayerHandlerPlayer player = new Player(ip.getId(), ip.getPlayerName(), winns, losses, ip.getFaction(), ip.getPosition(), inventory, bankAccount, store);
+        addPlayer(ip.getId(), ip.getPlayerName(), player);
+        System.out.println("created player" + player);
         return true;
     }
 

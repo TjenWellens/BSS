@@ -25,17 +25,13 @@ public class Account
         return "Account{" + "id=" + id + ", name=" + name + ", pass=" + pass + ", playerName=" + playerName + '}';
     }
 
-    boolean validate(String name, String pass, String playerName)
+    boolean validate(String name, String pass)
     {
         if (!this.name.equals(name))
         {
             return false;
         }
         if (!this.pass.equals(pass))
-        {
-            return false;
-        }
-        if (!this.playerName.equals(playerName))
         {
             return false;
         }
