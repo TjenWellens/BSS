@@ -14,10 +14,12 @@ import eu.tjenwellens.bss.data.commands.init.InitStream;
 import eu.tjenwellens.bss.data.commands.init.to_client.Err;
 import eu.tjenwellens.bss.data.commands.init.to_client.OK;
 import eu.tjenwellens.bss.data.commands.init.to_client.OKFullInit;
-import eu.tjenwellens.bss.data.commands.init.to_server.DoFullInit;
-import eu.tjenwellens.bss.data.commands.init.to_server.DoQuickplay;
-import eu.tjenwellens.bss.data.commands.init.to_server.DoSave;
-import eu.tjenwellens.bss.data.commands.init.to_server.DoSignup;
+import eu.tjenwellens.bss.data.commands.init.to_client.OkPlay;
+import eu.tjenwellens.bss.data.commands.init.to_server.DoInit;
+import eu.tjenwellens.bss.data.commands.init.to_server.DoLogin;
+import eu.tjenwellens.bss.data.commands.init.to_server.DoPlay;
+import eu.tjenwellens.bss.data.commands.init.to_server.DoSelectFaction;
+import eu.tjenwellens.bss.data.commands.init.to_server.DoSelectPosition;
 import eu.tjenwellens.bss.data.commands.play.DataForClient;
 import eu.tjenwellens.bss.data.commands.play.dataToServer.Bank;
 import eu.tjenwellens.bss.data.commands.play.dataToServer.ChooseWeapon;
@@ -94,30 +96,29 @@ public class ClientMessager extends ServerHandler implements Communication
 
     //<editor-fold defaultstate="collapsed" desc="init">
     @Override
-    public void fullInit(String name, String pass, String playerName, String factionName, int x, int y)
+    public void login(String name, String password)
     {
-        send(new DoFullInit(name, pass, playerName, factionName, x, y));
+        send(new DoLogin(name, password));
     }
 
     @Override
-    public void quickplay(String playerName, String factionName, int x, int y)
+    public void selectFaction(String factionName)
     {
-        send(new DoQuickplay(playerName, factionName, x, y));
+        send(new DoSelectFaction(factionName));
     }
 
     @Override
-    public void signup(String name, String pass, String playerName)
+    public void selectPosition(int x, int y)
     {
-        send(new DoSignup(name, pass, playerName));
+        send(new DoSelectPosition(x, y));
     }
 
     @Override
-    public void save(String name, String pass, String playerName)
+    public void play()
     {
-        send(new DoSave(name, pass, playerName));
+        send(new DoPlay());
     }
     //</editor-fold>
-    
 
     //<editor-fold defaultstate="collapsed" desc="exit">
     @Override
@@ -133,7 +134,7 @@ public class ClientMessager extends ServerHandler implements Communication
         if (command instanceof InitStream)
         {
             // init done
-            System.out.println("Init done");
+            System.out.println("StreamInit done");
         } else if (command instanceof CloseStream)
         {
             end();
@@ -143,9 +144,14 @@ public class ClientMessager extends ServerHandler implements Communication
         } else if (command instanceof OK)
         {
             System.out.println("Ok: " + command);
-            if(command instanceof OKFullInit){
+            if (command instanceof OKFullInit)
+            {
                 model.fullInitDone();
-            }else{
+            } else if (command instanceof OkPlay)
+            {
+                model.fullInitDone();
+            } else
+            {
                 // ignore
             }
         } else

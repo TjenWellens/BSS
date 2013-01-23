@@ -10,9 +10,7 @@ import eu.tjenwellens.bss.server.mvc.controller.CommandInvoker;
 import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
 import eu.tjenwellens.bss.server.server_commands.ServerCommand;
 import eu.tjenwellens.bss.server.server_commands.ServerCommandUpdateID;
-import eu.tjenwellens.bss.server.server_commands.SeverCommandLoadPlayer;
 import eu.tjenwellens.bss.server.server_commands.SeverCommandLogoutPlayer;
-import eu.tjenwellens.bss.server.server_commands.SeverCommandSaveAndLogoutPlayer;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -113,7 +111,7 @@ public class DBAccountHandler implements AccountHandler, PlayerSaver
         // login
 //        ci.addCommand(new CreatePlayerCommand(cr, id, playerName, factionName, position));
         DBPlayer player = new PlayerDB().getPlayer(id, playerName);
-        ci.addCommand(new SeverCommandLoadPlayer(cr, id, playerName, player.getWinns(), player.getWinns(), factionName, position));
+//        ci.addCommand(new SeverCommandLoadPlayer(cr, id, playerName, player.getWinns(), player.getWinns(), factionName, position));
         System.out.println("fullinit: " + player);
         return id;
     }
@@ -172,12 +170,12 @@ public class DBAccountHandler implements AccountHandler, PlayerSaver
             command = new SeverCommandLogoutPlayer(cr, playerID);
         } else if (playerID > 0)
         {
-            command = new SeverCommandSaveAndLogoutPlayer(cr, playerID, playerSaver);
+//            command = new SeverCommandSaveAndLogoutPlayer(cr, playerID, playerSaver);
         } else
         {
             return;
         }
-        ci.addCommand(command);
+//        ci.addCommand(command);
 
         // create account with existing progress
         System.out.println("Client logged out: " + playerID);

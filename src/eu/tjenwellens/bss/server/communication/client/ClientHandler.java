@@ -187,7 +187,5 @@ public abstract class ClientHandler implements Updatable
 
     protected abstract void manageOutput();
 
-    protected void exit()
-    {
-    }
+    protected abstract void exit();
 }

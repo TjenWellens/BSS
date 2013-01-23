@@ -3,7 +3,7 @@ package eu.tjenwellens.bss.server.communication;
 import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.mvc.controller.CommandInvoker;
 import eu.tjenwellens.bss.server.mvc.model.CommandReceiver;
-import eu.tjenwellens.bss.server.server_commands.SeverCommandCreatePlayer;
+//import eu.tjenwellens.bss.server.server_commands.SeverCommandCreatePlayer;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -71,7 +71,7 @@ public class SimpleAccountHandler implements AccountHandler
             return -1;
         }
         // login
-        ci.addCommand(new SeverCommandCreatePlayer(cr, id, playerName, factionName, position));
+//        ci.addCommand(new SeverCommandCreatePlayer(cr, id, playerName, factionName, position));
         return id;
     }
 

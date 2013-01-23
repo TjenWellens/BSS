@@ -1,9 +1,9 @@
 package eu.tjenwellens.bss.server;
 
 import eu.tjenwellens.bss.server.communication.client.ClientListener;
-import eu.tjenwellens.bss.server.communication.input.ConcreteInput;
-import eu.tjenwellens.bss.server.communication.output.ConcreteOutput;
 import eu.tjenwellens.bss.server.communication.input.Input;
+import eu.tjenwellens.bss.server.communication.input.SplitInput;
+import eu.tjenwellens.bss.server.communication.output.ConcreteOutput;
 import eu.tjenwellens.bss.server.communication.output.Output;
 import eu.tjenwellens.bss.server.mvc.controller.Controller;
 import eu.tjenwellens.bss.server.mvc.model.Model;
@@ -58,7 +58,7 @@ public class ServerMain
         model.registerUpdatable(view);
         controller.registerUpdatable(model);
         // INPUT-OUTPUT
-        Input input = new ConcreteInput(controller, model);
+        Input input = new SplitInput(controller, model);
         Output output = new ConcreteOutput(view);
         // CLIENTS
         ConcreteUpdater updater = new ConcreteUpdater(2);

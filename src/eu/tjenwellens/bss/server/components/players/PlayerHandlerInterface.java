@@ -8,12 +8,11 @@ import eu.tjenwellens.bss.server.actions.decorateAction.Decoration;
 import eu.tjenwellens.bss.server.actions.engageAction.EngageHandlerInterface;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkObstaclePlayer;
+import eu.tjenwellens.bss.server.communication.init.InitPlayer;
 import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.components.items.Item;
 import eu.tjenwellens.bss.server.components.items.Tool;
 import eu.tjenwellens.bss.server.components.items.Weapon;
-import eu.tjenwellens.bss.server.database.PlayerSaver;
-import eu.tjenwellens.bss.server.communication.init.InitPlayer;
 import java.util.HashMap;
 
 /**
@@ -34,9 +33,7 @@ public interface PlayerHandlerInterface
 
     boolean chooseWeapon(int playerId, Weapon weapon);
 
-    boolean createPlayer(InitPlayer initPlayer);
-
-    boolean loadPlayer(InitPlayer initPlayer);
+    boolean addPlayer(InitPlayer initPlayer);
 
     HashMap<Integer, GetPlayer> getPlayersCopy();
 
@@ -59,8 +56,6 @@ public interface PlayerHandlerInterface
     public void setEngageHandler(EngageHandlerInterface engageHandler);
 
     public void setWalkHandler(WalkHandlerInterface walkHandler);
-
-    public boolean saveAndLogoutPlayer(int id, PlayerSaver saver);
 
     public boolean logoutPlayer(int id);
 

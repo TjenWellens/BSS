@@ -10,4 +10,8 @@ import eu.tjenwellens.bss.server.mvc.view.View;
 public interface ViewToData
 {
     public DataForClient convert(View view, int playerId);
+
+    public DataForClient convertFactions(View view);
+
+    public DataForClient convertMiniMap(View view);
 }

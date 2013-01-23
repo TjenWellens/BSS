@@ -9,4 +9,8 @@ import eu.tjenwellens.bss.data.commands.play.DataForClient;
 public interface Output
 {
     DataForClient getData(int playerId);
+
+    DataForClient getMiniMap();
+
+    DataForClient getFactions();
 }

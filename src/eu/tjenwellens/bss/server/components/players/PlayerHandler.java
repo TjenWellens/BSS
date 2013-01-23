@@ -285,25 +285,19 @@ public class PlayerHandler implements PlayerHandlerInterface
     }
 
     @Override
-    public boolean createPlayer(InitPlayer ip)
+    public boolean addPlayer(InitPlayer ip)
     {
         if (playerExists(ip.getId()))
         {
-            System.out.println("ERROR: failed to create player: player already exists");
+            System.out.println("ERROR: failed to add player: player is already loaded");
             return false;
         }
-        PlayerHandlerPlayer player = new Player(ip.getId(), ip.getPlayerName(), ip.getFaction(), ip.getPosition());
-        addPlayer(ip.getId(), ip.getPlayerName(), player);
-        System.out.println("created player");
-        return true;
-    }
-
-    @Override
-    public boolean loadPlayer(InitPlayer ip)
-    {
-        if (playerExists(ip.getId()))
+        if (!ip.isFactionDone())
         {
-            System.out.println("ERROR: failed to load player: player is already loaded");
+            return false;
+        }
+        if (!ip.isPositionDone())
+        {
             return false;
         }
         // TODO: load inventory, bank and store
@@ -322,29 +316,7 @@ public class PlayerHandler implements PlayerHandlerInterface
         }
         PlayerHandlerPlayer player = new Player(ip.getId(), ip.getPlayerName(), winns, losses, ip.getFaction(), ip.getPosition(), inventory, bankAccount, store);
         addPlayer(ip.getId(), ip.getPlayerName(), player);
-        System.out.println("created player" + player);
-        return true;
-    }
-
-    @Override
-    public boolean saveAndLogoutPlayer(int id, PlayerSaver saver)
-    {
-        if (!playerExists(id))
-        {
-            return false;
-        }
-        PlayerHandlerPlayer player = removePlayer(id);
-        if (player == null)
-        {
-            return false;
-        }
-        if (saver != null)
-        {
-            saver.savePlayer(player);
-        } else
-        {
-            System.out.println("Error: saver is null");
-        }
+        System.out.println("created player: " + player);
         return true;
     }
 

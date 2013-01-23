@@ -2,6 +2,7 @@ package eu.tjenwellens.bss.server.components.map;
 
 import eu.tjenwellens.bss.GameConstants;
 import eu.tjenwellens.bss.server.actions.decorateAction.DecoratePlayer;
+import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.components.factions.Faction;
 
 /**
@@ -13,6 +14,31 @@ public class MapHandler implements MapHandlerInterface, GameConstants
     private MapI map;
     private int tileWidth;
     private int tileHeight;
+
+    public boolean isPositionInMap(Position p)
+    {
+        if (p == null)
+        {
+            return false;
+        }
+        if (p.getX() < 0)
+        {
+            return false;
+        }
+        if (p.getX() > MAP_WIDTH)
+        {
+            return false;
+        }
+        if (p.getY() < 0)
+        {
+            return false;
+        }
+        if (p.getY() > MAP_HEIGHT)
+        {
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public String toString()

@@ -1,6 +1,5 @@
 package eu.tjenwellens.bss.server.mvc.model;
 
-import eu.tjenwellens.bss.server.communication.init.InitPlayer;
 import eu.tjenwellens.bss.server.actions.attackAction.AttackHandler;
 import eu.tjenwellens.bss.server.actions.attackAction.AttackHandlerInterface;
 import eu.tjenwellens.bss.server.actions.bankAction.BankHandler;
@@ -13,6 +12,8 @@ import eu.tjenwellens.bss.server.actions.engageAction.EngageHandler;
 import eu.tjenwellens.bss.server.actions.engageAction.EngageHandlerInterface;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkHandler;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkHandlerInterface;
+import eu.tjenwellens.bss.server.communication.InitPlayerHandler;
+import eu.tjenwellens.bss.server.communication.init.InitPlayer;
 import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.components.factions.Faction;
 import eu.tjenwellens.bss.server.components.factions.FactionHandler;
@@ -26,7 +27,6 @@ import eu.tjenwellens.bss.server.components.map.MapHandler;
 import eu.tjenwellens.bss.server.components.map.MapHandlerInterface;
 import eu.tjenwellens.bss.server.components.players.GetPlayer;
 import eu.tjenwellens.bss.server.components.players.PlayerHandler;
-import eu.tjenwellens.bss.server.database.PlayerSaver;
 import eu.tjenwellens.update.Updatable;
 import eu.tjenwellens.update.Updater;
 import java.util.Collection;
@@ -166,49 +166,50 @@ public class Model implements Updater, Updatable, CommandReceiver, GetModelData
         notify = playerHandler.chooseWeapon(id, weapon) || notify;
     }
     //</editor-fold>
-
     //<editor-fold defaultstate="collapsed" desc="init player">
+    InitPlayerHandler iph = new InitPlayerHandler();
+
     @Override
-    public void createPlayerCommand(int id, String playerName, String factionName, Position position)
+    public void loginPlayerCommand(InitPlayer initPlayer)
     {
-        System.out.println("Model.createPlayer");
+        iph.loginPlayer(initPlayer);
+    }
+
+    @Override
+    public void selectFactionCommand(int id, String factionName)
+    {
         Faction faction = factionHandler.getFactionByName(factionName);
         if (faction == null || faction.equals(factionHandler.getNullFaction()))
         {
             System.out.println("No such faction, player not created");
-        } else
-        {
-            InitPlayer ip = new InitPlayer(id, playerName);
-            ip.setPosition(position);
-            ip.setFaction(faction);
-            notify = playerHandler.createPlayer(ip) || notify;
+            faction = null;
         }
+        iph.selectFaction(id, faction);
     }
 
     @Override
-    public void loadPlayerCommand(int id, String playerName, int winns, int losses, String factionName, Position position)
+    public void selectPositionCommand(int id, int x, int y)
     {
-        System.out.println("Model.loadPlayer");
-        Faction faction = factionHandler.getFactionByName(factionName);
-        if (faction == null || faction.equals(factionHandler.getNullFaction()))
+        Position p = new Position(x, y);
+        if (!mapHandler.isPositionInMap(p))
         {
-            System.out.println("No such faction, player not loaded");
-        } else
-        {
-            InitPlayer ip = new InitPlayer(id, playerName);
-            ip.setPosition(position);
-            ip.setFaction(faction);
-            ip.setWinns(winns);
-            ip.setLosses(losses);
-            notify = playerHandler.loadPlayer(ip) || notify;
+            p = null;
         }
+        iph.selectPosition(id, p);
     }
 
     @Override
-    public void saveAndLogoutPlayerCommand(int id, PlayerSaver saver)
+    public void playCommand(int id)
     {
-        System.out.println("Model.saveAndLogoutPlayerCommand");
-        notify = playerHandler.saveAndLogoutPlayer(id, saver) || notify;
+        InitPlayer initPlayer = iph.play(id);
+        if (initPlayer != null)
+        {
+
+            notify = playerHandler.addPlayer(initPlayer) || notify;
+        } else
+        {
+            System.out.println("Play failed, id not found");
+        }
     }
     //</editor-fold>
 
@@ -223,6 +224,7 @@ public class Model implements Updater, Updatable, CommandReceiver, GetModelData
     public void updateIDCommand(int id, int newID)
     {
         System.out.println("Model.updateID");
+        iph.updatePlayerID(id, newID);
         notify = playerHandler.updatePlayerID(id, newID) || notify;
     }
 

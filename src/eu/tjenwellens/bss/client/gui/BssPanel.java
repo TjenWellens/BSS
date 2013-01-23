@@ -24,7 +24,7 @@ public class BssPanel extends JPanel
 
     public BssPanel(String host)
     {
-        updater=new ConcreteUpdater(10);
+        updater = new ConcreteUpdater(10);
         model = new ClientModel();
         messenger = new ClientMessager(model, host);
         updater.registerUpdatable(messenger);
@@ -35,8 +35,9 @@ public class BssPanel extends JPanel
         // start init
         init();
     }
-    
-    public void stop(){
+
+    public void stop()
+    {
         updater.end();
     }
 
@@ -78,6 +79,7 @@ public class BssPanel extends JPanel
             System.out.println("INIT done");
             removeInit();
             game();
+            System.out.println("GAME!!!");
         }
     }
 

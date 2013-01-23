@@ -2,6 +2,7 @@ package eu.tjenwellens.bss.server.communication.input;
 
 import eu.tjenwellens.bss.server.actions.bankAction.Transaction;
 import eu.tjenwellens.bss.server.actions.decorateAction.Decoration;
+import eu.tjenwellens.bss.server.communication.init.InitPlayer;
 import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.components.items.Item;
 import eu.tjenwellens.bss.server.components.items.Tool;
@@ -21,6 +22,7 @@ public class SplitInput implements Input
     public SplitInput(CommandInvoker commandInvoker, CommandReceiver commandReceiver)
     {
         play = new ConcretePlayInput(commandInvoker, commandReceiver);
+        init = new ConcreteInitInput(commandInvoker, commandReceiver);
 //        this.ci = commandInvoker;
 //        this.cr = commandReceiver;
 //        if (DB.canConnect())
@@ -75,26 +77,26 @@ public class SplitInput implements Input
     }
 
     @Override
-    public int fullinit(String name, String pass, String playerName, String factionName, Position position)
+    public InitPlayer login(String name, String password)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return init.login(name, password);
     }
 
     @Override
-    public int quickplay(String playerName, String factionName, Position position)
+    public void selectFaction(int id, String factionName)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        init.selectFaction(id, factionName);
     }
 
     @Override
-    public boolean signup(String name, String pass, String playerName)
+    public void selectPosition(int id, int x, int y)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        init.selectPosition(id, x, y);
     }
 
     @Override
-    public int save(int playerID, String name, String pass, String playerName)
+    public void play(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        init.play(id);
     }
 }

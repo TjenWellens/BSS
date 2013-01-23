@@ -82,6 +82,11 @@ public class SimpleViewToData implements ViewToData
                 }
             }
         }
+        return new DataForClient(gamer, players, getEntireMap(view), getAllFactions(view));
+    }
+
+    private DataMap getEntireMap(View view)
+    {
         // init map
         DataMap map = null;
         {
@@ -102,7 +107,11 @@ public class SimpleViewToData implements ViewToData
                 }
             }
         }
+        return map;
+    }
 
+    private List<DataFaction> getAllFactions(View view)
+    {
         // init factions
         List<DataFaction> factions = null;
         {
@@ -120,6 +129,18 @@ public class SimpleViewToData implements ViewToData
                 }
             }
         }
-        return new DataForClient(gamer, players, map, factions);
+        return factions;
+    }
+
+    @Override
+    public DataForClient convertFactions(View view)
+    {
+        return new DataForClient(null, null, null, getAllFactions(view));
+    }
+
+    @Override
+    public DataForClient convertMiniMap(View view)
+    {
+        return new DataForClient(null, null, getEntireMap(view), null);
     }
 }

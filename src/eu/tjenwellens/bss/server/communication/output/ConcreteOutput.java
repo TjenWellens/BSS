@@ -25,4 +25,16 @@ public class ConcreteOutput implements Output
     {
         return vtd.convert(view, playerId);
     }
+
+    @Override
+    public DataForClient getMiniMap()
+    {
+        return vtd.convertMiniMap(view);
+    }
+
+    @Override
+    public DataForClient getFactions()
+    {
+        return vtd.convertFactions(view);
+    }
 }
