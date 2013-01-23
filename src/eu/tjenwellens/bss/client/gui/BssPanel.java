@@ -46,7 +46,7 @@ public class BssPanel extends JPanel
         init = new InitPanel(model, messenger, this);
         model.registerUpdatable(init);
         this.add(init, BorderLayout.CENTER);
-        validate();
+        revalidate();
     }
 
     private void removeInit()
@@ -54,7 +54,7 @@ public class BssPanel extends JPanel
         model.removeUpdatable(init);
         this.removeAll();
         init = null;
-        invalidate();
+        revalidate();
     }
 
     private void game()
@@ -62,7 +62,7 @@ public class BssPanel extends JPanel
         game = new GamePanel(model, messenger, this);
         model.registerUpdatable(game);
         this.add(game, BorderLayout.CENTER);
-        validate();
+        revalidate();
     }
 
     private void removeGame()

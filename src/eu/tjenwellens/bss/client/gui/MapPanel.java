@@ -11,6 +11,7 @@ import eu.tjenwellens.bss.client.components.ClientTile;
 import eu.tjenwellens.bss.client.components.items.Material;
 import eu.tjenwellens.bss.client.components.items.ToolFactory;
 import eu.tjenwellens.bss.client.components.items.ToolType;
+import eu.tjenwellens.bss.client.gui.images.ColorChanger;
 import eu.tjenwellens.bss.client.mvc.ClientModel;
 import eu.tjenwellens.bss.client.mvc.Data;
 import eu.tjenwellens.update.Updatable;
@@ -19,7 +20,14 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.IndexColorModel;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -37,6 +45,10 @@ public class MapPanel extends JPanel implements Updatable
     private ClientMap map;
     private List<ClientPlayer> players;
     private ClientGamer gamer;
+    //
+    private BufferedImage imgEmpty = null;
+    private BufferedImage imgPlayer = null;
+    private BufferedImage imgWall = null;
 
     public MapPanel(ClientModel model, ClientMessager messenger, BssPanel parent)
     {
@@ -51,6 +63,62 @@ public class MapPanel extends JPanel implements Updatable
                 clicked(e);
             }
         });
+        loadImages();
+    }
+
+    private void loadImages()
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                URL url;
+                Class<?> c = MapPanel.this.getClass();
+                try
+                {
+                    url = c.getResource("images/player.png");
+                    if (url != null)
+                    {
+                        imgPlayer = ImageIO.read(new File(url.getPath()));
+                    } else
+                    {
+                        System.out.println("Error PLAYER url not found");
+                    }
+                } catch (IOException e)
+                {
+                    System.out.println(e);
+                }
+                try
+                {
+                    url = c.getResource("images/empty.png");
+                    if (url != null)
+                    {
+                        imgEmpty = ImageIO.read(new File(url.getPath()));
+                    } else
+                    {
+                        System.out.println("Error EMTY url not found");
+                    }
+                } catch (IOException e)
+                {
+                    System.out.println(e);
+                }
+                try
+                {
+                    url = c.getResource("images/wall.png");
+                    if (url != null)
+                    {
+                        imgWall = ImageIO.read(new File(url.getPath()));
+                    } else
+                    {
+                        System.out.println("Error WALL url not found");
+                    }
+                } catch (IOException e)
+                {
+                    System.out.println(e);
+                }
+            }
+        }).start();
     }
 
     private void clicked(java.awt.event.MouseEvent evt)
@@ -145,26 +213,32 @@ public class MapPanel extends JPanel implements Updatable
         }
     }
 
-    @Override
-    public void paintComponent(Graphics g)
+    private void paintMap(Graphics g)
     {
         if (map != null)
         {
-            Color lineColor = Color.LIGHT_GRAY;
+            Color lineColor = Color.RED;
+            boolean raster = false;
             int maprows = map.getRows();
             int mapcols = map.getCols();
             int tilew = (this.getWidth() / mapcols);
             int tileh = (this.getHeight() / maprows);
             for (int row = 0; row < maprows; row++)
             {
-                // raster _-_-
-                g.setColor(lineColor);
-                g.drawLine(0, row * tileh, maprows * tilew, row * tileh);
+                if (raster)
+                {
+                    // raster _-_-
+                    g.setColor(lineColor);
+                    g.drawLine(0, row * tileh, maprows * tilew, row * tileh);
+                }
                 for (int col = 0; col < mapcols; col++)
                 {
-                    // raster | | |
-                    g.setColor(lineColor);
-                    g.drawLine(col * tilew, 0, col * tilew, mapcols * tileh);
+                    if (raster)
+                    {
+                        // raster | | |
+                        g.setColor(lineColor);
+                        g.drawLine(col * tilew, 0, col * tilew, mapcols * tileh);
+                    }
                     // tile
                     ClientTile tile = map.getTile(row, col);
                     if (tile != null)
@@ -172,12 +246,32 @@ public class MapPanel extends JPanel implements Updatable
                         g.setColor(getColor(tile.factionId));
                         g.fillRect(col * tilew, row * tileh, tilew, tileh);
 
-                        // wall
+//                        // wall
+//                        if (tile.isWalled)
+//                        {
+//                            g.setColor(Color.black);
+//                            g.drawLine(col * tilew, row * tileh, col * tilew + tilew, row * tileh + tileh);
+//                            g.drawLine(col * tilew + tilew, row * tileh, col * tilew, row * tileh + tileh);
+//                        }
+
+                        // images
                         if (tile.isWalled)
                         {
-                            g.setColor(Color.black);
-                            g.drawLine(col * tilew, row * tileh, col * tilew + tilew, row * tileh + tileh);
-                            g.drawLine(col * tilew + tilew, row * tileh, col * tilew, row * tileh + tileh);
+                            if (imgWall != null)
+                            {
+                                g.drawImage(imgWall, col * tilew, row * tileh, tilew, tileh, null);
+                            } else
+                            {
+                                g.setColor(Color.black);
+                                g.drawLine(col * tilew, row * tileh, col * tilew + tilew, row * tileh + tileh);
+                                g.drawLine(col * tilew + tilew, row * tileh, col * tilew, row * tileh + tileh);
+                            }
+                        } else
+                        {
+                            if (imgEmpty != null)
+                            {
+                                g.drawImage(imgEmpty, col * tilew, row * tileh, tilew, tileh, null);
+                            }
                         }
                     } else
                     {
@@ -185,21 +279,28 @@ public class MapPanel extends JPanel implements Updatable
                     }
                 }
             }
-            g.setColor(lineColor);
-            for (int x = 0; x < maprows; x++)
+            if (raster)
             {
-                // raster _-_-
-                g.drawLine(x * tilew, 0, x * tilew, mapcols * tileh);
-                for (int y = 0; y < mapcols; y++)
+                g.setColor(lineColor);
+                for (int x = 0; x < maprows; x++)
                 {
-                    // raster | | |
-                    g.drawLine(0, y * tileh, maprows * tilew, y * tileh);
+                    // raster _-_-
+                    g.drawLine(x * tilew, 0, x * tilew, mapcols * tileh);
+                    for (int y = 0; y < mapcols; y++)
+                    {
+                        // raster | | |
+                        g.drawLine(0, y * tileh, maprows * tilew, y * tileh);
+                    }
                 }
             }
         } else
         {
 //            System.out.println("map is null");
         }
+    }
+
+    private void paintPlayers(Graphics g)
+    {
         if (players != null)
         {
             for (ClientPlayer getPlayer : players)
@@ -222,6 +323,10 @@ public class MapPanel extends JPanel implements Updatable
         {
 //            System.out.println("players are null");
         }
+    }
+
+    private void paintGamer(Graphics g)
+    {
         if (gamer != null)
         {
             int xPosition = gamer.getXPosition();
@@ -232,17 +337,61 @@ public class MapPanel extends JPanel implements Updatable
             int panelHeight = this.getHeight();
             double xFactor = (double) panelWidth / (double) mapw;
             double yFactor = (double) panelHeight / (double) maph;
-            int pSize = (int) ((double) GameConstants.PLAYER_RADIUS * 2 * (double) xFactor);
+            int pWidth = (int) ((double) GameConstants.PLAYER_RADIUS * 2 * (double) xFactor);
+            int pHeight = (int) ((double) GameConstants.PLAYER_RADIUS * 2 * (double) yFactor);
             int x = (int) ((xPosition - GameConstants.PLAYER_RADIUS) * xFactor);
             int y = (int) ((yPosition - GameConstants.PLAYER_RADIUS) * yFactor);
-            g.setColor(Color.black);
-            g.fillOval(x, y, pSize, pSize);
-            g.setColor(getColor(gamer.factionId));
-            g.fillOval(x+1, y+1, pSize-2, pSize-2);
+            if (imgPlayer != null)
+            {
+                if (!playerColorChanged)
+                {
+                    imgPlayer = ColorChanger.changeColor(imgPlayer, Color.white, getColor(gamer.factionId));
+                }
+                g.drawImage(imgPlayer, x, y, pWidth, pHeight, null);
+            } else
+            {
+                g.setColor(Color.black);
+                g.fillOval(x, y, pWidth, pHeight);
+                g.setColor(getColor(gamer.factionId));
+                g.fillOval(x + 1, y + 1, pWidth - 2, pHeight - 2);
+            }
         } else
         {
 //            System.out.println("gamer is null");
         }
+    }
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        paintMap(g);
+        paintPlayers(g);
+        paintGamer(g);
+    }
+    boolean playerColorChanged = false;
+
+    private static ColorModel createColorModel(Color c)
+    {
+
+// Create a simple color model with all values mapping to
+// a single shade of gray
+// nb. this could be improved by reusing the byte arrays
+
+        byte[] newR = new byte[256];
+        byte[] newG = new byte[256];
+        byte[] newB = new byte[256];
+
+//        for (int i = 0; i < r.length; i++)
+//        {
+//            r[i] = (byte) n;
+//            g[i] = (byte) n;
+//            b[i] = (byte) n;
+//        }
+        newR[255] = (byte) c.getRed();
+        newR[255] = (byte) c.getGreen();
+        newR[255] = (byte) c.getBlue();
+
+        return new IndexColorModel(4, 256, newR, newG, newB);
     }
 
     private void update(Data data)
@@ -260,6 +409,6 @@ public class MapPanel extends JPanel implements Updatable
     public void update()
     {
         update(model);
-        paintComponent(getGraphics());
+        repaint();
     }
 }

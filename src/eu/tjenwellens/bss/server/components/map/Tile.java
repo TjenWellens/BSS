@@ -52,9 +52,15 @@ public class Tile implements GetTile
     @Override
     public String toString()
     {
-//        return "Tile{" + "faction=" + faction + ", walled=" + walled + '}';
-        return "Tile{" + row + ", " + col + '}';
+        return "Tile{" + "faction=" + faction + ", walled=" + walled + ", row=" + row + ", col=" + col + '}';
     }
+
+//    @Override
+//    public String toString()
+//    {
+////        return "Tile{" + "faction=" + faction + ", walled=" + walled + '}';
+//        return "Tile{" + row + ", " + col + '}';
+//    }
 
     @Override
     public Faction getFaction()

@@ -54,7 +54,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
     // actions
     private ArrayList<ActionHandlerInterface> actionHandlers = new ArrayList<>();
 
-    Player(int playerID, String playerName, Faction faction, Position position)
+    public Player(int playerID, String playerName, Faction faction, Position position)
     {
         this.playerID = playerID;
         this.playerName = playerName;
@@ -67,7 +67,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
         this.store = SimpleStore.getInstance();
     }
 
-    Player(int playerID, String playerName, int winns, int losses, Faction faction, Position position, Inventory inventory, BankAccount bankAccount, Store store)
+    public Player(int playerID, String playerName, int winns, int losses, Faction faction, Position position, Inventory inventory, BankAccount bankAccount, Store store)
     {
         this.playerID = playerID;
         this.playerName = playerName;

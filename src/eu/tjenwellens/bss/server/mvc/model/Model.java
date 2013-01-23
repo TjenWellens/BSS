@@ -26,6 +26,7 @@ import eu.tjenwellens.bss.server.components.map.GetMap;
 import eu.tjenwellens.bss.server.components.map.MapHandler;
 import eu.tjenwellens.bss.server.components.map.MapHandlerInterface;
 import eu.tjenwellens.bss.server.components.players.GetPlayer;
+import eu.tjenwellens.bss.server.components.players.Player;
 import eu.tjenwellens.bss.server.components.players.PlayerHandler;
 import eu.tjenwellens.update.Updatable;
 import eu.tjenwellens.update.Updater;
@@ -44,7 +45,7 @@ public class Model implements Updater, Updatable, CommandReceiver, GetModelData
     // handlers
     protected PlayerHandler playerHandler;
     protected AttackHandlerInterface attackHandler;
-    protected FactionHandlerInterface factionHandler;
+    public FactionHandlerInterface factionHandler;
     protected MapHandlerInterface mapHandler;
     protected WalkHandlerInterface walkHandler;
     protected DecorateHanderInterface decorateHander;
@@ -59,16 +60,29 @@ public class Model implements Updater, Updatable, CommandReceiver, GetModelData
         // init handlers
         attackHandler = new AttackHandler();
         factionHandler = new FactionHandler();
-        playerHandler = new PlayerHandler(factionHandler.getNullFaction());
-        mapHandler = new MapHandler(factionHandler.getNullFaction());
-        walkHandler = new WalkHandler(playerHandler, mapHandler);
-        decorateHander = new DecorateHandler(mapHandler);
-        bankHandler = new BankHandler();
-        engageHandler = new EngageHandler(attackHandler);
         // init test factions
         factionHandler.addFaction("rood", Kleur.ROOD);
         factionHandler.addFaction("geel", Kleur.GEEL);
         factionHandler.addFaction("blauw", Kleur.BLAUW);
+        //
+        playerHandler = new PlayerHandler(factionHandler.getNullFaction());
+        mapHandler = new MapHandler(factionHandler.getNullFaction());
+        //
+        mapHandler.paint(new Player(0, null, factionHandler.getFactionByName("rood"), null), 0, 0);
+        mapHandler.paint(new Player(0, null, factionHandler.getFactionByName("geel"), null), 0, 1);
+        mapHandler.paint(new Player(0, null, factionHandler.getFactionByName("blauw"), null), 0, 2);
+        mapHandler.paint(new Player(0, null, factionHandler.getFactionByName("rood"), null), 2, 3);
+        mapHandler.paint(new Player(0, null, factionHandler.getFactionByName("geel"), null), 2, 4);
+        mapHandler.paint(new Player(0, null, factionHandler.getFactionByName("blauw"), null), 2, 5);
+        mapHandler.build(new Player(0, null, factionHandler.getFactionByName("rood"), null), 2, 3);
+        mapHandler.build(new Player(0, null, factionHandler.getFactionByName("geel"), null), 2, 4);
+        mapHandler.build(new Player(0, null, factionHandler.getFactionByName("blauw"), null), 2, 5);
+        mapHandler.build(new Player(0, null, factionHandler.getFactionByName("blauw"), null), 0, 0);
+        //
+        walkHandler = new WalkHandler(playerHandler, mapHandler);
+        decorateHander = new DecorateHandler(mapHandler);
+        bankHandler = new BankHandler();
+        engageHandler = new EngageHandler(attackHandler);
         // init playerhandler's - pass-on to player -
         playerHandler.setAttackHandler(attackHandler);
         playerHandler.setBankHandler(bankHandler);

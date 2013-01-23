@@ -1,8 +1,6 @@
 package eu.tjenwellens.bss.server.components.map;
 
 import eu.tjenwellens.bss.server.components.factions.Faction;
-import java.awt.Point;
-import java.util.HashMap;
 
 /**
  *
@@ -10,7 +8,6 @@ import java.util.HashMap;
  */
 public abstract class TileFactory
 {
-    private static HashMap<Point, GetTile[]> tiles = new HashMap<Point, GetTile[]>();
 
     public static GetTile createTile(Faction faction, boolean walled, int row, int col)
     {

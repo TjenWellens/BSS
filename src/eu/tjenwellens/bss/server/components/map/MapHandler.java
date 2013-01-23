@@ -4,6 +4,8 @@ import eu.tjenwellens.bss.GameConstants;
 import eu.tjenwellens.bss.server.actions.decorateAction.DecoratePlayer;
 import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.components.factions.Faction;
+import eu.tjenwellens.bss.server.mvc.model.Model;
+import java.util.List;
 
 /**
  *
@@ -91,7 +93,7 @@ public class MapHandler implements MapHandlerInterface, GameConstants
 
         if (!playerFaction.equals(tileFaction))
         {
-            System.out.println("ERROR: Wall not built, wrong faction: " + playerFaction);
+            System.out.println("ERROR: Wall not built(" + row + "," + col + "), wrong faction: " + playerFaction + " should be: " + tileFaction);
             return false;
         }
         if (tile.isWalled())
@@ -100,8 +102,8 @@ public class MapHandler implements MapHandlerInterface, GameConstants
             return false;
         }
         // all good
-        map.setTile(TileFactory.createTile(tileFaction, true, col, row));
-        System.out.println("Wall built: ");
+        map.setTile(TileFactory.createTile(tileFaction, true, row, col));
+        System.out.println("Wall built: " + tile);
         return true;
     }
 
@@ -111,6 +113,7 @@ public class MapHandler implements MapHandlerInterface, GameConstants
         Faction playerFaction = player.getFaction();
         if (playerFaction == null)
         {
+            System.out.println("ERROR: Tile not painted, playerfaction NULL: ");
             return false;
         }
         if (!map.isPositionInMap(row, col))
@@ -124,8 +127,8 @@ public class MapHandler implements MapHandlerInterface, GameConstants
             System.out.println("ERROR: Tile not painted, allready walled: ");
             return false;
         }
-        map.setTile(TileFactory.createTile(playerFaction, false, col, row));
-        System.out.println("Tile painted: ");
+        map.setTile(TileFactory.createTile(playerFaction, false, row, col));
+        System.out.println("Tile painted: " + tile);
         return true;
     }
 
@@ -148,8 +151,8 @@ public class MapHandler implements MapHandlerInterface, GameConstants
             System.out.println("ERROR: Wall not destroyed, no wall to destroy:");
             return false;
         }
-        map.setTile(TileFactory.createTile(tile.getFaction(), false, col, row));
-        System.out.println("Wall destroyed");
+        map.setTile(TileFactory.createTile(tile.getFaction(), false, row, col));
+        System.out.println("Wall destroyed" + tile);
         return true;
     }
 
