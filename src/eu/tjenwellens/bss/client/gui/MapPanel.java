@@ -49,9 +49,12 @@ public class MapPanel extends JPanel implements Updatable
     private BufferedImage imgEmpty = null;
     private BufferedImage imgPlayer = null;
     private BufferedImage imgWall = null;
+    private String error = "";
+//    private URL baseUrl;
 
     public MapPanel(ClientModel model, ClientMessager messenger, BssPanel parent)
     {
+//        this.baseUrl = imageURL;
         this.model = model;
         this.communication = messenger;
         this.parent = parent;
@@ -64,6 +67,19 @@ public class MapPanel extends JPanel implements Updatable
             }
         });
         loadImages();
+    }
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        paintMap(g);
+        paintPlayers(g);
+        paintGamer(g);
+        if (error != null)
+        {
+            g.setColor(Color.BLACK);
+            g.drawString(error, 100, 100);
+        }
     }
 
     private void loadImages()
@@ -83,11 +99,11 @@ public class MapPanel extends JPanel implements Updatable
                         imgPlayer = ImageIO.read(new File(url.getPath()));
                     } else
                     {
-                        System.out.println("Error PLAYER url not found");
+                        error += ("Error PLAYER url not found");
                     }
                 } catch (IOException e)
                 {
-                    System.out.println(e);
+                    error += (e);
                 }
                 try
                 {
@@ -97,11 +113,11 @@ public class MapPanel extends JPanel implements Updatable
                         imgEmpty = ImageIO.read(new File(url.getPath()));
                     } else
                     {
-                        System.out.println("Error EMTY url not found");
+                        error += ("Error EMTY url not found");
                     }
                 } catch (IOException e)
                 {
-                    System.out.println(e);
+                    error += (e);
                 }
                 try
                 {
@@ -111,11 +127,23 @@ public class MapPanel extends JPanel implements Updatable
                         imgWall = ImageIO.read(new File(url.getPath()));
                     } else
                     {
-                        System.out.println("Error WALL url not found");
+                        error += ("Error WALL url not found");
                     }
                 } catch (IOException e)
                 {
-                    System.out.println(e);
+                    error += (e);
+                }
+                if (imgPlayer == null)
+                {
+                    error += ("Error player is null");
+                }
+                if (imgEmpty == null)
+                {
+                    error += ("Error empty is null");
+                }
+                if (imgWall == null)
+                {
+                    error += ("Error wall is null");
                 }
             }
         }).start();
@@ -359,14 +387,6 @@ public class MapPanel extends JPanel implements Updatable
         {
 //            System.out.println("gamer is null");
         }
-    }
-
-    @Override
-    public void paintComponent(Graphics g)
-    {
-        paintMap(g);
-        paintPlayers(g);
-        paintGamer(g);
     }
     boolean playerColorChanged = false;
 
