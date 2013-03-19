@@ -17,17 +17,14 @@ import eu.tjenwellens.bss.client.mvc.Data;
 import eu.tjenwellens.update.Updatable;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.IndexColorModel;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -46,9 +43,9 @@ public class MapPanel extends JPanel implements Updatable
     private List<ClientPlayer> players;
     private ClientGamer gamer;
     //
-    private BufferedImage imgEmpty = null;
-    private BufferedImage imgPlayer = null;
-    private BufferedImage imgWall = null;
+    private Image imgEmpty = null;
+    private Image imgPlayer = null;
+    private Image imgWall = null;
     private String error = "";
 //    private URL baseUrl;
 
@@ -84,69 +81,14 @@ public class MapPanel extends JPanel implements Updatable
 
     private void loadImages()
     {
-        new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                URL url;
-                Class<?> c = MapPanel.this.getClass();
-                try
-                {
-                    url = c.getResource("images/player.png");
-                    if (url != null)
-                    {
-                        imgPlayer = ImageIO.read(new File(url.getPath()));
-                    } else
-                    {
-                        error += ("Error PLAYER url not found");
-                    }
-                } catch (IOException e)
-                {
-                    error += (e);
-                }
-                try
-                {
-                    url = c.getResource("images/empty.png");
-                    if (url != null)
-                    {
-                        imgEmpty = ImageIO.read(new File(url.getPath()));
-                    } else
-                    {
-                        error += ("Error EMTY url not found");
-                    }
-                } catch (IOException e)
-                {
-                    error += (e);
-                }
-                try
-                {
-                    url = c.getResource("images/wall.png");
-                    if (url != null)
-                    {
-                        imgWall = ImageIO.read(new File(url.getPath()));
-                    } else
-                    {
-                        error += ("Error WALL url not found");
-                    }
-                } catch (IOException e)
-                {
-                    error += (e);
-                }
-                if (imgPlayer == null)
-                {
-                    error += ("Error player is null");
-                }
-                if (imgEmpty == null)
-                {
-                    error += ("Error empty is null");
-                }
-                if (imgWall == null)
-                {
-                    error += ("Error wall is null");
-                }
-            }
-        }).start();
+        imgEmpty = loadImage("empty.png");
+        imgPlayer = loadImage("player.png");
+        imgWall = loadImage("wall.png");
+    }
+
+    private Image loadImage(String filename)
+    {
+        return Toolkit.getDefaultToolkit().getImage(ColorChanger.class.getResource(filename));
     }
 
     private void clicked(java.awt.event.MouseEvent evt)

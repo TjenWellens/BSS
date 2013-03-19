@@ -7,6 +7,7 @@ package eu.tjenwellens.bss.client.gui.images;
  */
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class ColorChanger
 
     public static void main(String[] args)
     {
-        String filename = "img/turtle.gif";
+        String filename = "img/player.gif";
         BufferedImage image = null;
         try
         {
@@ -46,14 +47,14 @@ public class ColorChanger
 
     }
 
-    public static BufferedImage changeColor(BufferedImage image, Color mask,
+    public static BufferedImage changeColor(Image image, Color mask,
             Color replacement)
     {
-        BufferedImage destImage = new BufferedImage(image.getWidth(),
-                image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage destImage = new BufferedImage(image.getWidth(null),
+                image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g = destImage.createGraphics();
-        g.drawImage(image, null, 0, 0);
+        g.drawImage(image,0,0, null);
         g.dispose();
 
         for (int i = 0; i < destImage.getWidth(); i++)

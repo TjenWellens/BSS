@@ -1,9 +1,9 @@
 package eu.tjenwellens.bss.server.actions.walkAction.walk;
 
-import eu.tjenwellens.bss.server.components.Position;
 import eu.tjenwellens.bss.server.actions.ActionPlayer;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkHandlerInterface;
 import eu.tjenwellens.bss.server.actions.walkAction.WalkPlayer;
+import eu.tjenwellens.bss.server.components.Position;
 
 /**
  *
@@ -28,8 +28,10 @@ public abstract class StepWalk implements WalkInterface
         Position step = step();
         if (step == null)
         {
+            walkHandler.removeWalk(this);
+            player.idle();
             System.out.println("Walking failed");
-            return false;
+//            return false;
         }
         // all is good
         player.setPosition(step);
