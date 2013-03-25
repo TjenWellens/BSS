@@ -190,6 +190,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
         winns++;
         state = PlayerStateType.IDLE;
         resetActions();
+        inventory.emptyWeapon();
     }
 
     @Override
@@ -200,6 +201,7 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
         opponent.addDiamands(inventory.removeAllDiamands());
         state = PlayerStateType.GHOSTIDLE;
         resetActions();
+        inventory.emptyWeapon();
     }
 
     @Override
@@ -337,8 +339,10 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
     @Override
     public boolean revive()
     {
+        System.out.println("TRY REVIVE");
         if (state.isGhost())
         {
+            System.out.println("xxxRIVIVEDxxx");
             state = PlayerStateType.IDLE;
             return true;
         }

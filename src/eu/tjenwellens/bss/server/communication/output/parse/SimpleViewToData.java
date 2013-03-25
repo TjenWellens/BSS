@@ -71,7 +71,7 @@ public class SimpleViewToData implements ViewToData
                         }
                         gamer = new SDataGamer(destX, destY, duelresult, oppName, p.getPlayerName(), p.getPosition().getX(), p.getPosition().getY(), p.getFaction().getFactionId(), p.getState().name(), p.getWinns(), p.getLosses());
 //                System.out.println("Gamer found");
-                    } else
+                    } else if (p != null)
                     {
                         players.add(new SDataPlayer(p.getPlayerName(), p.getPosition().getX(), p.getPosition().getY(), p.getFaction().getFactionId(), p.getState().name(), p.getWinns(), p.getLosses()));
                     }

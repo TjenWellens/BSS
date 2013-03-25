@@ -30,7 +30,7 @@ public class GamePanel extends javax.swing.JPanel implements Updatable
     public GamePanel(ClientModel model, ClientMessager messenger, BssPanel parent)
     {
         this.model = model;
-        this.messenger=messenger;
+        this.messenger = messenger;
         map = new MapPanel(model, messenger, parent);
         action = new ActionPanel();
         doGUI();
@@ -87,9 +87,15 @@ public class GamePanel extends javax.swing.JPanel implements Updatable
         {
             action.updateInfo(gamer);
         }
-        if (gamer.state.equalsIgnoreCase("ATTACK") && !done && !dialogShowing)
+        if (gamer.state.equalsIgnoreCase("ATTACK"))
         {
-            showDialog();
+            if (!done && !dialogShowing)
+            {
+                showDialog();
+            }
+        } else
+        {
+            done = false;
         }
     }
 

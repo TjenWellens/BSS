@@ -28,10 +28,10 @@ public class GhostJumpWalk extends JumpWalk
         {
             return p;
         }
-        int row = (int) (p.getX() / (MAP_WIDTH / MAP_ROWS));
-        int col = (int) (p.getY() / (MAP_HEIGHT / MAP_COLUMNS));
+        int col = (int) (p.getX() / (MAP_WIDTH / MAP_ROWS));
+        int row = (int) (p.getY() / (MAP_HEIGHT / MAP_COLUMNS));
         Faction faction = mapHandler.getTile(row, col).getFaction();
-        if (!faction.containsPlayer(player))
+        if (!faction.equals(player.getFaction()))
         {
             return p;
         }

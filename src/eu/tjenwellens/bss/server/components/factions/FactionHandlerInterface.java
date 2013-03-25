@@ -12,7 +12,7 @@ public interface FactionHandlerInterface
 
     public int addFaction(String factionName, Kleur kleur);
 
-    public boolean joinFaction(String factionName, FactionPlayer player);
+//    public boolean joinFaction(String factionName, FactionPlayer player);
 
     Faction getNullFaction();
 

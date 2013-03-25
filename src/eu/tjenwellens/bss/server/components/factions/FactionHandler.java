@@ -39,20 +39,20 @@ public class FactionHandler implements FactionHandlerInterface
         }
     }
 
-    @Override
-    public boolean joinFaction(String factionName, FactionPlayer player)
-    {
-        if (nullFaction.getFactionName().equalsIgnoreCase(factionName))
-        {
-            return false;
-        }
-        if (factionIds.containsKey(factionName))
-        {
-            Faction faction = factions.get(factionIds.get(factionName));
-            return faction.addMember(player);
-        }
-        return false;
-    }
+//    @Override
+//    public boolean joinFaction(String factionName, FactionPlayer player)
+//    {
+//        if (nullFaction.getFactionName().equalsIgnoreCase(factionName))
+//        {
+//            return false;
+//        }
+//        if (factionIds.containsKey(factionName))
+//        {
+//            Faction faction = factions.get(factionIds.get(factionName));
+//            return faction.addMember(player);
+//        }
+//        return false;
+//    }
 
     @Override
     public Faction getNullFaction()

@@ -7,10 +7,16 @@ import eu.tjenwellens.bss.server.ServerMain;
  *
  * @author Tjen
  */
-public class Main {
+public class Main
+{
     public static void main(String[] args)
     {
-        ServerMain.runServer();
-        ClientMain.runClient();
+        if (args != null && args.length > 0 && args[0].equalsIgnoreCase("server"))
+        {
+            ServerMain.runServer();
+        } else
+        {
+            ClientMain.runClient();
+        }
     }
 }
