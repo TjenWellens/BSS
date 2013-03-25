@@ -22,11 +22,11 @@ public class BssPanel extends JPanel
     private GamePanel game;
     // state
 
-    public BssPanel(String host)
+    public BssPanel(String host, int port)
     {
         updater = new ConcreteUpdater(10);
         model = new ClientModel();
-        messenger = new ClientMessager(model, host);
+        messenger = new ClientMessager(model, host, port);
         updater.registerUpdatable(messenger);
         updater.start();
         this.setPreferredSize(new Dimension(700, 500));

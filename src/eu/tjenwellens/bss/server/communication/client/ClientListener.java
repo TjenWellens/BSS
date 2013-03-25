@@ -14,13 +14,21 @@ import java.net.Socket;
  */
 public class ClientListener extends Thread
 {
-    private static final int PORT = 1234;
+    private static final int DEFAULT_PORT = 1234;
+    private int port;
     private Updater updater;
     private Input input;
     private Output output;
 
-    public ClientListener(Updater updater, Input input, Output output)
+    public ClientListener(int port, Updater updater, Input input, Output output)
     {
+        if (port < 0)
+        {
+            this.port = DEFAULT_PORT;
+        } else
+        {
+            this.port = port;
+        }
         this.updater = updater;
         this.input = input;
         this.output = output;
@@ -36,7 +44,7 @@ public class ClientListener extends Thread
     {
         try
         {
-            ServerSocket serverSocket = new ServerSocket(PORT);
+            ServerSocket serverSocket = new ServerSocket(port);
             Socket clientSocket;
             String clientAddress;
             while (true)

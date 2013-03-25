@@ -17,8 +17,11 @@ import java.net.Socket;
  */
 public abstract class ServerHandler implements Updatable
 {
-    private static final int PORT = 1234;     // server details
-    private String HOST = "127.0.0.1";
+    // server details
+    private static final String DEFAULT_HOST = "127.0.0.1";
+    private static final int DEFAULT_PORT = 1234;
+    private int port;
+    private String host;
     private Socket sock;
     // Streams
     private ObjectInputStream in;     // i/o for the client
@@ -29,16 +32,23 @@ public abstract class ServerHandler implements Updatable
     // end
     private volatile boolean linkOpen = false;
 
-    protected ServerHandler()
+    protected ServerHandler(String host, int port)
     {
-        makeContact(HOST, PORT);
-    }
-
-    protected ServerHandler(String HOST)
-    {
-        System.out.println("Host initialized");
-        this.HOST = HOST;
-        makeContact(HOST, PORT);
+        if (host == null)
+        {
+            this.host = DEFAULT_HOST;
+        } else
+        {
+            this.host = host;
+        }
+        if (port < 0)
+        {
+            port = DEFAULT_PORT;
+        } else
+        {
+            this.port = port;
+        }
+        makeContact(this.host, this.port);
     }
 
     @Override

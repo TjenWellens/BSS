@@ -11,7 +11,6 @@ import javax.swing.JLabel;
 public class BssApplet extends JApplet
 {
     BssPanel bss;
-    private static final String DEFAULT_HOST = "127.0.0.1";
 
     @Override
     public void init()
@@ -20,10 +19,9 @@ public class BssApplet extends JApplet
         String host = this.getCodeBase().getHost();
         if (host == null || host.isEmpty() || host.length() < 4)
         {
-            host = DEFAULT_HOST;
             this.add(new JLabel("using default host: " + host), BorderLayout.SOUTH);
         }
-        this.getContentPane().add(bss = new BssPanel(host), BorderLayout.CENTER);
+        this.getContentPane().add(bss = new BssPanel(null, -1), BorderLayout.CENTER);
     }
 
     @Override

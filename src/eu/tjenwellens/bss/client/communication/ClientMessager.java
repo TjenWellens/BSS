@@ -15,7 +15,6 @@ import eu.tjenwellens.bss.data.commands.init.to_client.Err;
 import eu.tjenwellens.bss.data.commands.init.to_client.OK;
 import eu.tjenwellens.bss.data.commands.init.to_client.OKFullInit;
 import eu.tjenwellens.bss.data.commands.init.to_client.OkPlay;
-import eu.tjenwellens.bss.data.commands.init.to_server.DoInit;
 import eu.tjenwellens.bss.data.commands.init.to_server.DoLogin;
 import eu.tjenwellens.bss.data.commands.init.to_server.DoPlay;
 import eu.tjenwellens.bss.data.commands.init.to_server.DoSelectFaction;
@@ -36,9 +35,9 @@ public class ClientMessager extends ServerHandler implements Communication
 {
     private ServerToModel model;
 
-    public ClientMessager(ServerToModel model, String HOST)
+    public ClientMessager(ServerToModel model, String HOST, int port)
     {
-        super(HOST);
+        super(HOST, port);
         this.model = model;
     }
 

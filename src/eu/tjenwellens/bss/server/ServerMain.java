@@ -46,10 +46,10 @@ public class ServerMain
         }
         //</editor-fold>
 
-        runServer();
+        runServer(-1);
     }
 
-    public static void runServer()
+    public static void runServer(int port)
     {
         // MVC
         Model model = Model.getInstance();
@@ -62,7 +62,7 @@ public class ServerMain
         Output output = new ConcreteOutput(view);
         // CLIENTS
         ConcreteUpdater updater = new ConcreteUpdater(2);
-        ClientListener clientListener = new ClientListener(updater, input, output);
+        ClientListener clientListener = new ClientListener(port, updater, input, output);
 
         clientListener.start();
         updater.start();

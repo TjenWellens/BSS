@@ -11,13 +11,9 @@ public class ClientMain
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
-    {
-        runClient();
-    }
 
-    public static void runClient()
+    public static void runClient(String host, int port)
     {
-        BssFrame.main(null);
+        BssFrame.createClientFrame(host, port);
     }
 }
