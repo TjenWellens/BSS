@@ -43,7 +43,7 @@ public abstract class ServerHandler implements Updatable
         }
         if (port < 0)
         {
-            port = DEFAULT_PORT;
+            this.port = DEFAULT_PORT;
         } else
         {
             this.port = port;
