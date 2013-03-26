@@ -114,7 +114,21 @@ public class Player implements PlayerActions, StatePlayer, PlayerHandlerPlayer
     @Override
     public String toString()
     {
-        return "Player{" + "playerID=" + playerID + ", playerName=" + playerName + ", faction=" + faction + ", position=" + position + ", state=" + state + ", destination=" + destination + ", winns=" + winns + ", losses=" + losses + ", previousDuelResult=" + previousDuelResult + ", inventory=" + inventory + ", bankAccount=" + bankAccount + ", store=" + store + ", opponent=" + opponent + '}';
+        return "Player{"
+                + "playerID=" + playerID
+                + ", playerName=" + playerName
+                + ", faction=" + faction
+                + ", position=" + position
+                + ", state=" + state
+                + ", destination=" + destination
+                + ", winns=" + winns
+                + ", losses=" + losses
+                + ", previousDuelResult=" + previousDuelResult
+                + ", inventory=" + inventory
+                + ", bankAccount=" + bankAccount
+                + ", store=" + store
+                + ", opponent=" + opponent
+                + '}';
     }
 
     @Override

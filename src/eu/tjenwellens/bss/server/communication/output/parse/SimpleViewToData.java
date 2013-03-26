@@ -52,8 +52,17 @@ public class SimpleViewToData implements ViewToData
                         int duelresult = -1;
                         if (ar != null)
                         {
-                            //TODO: duelresult tonen
-                            duelresult = p.getPreviousDuelResult().hashCode();
+                            if (ar.isDraw())
+                            {
+                                duelresult = 0;
+                            } else if (ar.getWinner().equals(p))
+                            {
+                                duelresult = 1;
+                            } else
+                            {
+                                duelresult = -1;
+                            }
+//                            duelresult = ar.hashCode();
                         }
                         Position dest = p.getDestination();
                         int destX = -1;

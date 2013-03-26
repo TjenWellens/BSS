@@ -26,7 +26,7 @@ public class AttackResult
     @Override
     public String toString()
     {
-        return "AttackResult{" + "draw=" + draw + ", winner=" + winner + ", loser=" + loser + ", winningWeapon=" + winningWeapon + ", losingWeapon=" + losingWeapon + '}';
+        return "AttackResult{" + "draw=" + draw + ", winner=" + winner.getPlayerName() + ", loser=" + loser.getPlayerName() + ", winningWeapon=" + winningWeapon + ", losingWeapon=" + losingWeapon + '}';
     }
 
     public boolean isDraw()
